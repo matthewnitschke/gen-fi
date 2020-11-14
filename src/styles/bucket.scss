@@ -1,0 +1,24 @@
+.bucket-group {
+    background-color: #FFF;
+    margin: 1rem;
+    padding: 1rem;
+
+    .label {
+        font-weight: 600;
+    }
+}
+
+.bucket {
+    background-color: #FFF;
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    &.transaction-hovered {
+        background-color: lightgrey;
+    }
+}
+
+.bucket-group .bucket {
+    margin-left: 0;
+}

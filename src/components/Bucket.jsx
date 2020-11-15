@@ -1,12 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { useDrop } from 'react-dnd';
 
-import {evaluateString} from '../utils.js';
-
 import '../styles/bucket.scss';
+import TextInput from './util/TextInput';
 
-export default function Bucket({
+function Bucket({
     label,
     amount
 }) {
@@ -18,11 +18,36 @@ export default function Bucket({
             canDrop: monitor.canDrop(),
         }),
     });
+
     return <div 
-        ref={drop} 
+        ref={drop}
         className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
     >
-        <div>{evaluateString(label)}</div>
-        <div>${amount}</div>
+        <div className="label">
+            <TextInput 
+                value={label} 
+            />
+        </div>
+        <div>
+            <TextInput 
+                value={`$${amount}`}
+            />
+        </div>
     </div>
 }
+
+// const mapStateToProps = function(state) {
+//     return {
+//         items: state.items
+//     }
+// }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onUpdateSettings: () => {
+            dispatch(updateItem('Bucket'));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Bucket);

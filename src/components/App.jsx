@@ -1,49 +1,67 @@
 import React from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import BucketGroup from './BucketGroup.jsx';
 import Bucket from './Bucket.jsx';
 import Transactions from './Transactions.jsx';
+import Card from './util/Card.jsx';
+import RootNewButton from './RootNewButton.jsx';
+import BucketDetailsPanel from './BucketDetailsPanel.jsx';
 
-import { addItem } from '../modules/items/items.actions.js';
+import { getItem } from '../utils.js';
+
 
 import '../styles/app.scss';
 
-function App({
-    items,
+export default function App() {
 
-    onAddBucket
-}) {
-    return <div>
-        <DndProvider backend={HTML5Backend}>
+    const items = useSelector(state => state.items);
 
-            {items.map((item) => {
-                if (item.type == 'group') {
-                    return <BucketGroup label={item.label} />
+    const selectedItemId = useSelector(state => state.selectedItemId)
+
+    return <div className="app">
+        <div className="main-content">
+            {Object.keys(items).map((itemId) => {
+                let item = items[itemId];
+                
+                let content;
+                if (item.items) {
+                    content = <BucketGroup itemId={itemId}/>
+                } else {
+                    content = <Bucket itemId={itemId} />
                 }
                 
-                return <Bucket label={item.label} amount={item.amount} />
+                return <Card key={itemId}>
+                    {content}
+                </Card>
             })}
+            
+            <RootNewButton />
+        </div>
+        { selectedItemId &&
+            <BucketDetailsPanel itemId={selectedItemId} />
+        }
 
-            <Transactions />
-        </DndProvider>
+        
+        {/* <DndProvider backend={HTML5Backend}></DndProvider> */}
+        {/* <Transactions /> */}
     </div>
 }
 
-const mapStateToProps = function(state) {
-    return {
-        items: state.items
-    }
-}
+// const mapStateToProps = function(state) {
+//     return {
+//         items: state.items
+//     }
+// }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onAddBucket: () => {
-            dispatch(addBucket());
-        }
-    }
-}
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         onAddBucket: () => {
+//             dispatch(addBucket());
+//         }
+//     }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);

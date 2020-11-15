@@ -1,12 +1,15 @@
 import { createStore, combineReducers } from 'redux'
+import { createSelector } from 'reselect';
 
 import { items } from './modules/items/items.reducer.js';
 
 const defaultState = {
-    items: [
-        { label: 'Groceries', type: 'group' },
-        { label: 'Adulting', amount: 100}
-    ]
+    items: {
+        'a': { label: 'Groceries', items: { 'c': { label: 'Week 1', amount: 100 }}},
+        'b': { label: 'Adulting', amount: 100 }
+    },
+
+    selectedItemId: null
 }
 
 const store = createStore(

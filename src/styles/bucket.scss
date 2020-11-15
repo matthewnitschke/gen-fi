@@ -1,19 +1,15 @@
-.bucket-group {
-    background-color: #FFF;
-    margin: 1rem;
-    padding: .7rem;
 
+
+.bucket-group {
     &>.label {
-        font-weight: 600;
-        margin-bottom: 1rem;
+        font-weight: 900;
+        color: #69757a;
+        margin-bottom: .5rem;
     }
 }
 
 .bucket {
-    background-color: #FFF;
-    margin: 1rem;
     margin-top: 0;
-    padding: .7rem;
 
     display: flex;
     align-items: center;

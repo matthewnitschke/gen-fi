@@ -14,6 +14,14 @@ body {
     margin: auto;
 }
 
+.app {
+    display: flex;
+}
+
+.main-content {
+    width: 100%;
+}
+
 .link {
     cursor: pointer;
     // font-weight: 600;

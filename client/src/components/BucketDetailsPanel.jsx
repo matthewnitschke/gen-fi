@@ -7,20 +7,29 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import useOnClickOutside from '../hooks/useClickOnOutside.js';
 
-import {selectBucket} from '../modules/items/items.actions.js'
+import {selectItem, deleteItem} from '../modules/items/items.actions.js'
 
-import {getItem} from '../utils.js';
+import { flatItemsSelector } from '../selectors.js';
+import ProgressIndicator from './util/ProgressIndicator.jsx';
 
 export default function BucketDetailsPanel(props) {
     const ref = useRef();
     const dispatch = useDispatch();
 
-    const item = useSelector(state => getItem(state, state.selectedItemId))
+    const item = useSelector(
+        state => flatItemsSelector(state)[props.itemId],
+    )
 
-    useOnClickOutside(ref, () => dispatch(selectBucket(null)))
+    useOnClickOutside(ref, () => dispatch(selectItem(null)))
 
-    return <Card ref={ref} className="bucket-details-panel">
-        <div>{item.label}</div>
-        <div>${item.amount}</div>
+    return <Card ref={ref} className="details-panel">
+        <div className="header">
+            <div>{item.label}</div>
+            <div>${item.amount}</div>
+            <input type="button" value="Delete" onClick={() => dispatch(deleteItem(props.itemId))} />
+        </div>
+        <div>
+            <ProgressIndicator value={item.amount} max={item.maxAmount}/>
+        </div>
     </Card>
 }

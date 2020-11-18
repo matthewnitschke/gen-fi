@@ -14,15 +14,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: .7rem;
 
     &.transaction-hovered {
         background-color: lightgrey;
     }
 
     &>.label {
-        width: 100%;
+        flex-grow: 1;
         margin-right: .5rem;
     }
+
+    &>.max-amount {
+        flex-grow: 0;
+    }
+
+    &>.amount-slider {
+        margin-top: .7rem;
+        width: 100%;
+    }
+
 }
 
 .bucket-group .bucket {

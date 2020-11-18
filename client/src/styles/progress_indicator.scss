@@ -1,0 +1,10 @@
+.progress-indicator {
+    background-color: lightgrey;
+    height: 2px;
+
+    &>.current {
+        background-color: #62ce66;
+        height: 2px;
+        transition: width .5s;
+    }
+}

@@ -13,9 +13,9 @@ export function addBucketGroup() {
     }
 }
 
-export function selectBucket(itemId) {
+export function selectItem(itemId) {
     return {
-        type: 'SELECT_BUCKET',
+        type: 'SELECT_ITEM',
         itemId
     }
 }
@@ -29,6 +29,21 @@ export function updateItem(
         type: 'UPDATE_ITEM',
         itemId,
         label,
+        amount
+    }
+}
+
+export function deleteItem(itemId) {
+    return {
+        type: 'DELETE_ITEM',
+        itemId
+    }
+}
+
+export function addTransactionToItem(itemId, amount) {
+    return {
+        type: 'ADD_TRANSACTION',
+        itemId,
         amount
     }
 }

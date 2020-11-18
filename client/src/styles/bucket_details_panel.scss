@@ -1,5 +1,13 @@
-.bucket-details-panel {
+.details-panel {
     width: 35rem;
 
     margin-left: 0;
+
+    &>.header {
+        display: flex;
+
+        :first-child {
+            width: 100%;
+        }
+    }
 }

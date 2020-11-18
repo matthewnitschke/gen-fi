@@ -1,67 +1,87 @@
 import { v4 as uuid } from 'uuid';
 
 export function items(state, action) {
-    switch(action.type) {
+    switch(action.type) {    
+
         case 'ADD_BUCKET':
-            var newItemId = uuid();
-            
-            var updatedItemOrder = [ ...state.itemsOrder ]
+            var newBucket = { id: uuid(), label: action.label, amount: 0, maxAmount: 0 }
+
+            var updatedItems = [ ...state.items ]
+
             if (action.parentId) {
-                updatedItemOrder = updatedItemOrder.map((item) => {
-                    if (item.itemId == action.parentId) {
-                        item.items.push(newItemId)
+                updatedItems = updatedItems.map(item => {
+                    if (item.id == action.parentId) {
+                        item.items.push(newBucket)
                     }
-                    return item;
+                    return item
                 })
             } else {
-                updatedItemOrder.push({ itemId: newItemId })
+                updatedItems.push(newBucket)
             }
 
             return {
                 ...state,
-                items: { 
-                    ...state.items,
-                    [newItemId]: { label: action.label, amount: 0, maxAmount: 0 }
-                },
-                itemsOrder: updatedItemOrder
-            };
+                items: updatedItems
+            }
             
         case 'ADD_BUCKET_GROUP':
-            var newItemId = uuid();
             return {
                 ...state,
-                items: {
+                items: [
                     ...state.items,
-                    [newItemId]: { label: action.label }
-                },
-                itemsOrder: [
-                    ...state.itemsOrder,
-                    { itemId: newItemId, items: [] }
-                ]
+                    { id: uuid(), label: action.label }
+                ],
             }
 
         case 'UPDATE_ITEM':
-            var updatedItem = Object.assign(
-                {},
-                state.items[action.itemId], 
-                {
-                    label: action.label,
-                    amount: action.amount
-                },
-            );
-
             return {
                 ...state,
-                items: { 
-                    ...state.items,
-                    [action.itemId]: updatedItem
-                }
+                items: state.items.map(item => {
+                    if (item.id == action.itemId) {
+                        return {...item, label: action.label };
+                    }
+                    return item;
+                })
             }
 
-        case 'SELECT_BUCKET':
+        case 'SELECT_ITEM':
             return {
                 ...state,
                 selectedItemId: action.itemId
+            }
+        
+        case 'DELETE_ITEM':
+            return {
+                ...state,
+                selectedItemId: null,
+                items: state.items.filter(item => item.id != action.itemId)
+            }
+
+        case 'ADD_TRANSACTION':
+            return {
+                ...state,
+                items: state.items.map(item => {
+                    if (item.id == action.itemId) {
+                        return {...item, amount: item.amount + action.amount}
+                    }
+
+                    if (item.items && item.items.some(i => i.id === action.itemId)) {
+                        return {
+                            ...item,
+                            items: item.items.map(subItem => {
+                                if (subItem.id == action.itemId) {
+                                    return {
+                                        ...subItem,
+                                        amount: item.amount + action.amount
+                                    }
+                                }
+                                return subItem;
+                            })
+                        }
+                    }
+
+                    return item
+                })
             }
     }
 

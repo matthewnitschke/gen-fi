@@ -18,31 +18,30 @@ import '../styles/app.scss';
 export default function App() {
 
     const items = useSelector(state => state.items);
-    const itemsOrder = useSelector(state => state.itemsOrder);
 
     const selectedItemId = useSelector(state => state.selectedItemId)
-
+    
     return <div className="app">
-        <div className="main-content">
-            {itemsOrder.map((order) => {
-                let { itemId } = order
+        <DndProvider backend={HTML5Backend}>
+            <div className="main-content">
+                {items.map((item) => {
+                    let { id } = item
 
-                let isGroup = order.hasOwnProperty('items');
+                    let isGroup = item.hasOwnProperty('items');
+                    
+                    return <Card key={id}>
+                        { isGroup && <BucketGroup itemId={id}/> }
+                        { !isGroup && <Bucket itemId={id} /> }
+                    </Card>
+                })}
                 
-                return <Card key={itemId}>
-                    { isGroup && <BucketGroup itemId={itemId}/> }
-                    { !isGroup && <Bucket itemId={itemId} /> }
-                </Card>
-            })}
-            
-            <RootNewButton />
-        </div>
-        { selectedItemId &&
-            <BucketDetailsPanel itemId={selectedItemId} />
-        }
+                <RootNewButton />
+            </div>
+            { selectedItemId &&
+                <BucketDetailsPanel itemId={selectedItemId} />
+            }
 
-        
-        {/* <DndProvider backend={HTML5Backend}></DndProvider> */}
-        {/* <Transactions /> */}
+            <Transactions />
+        </DndProvider>
     </div>
 }

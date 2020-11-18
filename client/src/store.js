@@ -4,21 +4,24 @@ import { createSelector } from 'reselect';
 import { items } from './modules/items/items.reducer.js';
 
 const defaultState = {
-    items: {
-        'a': { label: 'Groceries' },
-        'b': { label: 'Week 1', amount: 100 },
-        'c': { label: 'Adulting', amount: 100 }
-    },
-
-    itemsOrder: [
-        { itemId: 'a', items: ['b']},
-        { itemId: 'c' }
+    items: [
+        {
+            id: 'a',
+            label: 'Groceries',
+            items: [{
+                id: 'c',
+                label: 'Week 1',
+                amount: 40,
+                maxAmount: 100
+            }]
+        },
+        {
+            id: 'b',
+            label: 'Adulting',
+            amount: 0,
+            maxAmount: 1000
+        }
     ],
-
-    // items: {
-    //     'a': { label: 'Groceries', items: { 'c': { label: 'Week 1', amount: 100 }}},
-    //     'b': { label: 'Adulting', amount: 100 }
-    // },
 
     selectedItemId: null
 }

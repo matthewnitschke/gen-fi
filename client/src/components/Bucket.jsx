@@ -1,34 +1,39 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect'
 
 import { useDrop } from 'react-dnd';
 
-import { selectBucket, updateItem } from '../modules/items/items.actions.js';
+import { selectItem, updateItem } from '../modules/items/items.actions.js';
+
+import {flatItemsSelector} from '../selectors.js';
 
 import { getItem } from '../utils.js';
 
 import TextInput from './util/TextInput';
 import '../styles/bucket.scss';
+import ProgressIndicator from './util/ProgressIndicator.jsx';
 
 export default function Bucket(props) {
-    const item = useSelector(state => state.items[props.itemId])
-
     const dispatch = useDispatch()
+    const item = useSelector(
+        state => flatItemsSelector(state)[props.itemId],
+    )
 
-    // const [{ canDrop, isOver }, drop] = useDrop({
-    //     accept: 'transaction',
-    //     drop: () => ({ name: 'Dustbin' }),
-    //     collect: (monitor) => ({
-    //         isOver: monitor.isOver(),
-    //         canDrop: monitor.canDrop(),
-    //     }),
-    // });
+    const [{ canDrop, isOver }, drop] = useDrop({
+        accept: 'transaction',
+        drop: () => ({ itemId: props.itemId }),
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
+        }),
+    });
 
     return <div 
-        // ref={drop}
-        // className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
+        ref={drop}
+        className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
         className="bucket"
-        onClick={() => dispatch(selectBucket(props.itemId))}
+        onClick={() => dispatch(selectItem(props.itemId))}
     >
         <div className="label">
             <TextInput
@@ -36,11 +41,16 @@ export default function Bucket(props) {
                 onValueChange={(v) => dispatch(updateItem(props.itemId, v, item.amount))}
             />
         </div>
-        <div>
+        <div className="max-amount">
             <TextInput 
-                value={`$${item.amount}`}
+                value={`$${item.maxAmount}`}
             />
         </div>
+
+        <div className="amount-slider">
+            <ProgressIndicator value={item.amount} max={item.maxAmount}/>
+        </div>
+
     </div>
 }
 

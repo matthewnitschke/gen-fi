@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { useDrop } from 'react-dnd';
 
-import { selectBucket } from '../modules/items/items.actions.js';
+import { selectBucket, updateItem } from '../modules/items/items.actions.js';
 
 import { getItem } from '../utils.js';
 
@@ -11,7 +11,7 @@ import TextInput from './util/TextInput';
 import '../styles/bucket.scss';
 
 export default function Bucket(props) {
-    const item = useSelector(state => getItem(state, props.itemId))
+    const item = useSelector(state => state.items[props.itemId])
 
     const dispatch = useDispatch()
 
@@ -33,6 +33,7 @@ export default function Bucket(props) {
         <div className="label">
             <TextInput
                 value={item.label} 
+                onValueChange={(v) => dispatch(updateItem(props.itemId, v, item.amount))}
             />
         </div>
         <div>

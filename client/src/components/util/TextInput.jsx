@@ -10,8 +10,8 @@ export default function TextInput({
 
     function commitValue() {
         setIsEditing(false);
-        
-        !!onValueChange && onValueChange(internalValue);
+
+        onValueChange(internalValue);
     }
 
     return <div className={`text-input ${isEditing ? 'editing' : ''}`}>

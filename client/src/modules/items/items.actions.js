@@ -2,7 +2,7 @@ export function addBucket(parentId) {
     return {
         type: 'ADD_BUCKET',
         label: 'Label',
-        parentId: parentId 
+        parentId 
     }
 }
 
@@ -16,6 +16,19 @@ export function addBucketGroup() {
 export function selectBucket(itemId) {
     return {
         type: 'SELECT_BUCKET',
-        itemId: itemId
+        itemId
+    }
+}
+
+export function updateItem(
+    itemId,
+    label,
+    amount
+) {
+    return {
+        type: 'UPDATE_ITEM',
+        itemId,
+        label,
+        amount
     }
 }

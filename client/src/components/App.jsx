@@ -18,23 +18,20 @@ import '../styles/app.scss';
 export default function App() {
 
     const items = useSelector(state => state.items);
+    const itemsOrder = useSelector(state => state.itemsOrder);
 
     const selectedItemId = useSelector(state => state.selectedItemId)
 
     return <div className="app">
         <div className="main-content">
-            {Object.keys(items).map((itemId) => {
-                let item = items[itemId];
-                
-                let content;
-                if (item.items) {
-                    content = <BucketGroup itemId={itemId}/>
-                } else {
-                    content = <Bucket itemId={itemId} />
-                }
+            {itemsOrder.map((order) => {
+                let { itemId } = order
+
+                let isGroup = order.hasOwnProperty('items');
                 
                 return <Card key={itemId}>
-                    {content}
+                    { isGroup && <BucketGroup itemId={itemId}/> }
+                    { !isGroup && <Bucket itemId={itemId} /> }
                 </Card>
             })}
             
@@ -49,19 +46,3 @@ export default function App() {
         {/* <Transactions /> */}
     </div>
 }
-
-// const mapStateToProps = function(state) {
-//     return {
-//         items: state.items
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         onAddBucket: () => {
-//             dispatch(addBucket());
-//         }
-//     }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);

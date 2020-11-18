@@ -1,31 +1,34 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import Bucket from './Bucket.jsx';
 
-import {addBucket} from '../modules/items/items.actions.js'
-import { itemSelector } from '../modules/items/items.selectors.js'
+import { addBucket, updateItem } from '../modules/items/items.actions.js'
 
 import TextInput from './util/TextInput.jsx';
 
-import { getItem } from '../utils.js';
 
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function BucketGroup(props) {
     let dispatch = useDispatch()
 
-    const item = useSelector(
-        state => getItem(state, props.itemId),
-        item => item.items.length
-    )
+    const item = useSelector(state => state.items[props.itemId])
+    const childrenItems = useSelector(state => {
+        return state.itemsOrder.find(item => item.itemId == props.itemId).items;
+    })
 
     return <div className="bucket-group">
         <div className="label">
-            <TextInput value={item.label} />
+            <TextInput 
+                value={item.label} 
+                onValueChange={(v) => {
+                    console.log(`:: ${v}`)
+                    return dispatch(updateItem(props.itemId, v, item.amount));
+                }}
+            />
         </div>
         <div>
-            {Object.keys(item.items).map((subItemId) => {
+            {childrenItems.map((subItemId) => {
                 return <Bucket key={subItemId} itemId={subItemId} />
             })}
         </div>

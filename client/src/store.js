@@ -24,12 +24,12 @@ const defaultState = {
             items: ['income-1', 'income-2']
         },
         'income-1': {
-            label: 'Workia',
-            amount: 5000,
+            label: 'Main Income',
+            amount: 3000,
             value: { type: 'income', amount: 5000 }
         },
         'income-2': {
-            label: 'Augustcare',
+            label: 'Sub Income',
             amount: 300,
             value: { type: 'income', amount: 300 }
         },

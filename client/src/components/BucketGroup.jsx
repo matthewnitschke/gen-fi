@@ -1,20 +1,23 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
+import { createSelector } from 'reselect';
 
 import { addBucket, updateItem, selectItem } from '../modules/items/items.actions.js'
 
-import { flatItemsSelector } from '../selectors.js';
+import { itemSelectorFactory } from '../modules/items/items.selectors.js';
 
 import Bucket from './Bucket.jsx';
 import TextInput from './util/TextInput.jsx';
 
 
-export default function BucketGroup(props) {
+export default function BucketGroup({ itemId }) {
     let dispatch = useDispatch()
 
-    const item = useSelector(
-        state => flatItemsSelector(state)[props.itemId],
-    )
+    const item = useSelector(itemSelectorFactory(itemId))
+    const subItems = useSelector(createSelector(
+        itemSelectorFactory(itemId),
+        item => item.items
+    ))
 
     return <div 
         className="bucket-group"
@@ -23,18 +26,18 @@ export default function BucketGroup(props) {
             <TextInput 
                 value={item.label} 
                 onValueChange={(v) => {
-                    return dispatch(updateItem(props.itemId, v, item.amount));
+                    return dispatch(updateItem(itemId, {...item, label: v}));
                 }}
             />
         </div>
         <div>
-            {item.items.map(({ id: subItemId }) => {
+            {subItems.map(subItemId => {
                 return <Bucket key={subItemId} itemId={subItemId} />
             })}
         </div>
         <div style={{marginTop: '.5rem'}}>
             <a className="link" onClick={() => {
-                return dispatch(addBucket(props.itemId));
+                return dispatch(addBucket(itemId));
             }}>Add Item</a>
         </div>
     </div>

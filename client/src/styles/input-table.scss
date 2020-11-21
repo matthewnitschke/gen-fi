@@ -1,0 +1,26 @@
+.input-table {
+
+    tr:not(:last-child) {
+        td:not(:last-child) {
+            border: solid 1px black;
+        }
+
+        td:nth-child(2) {
+            width: 3rem;
+        }
+    }
+
+    input[type="text"], input[type="number"] {
+        width: 100%;
+        height: 100%;
+
+        border: none;
+        outline: none;
+        padding: 0;
+    }
+
+
+    td {
+        padding: .2rem;
+    }
+}

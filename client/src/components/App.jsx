@@ -10,38 +10,37 @@ import Card from './util/Card.jsx';
 import RootNewButton from './RootNewButton.jsx';
 import BucketDetailsPanel from './BucketDetailsPanel.jsx';
 
-import { getItem } from '../utils.js';
+import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
 
 
 import '../styles/app.scss';
 
 export default function App() {
-
-    const items = useSelector(state => state.items);
-
+    const rootItems = useSelector(rootItemsSelectorFactory())
     const selectedItemId = useSelector(state => state.selectedItemId)
     
-    return <div className="app">
-        <DndProvider backend={HTML5Backend}>
-            <div className="main-content">
-                {items.map((item) => {
-                    let { id } = item
+    return <DndProvider backend={HTML5Backend}>
+        <div className="main-content">
+            {Object.keys(rootItems).map((itemId) => {
+                let item = rootItems[itemId];
+                let isGroup = item.hasOwnProperty('items')
 
-                    let isGroup = item.hasOwnProperty('items');
-                    
-                    return <Card key={id}>
-                        { isGroup && <BucketGroup itemId={id}/> }
-                        { !isGroup && <Bucket itemId={id} /> }
-                    </Card>
-                })}
-                
-                <RootNewButton />
-            </div>
+                return <Card key={itemId}>
+                    { isGroup && <BucketGroup itemId={itemId}/> }
+                    { !isGroup && <Bucket itemId={itemId} /> }
+                </Card>
+            })}
+            
+            <RootNewButton />
+        </div>
+
+        <div className="rhp">
             { selectedItemId &&
                 <BucketDetailsPanel itemId={selectedItemId} />
             }
+        </div>
 
-            <Transactions />
-        </DndProvider>
-    </div>
+        <Transactions />
+    </DndProvider>
+    
 }

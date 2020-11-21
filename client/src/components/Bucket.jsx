@@ -1,28 +1,38 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createSelector } from 'reselect'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
 import { useDrop } from 'react-dnd';
 
-import { selectItem, updateItem } from '../modules/items/items.actions.js';
+import { updateItem } from '../modules/items/items.actions.js';
+import { selectItem } from '../modules/selectedItem/selectedItem.actions.js';
 
-import {flatItemsSelector} from '../selectors.js';
-
-import { getItem } from '../utils.js';
+import { itemSelectorFactory, itemValueSumSelectorFactory } from '../modules/items/items.selectors.js';
+import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js';
 
 import TextInput from './util/TextInput';
 import '../styles/bucket.scss';
 import ProgressIndicator from './util/ProgressIndicator.jsx';
 
-export default function Bucket(props) {
+export default function Bucket({ itemId }) {
     const dispatch = useDispatch()
+    
     const item = useSelector(
-        state => flatItemsSelector(state)[props.itemId],
+        itemSelectorFactory(itemId),
+        shallowEqual
+    )
+
+    const transactionSum = useSelector(
+        assignedTransactionsSumSelectorFactory(itemId),
+        shallowEqual
+    )
+
+    const itemValueSum = useSelector(
+        itemValueSumSelectorFactory(itemId)
     )
 
     const [{ canDrop, isOver }, drop] = useDrop({
         accept: 'transaction',
-        drop: () => ({ itemId: props.itemId }),
+        drop: () => ({ itemId: itemId }),
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
@@ -33,39 +43,19 @@ export default function Bucket(props) {
         ref={drop}
         className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
         className="bucket"
-        onClick={() => dispatch(selectItem(props.itemId))}
+        onClick={() => dispatch(selectItem(itemId))}
     >
         <div className="label">
             <TextInput
                 value={item.label} 
-                onValueChange={(v) => dispatch(updateItem(props.itemId, v, item.amount))}
+                onValueChange={(v) => dispatch(updateItem(itemId, { ...item, label: v }))}
             />
         </div>
-        <div className="max-amount">
-            <TextInput 
-                value={`$${item.maxAmount}`}
-            />
-        </div>
+        <div className="max-amount">${itemValueSum}</div>
 
         <div className="amount-slider">
-            <ProgressIndicator value={item.amount} max={item.maxAmount}/>
+            <ProgressIndicator value={transactionSum} max={itemValueSum}/>
         </div>
 
     </div>
 }
-
-// const mapStateToProps = function(state) {
-//     return {
-//         items: state.items
-//     }
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         onUpdateSettings: () => {
-//             dispatch(updateItem('Bucket'));
-//         }
-//     }
-// }
-
-// export default connect(null, mapDispatchToProps)(Bucket);

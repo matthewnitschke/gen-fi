@@ -4,9 +4,10 @@ import { useDrag } from 'react-dnd';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addTransactionToItem } from '../modules/items/items.actions.js';
+import { addTransactionToItem } from '../modules/transactions/transactions.actions.js';
 
 export default function Transaction({
+    transactionId,
     amount,
     merchant,
 }) {
@@ -17,8 +18,7 @@ export default function Transaction({
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
-                dispatch(addTransactionToItem(dropResult.itemId, amount))
-                // alert(`You dropped ${item.name} into ${dropResult.name}!`);
+                dispatch(addTransactionToItem(transactionId, dropResult.itemId))
             }
         },
         collect: (monitor) => ({

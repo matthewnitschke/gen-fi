@@ -1,5 +1,7 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk';
 
+import { rootReducer } from './modules/root/root.reducer.js';
 import { itemsReducer } from './modules/items/items.reducer.js';
 import { selectedItemReducer } from './modules/selectedItem/selectedItem.reducer.js';
 import { transactionsReducer } from './modules/transactions/transactions.reducer.js';
@@ -78,15 +80,20 @@ const defaultState = {
 }
 
 const store = createStore(
-    combineReducers({
-        items: itemsReducer,
-        selectedItemId: selectedItemReducer,
-        transactions: transactionsReducer,
-        borrows: borrowsReducer,
-        selectedMonth: selectedMonthReducer,
-    }),
+    (state = {}, action) => {
+        return {
+            ...rootReducer(state, action),
+            ...combineReducers({
+                items: itemsReducer,
+                transactions: transactionsReducer,
+                borrows: borrowsReducer,
+            })
+        }
+    },
 
-    defaultState
+    defaultState,
+
+    applyMiddleware(thunk)
 );
 
 

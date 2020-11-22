@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { format, add } from 'date-fns';
 
 import '../styles/month-selector.scss';
-import { setSelectedMonth } from '../modules/selectedMonth/selectedMonth.actions';
+import { setSelectedMonth } from '../modules/root/root.actions.js';
+
+import {loadBudget} from '../modules/thunks.js';
 
 export default function MonthSelector() {
     const dispatch = useDispatch();
@@ -21,6 +23,8 @@ export default function MonthSelector() {
                 className="change-month-arrow" 
                 onClick={() => {
                     let newDate = add(selectedMonth, { months: -1 });
+                    dispatch(loadBudget(newDate));
+
                     dispatch(setSelectedMonth(newDate))
                 }}
             >{'<'}</span>
@@ -28,6 +32,8 @@ export default function MonthSelector() {
                 className="change-month-arrow"
                 onClick={() => {
                     let newDate = add(selectedMonth, { months: 1 });
+                    dispatch(loadBudget(newDate));
+                    
                     dispatch(setSelectedMonth(newDate))
                 }}
             >{'>'}</span>

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { connect, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { loadBudget } from '../modules/thunks.js';
 
 import BucketGroup from './BucketGroup.jsx';
 import Bucket from './Bucket.jsx';
@@ -17,8 +20,14 @@ import '../styles/app.scss';
 import MonthSelector from './MonthSelector.jsx';
 
 export default function App() {
-    const rootItems = useSelector(rootItemsSelectorFactory())
-    const selectedItemId = useSelector(state => state.selectedItemId)
+    const dispatch = useDispatch();
+    const rootItems = useSelector(rootItemsSelectorFactory());
+    const selectedItemId = useSelector(state => state.selectedItemId);
+    const selectedMonth = useSelector(state => state.selectedMonth);
+
+    useEffect(() => {
+        dispatch(loadBudget(selectedMonth))
+    }, [])
     
     return <DndProvider backend={HTML5Backend}>
         <div className="main-content">

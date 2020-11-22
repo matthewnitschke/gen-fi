@@ -8,7 +8,10 @@ export function itemsReducer(items = {}, action) {
 
             var updatedItems = {
                 ...items,
-                [newItemId]: { label: action.label, amount: 0, maxAmount: 10},
+                [newItemId]: { 
+                    label: action.label,
+                    value: { type: 'static', amount: 0 }
+                },
             }
 
             if (action.parentId) {
@@ -48,6 +51,9 @@ export function itemsReducer(items = {}, action) {
                     amount: items[action.itemId].amount + action.amount
                 }
             }
+
+        case 'SET_SELECTED_MONTH':
+            return {}
     }
 
     return items;

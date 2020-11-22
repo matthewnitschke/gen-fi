@@ -12,23 +12,25 @@ import { selectItem } from '../modules/selectedItem/selectedItem.actions.js'
 
 import ProgressIndicator from './util/ProgressIndicator.jsx';
 import InputTable from './util/InputTable.jsx';
-import { itemSelectorFactory } from '../modules/items/items.selectors.js';
+import { itemsSelector, itemSelectorFactory } from '../modules/items/items.selectors.js';
 import { assignedTransactionsSelectorFactory } from '../modules/transactions/transactions.selectors.js';
+import { itemBorrowsSelectorFactory } from '../modules/borrows/borrows.selectors.js';
 import Tabs from './util/Tabs.jsx';
 
 export default function BucketDetailsPanel({ itemId }) {
     const ref = useRef();
     const dispatch = useDispatch();
 
-    const [selectedTab, setSelectedTab] = useState("Details")
+    const [selectedTab, setSelectedTab] = useState("Details");
 
-    const item = useSelector(itemSelectorFactory(itemId))
-    const itemTransactions = useSelector(
-        assignedTransactionsSelectorFactory(itemId)
-    )
+    const items = useSelector(itemsSelector);
+
+    const item = useSelector(itemSelectorFactory(itemId));
+    const itemTransactions = useSelector(assignedTransactionsSelectorFactory(itemId));
+    
+    const itemBorrows = useSelector(itemBorrowsSelectorFactory(itemId));
 
     useOnClickOutside(ref, () => dispatch(selectItem(null)))
-
     
     function onValueTypeChange(e) {
         dispatch(updateItem(itemId, {
@@ -57,6 +59,21 @@ export default function BucketDetailsPanel({ itemId }) {
                     let transaction = itemTransactions[id];
                     return <div key={id}>{transaction.merchant} - {transaction.amount}</div>
                 })}
+
+                <h2>Borrows</h2>
+
+                <h4>From</h4>
+                {itemBorrows.from.map((borrow, i) => 
+                    <div key={i}>{items[borrow.toId].label}: ${borrow.amount}</div>
+                )}
+
+                <h4>To</h4>
+                {itemBorrows.to.map((borrow, i) => 
+                    <div key={i}>{items[borrow.fromId].label}: -${borrow.amount}</div>
+                )}
+
+                <input type="button" value="Borrow"/>
+
             </div>
         }
 

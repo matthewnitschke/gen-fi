@@ -5,3 +5,10 @@ export function addTransactionToItem(transactionId, itemId) {
         itemId
     }
 }
+
+export function ignoreTransaction(transactionId) {
+    return {
+        type: 'IGNORE_TRANSACTION',
+        transactionId,
+    }
+}

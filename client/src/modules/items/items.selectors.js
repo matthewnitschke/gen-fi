@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
 
+import {itemBorrowsSelectorFactory} from '../borrows/borrows.selectors.js';
 
-const itemsSelector = state => state.items
+export const itemsSelector = state => state.items
 const itemsListSelector = state => Object.keys(state.items).map(id => ({...state.items[id], id: id}))
-
-const incomeItemsSelector = items => Object.keys(items).filter(item => item)
 
 const itemValueSumSelector = (items, item) => {
     switch (item.value.type) {
@@ -36,6 +35,20 @@ const itemValueSumSelector = (items, item) => {
 
     return 0;
 }
+
+export const itemValueSelectorFactory = itemId => createSelector(
+    itemsSelector,
+    itemSelectorFactory(itemId),
+    itemBorrowsSelectorFactory(itemId),
+    (items, item, borrows) => {
+        let valueSum = itemValueSumSelector(items, item);
+
+        borrows.to.forEach(borrow => valueSum -= borrow.amount);
+        borrows.from.forEach(borrow => valueSum += borrow.amount);
+
+        return valueSum;
+    }
+);
 
 export const itemSelectorFactory = itemId => createSelector(
     itemsSelector,

@@ -15,10 +15,14 @@ export default function Transactions() {
     )
 
     return <div className="transactions">
-
         {Object.keys(unassignedTransactions).map(id => {
             let transaction = unassignedTransactions[id];
-            return <Transaction key={id} transactionId={id} amount={transaction.amount} merchant={transaction.merchant}/>
+            return <Transaction 
+                key={id} 
+                transactionId={id} 
+                amount={transaction.amount} 
+                merchant={transaction.merchant}
+            />
         })}
     </div>
 }

@@ -4,7 +4,9 @@ import { useDrag } from 'react-dnd';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addTransactionToItem } from '../modules/transactions/transactions.actions.js';
+import { addTransactionToItem, ignoreTransaction } from '../modules/transactions/transactions.actions.js';
+
+import IgnoreTransactionDropzone from './IgnoreTransactionDropzone.jsx';
 
 export default function Transaction({
     transactionId,
@@ -18,7 +20,11 @@ export default function Transaction({
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
-                dispatch(addTransactionToItem(transactionId, dropResult.itemId))
+                if (dropResult.ignore) {
+                    dispatch(ignoreTransaction(transactionId))
+                } else {
+                    dispatch(addTransactionToItem(transactionId, dropResult.itemId))
+                }
             }
         },
         collect: (monitor) => ({
@@ -26,8 +32,14 @@ export default function Transaction({
         }),
     });
 
-    return <div ref={drag} className="transaction">
-        <div className="amount">${amount}</div>
-        <div className="merchant">{merchant}</div>
-    </div>
+    return <>
+        {isDragging &&
+            <IgnoreTransactionDropzone />
+        }
+
+        <div ref={drag} style={{visibility: isDragging ? 'hidden' : 'initial'}} className="transaction">
+            <div className="amount">${amount}</div>
+            <div className="merchant">{merchant}</div>
+        </div>
+    </>
 }

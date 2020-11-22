@@ -1,0 +1,14 @@
+.ignore-transaction-dropzone {
+    position: fixed;
+    top: .5rem;
+    left: .5rem;
+    border-radius: 100%;
+    border: solid 1px black;
+    background-color: lightgrey;
+
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

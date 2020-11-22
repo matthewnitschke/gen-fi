@@ -14,6 +14,7 @@ import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
 
 
 import '../styles/app.scss';
+import MonthSelector from './MonthSelector.jsx';
 
 export default function App() {
     const rootItems = useSelector(rootItemsSelectorFactory())
@@ -21,6 +22,7 @@ export default function App() {
     
     return <DndProvider backend={HTML5Backend}>
         <div className="main-content">
+            <MonthSelector />
             {Object.keys(rootItems).map((itemId) => {
                 let item = rootItems[itemId];
                 let isGroup = item.hasOwnProperty('items')

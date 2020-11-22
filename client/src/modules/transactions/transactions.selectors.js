@@ -2,9 +2,11 @@ import { createSelector } from 'reselect';
 
 export const transactionsSelector = state => state.transactions;
 
+
 export const unassignedTransactionsSelectorFactory = () => createSelector(
     transactionsSelector,
     transactions => Object.keys(transactions)
+        .filter(id => transactions[id].isIgnored != true)
         .filter(id => {
             return transactions[id].assignedItem == null;
         })

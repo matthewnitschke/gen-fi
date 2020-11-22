@@ -9,6 +9,14 @@ export function transactionsReducer(transactions = {}, action) {
                     assignedItem: action.itemId,
                 }
             }
+
+        case 'IGNORE_TRANSACTION':
+            return Object.keys(transactions)
+                .filter(id => id != action.transactionId)
+                .reduce((acc, id) => ({...acc, [id]: transactions[id]}), {})
+
+        case 'SET_SELECTED_MONTH':
+            return {}
     }
 
     return transactions;

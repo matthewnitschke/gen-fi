@@ -3,8 +3,14 @@ import { createStore, combineReducers } from 'redux'
 import { itemsReducer } from './modules/items/items.reducer.js';
 import { selectedItemReducer } from './modules/selectedItem/selectedItem.reducer.js';
 import { transactionsReducer } from './modules/transactions/transactions.reducer.js';
+import { borrowsReducer } from './modules/borrows/borrows.reducer.js';
+import { selectedMonthReducer } from './modules/selectedMonth/selectedMonth.reducer.js';
+
+import {getFirstOfMonth} from './utils.js';
 
 const defaultState = {
+
+    selectedMonth: getFirstOfMonth(new Date()),
 
     transactions: {
         'a': {
@@ -15,6 +21,11 @@ const defaultState = {
         'b': {
             merchant: 'Costco',
             amount: 120,
+        },
+        'c': {
+            merchant: 'Costco',
+            amount: 120,
+            isIgnored: true
         }
     },
 
@@ -54,35 +65,25 @@ const defaultState = {
             value: { type: 'extra' }
         }
     },
-    // items: [
-    //     {
-    //         id: 'a',
-    //         label: 'Groceries',
-    //         items: [{
-    //             id: 'c',
-    //             label: 'Week 1',
-    //             amount: 40,
-    //             maxAmount: 100,
-    //             value: { type: 'static' }
-    //         }]
-    //     },
-    //     {
-    //         id: 'b',
-    //         label: 'Adulting',
-    //         amount: 0,
-    //         maxAmount: 1000,
-    //         value: { type: 'table', rows: [{name: 'Spotify', amount: 8}] }
-    //     }
-    // ],
+    
+    borrows: {
+        'z': {
+            fromId: 'groceries-1',
+            toId: 'other',
+            amount: 50
+        }
+    },
 
     selectedItemId: null
 }
 
 const store = createStore(
-    combineReducers({ 
+    combineReducers({
         items: itemsReducer,
         selectedItemId: selectedItemReducer,
         transactions: transactionsReducer,
+        borrows: borrowsReducer,
+        selectedMonth: selectedMonthReducer,
     }),
 
     defaultState

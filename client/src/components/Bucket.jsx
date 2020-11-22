@@ -6,7 +6,7 @@ import { useDrop } from 'react-dnd';
 import { updateItem } from '../modules/items/items.actions.js';
 import { selectItem } from '../modules/selectedItem/selectedItem.actions.js';
 
-import { itemSelectorFactory, itemValueSumSelectorFactory } from '../modules/items/items.selectors.js';
+import { itemSelectorFactory, itemValueSelectorFactory } from '../modules/items/items.selectors.js';
 import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js';
 
 import TextInput from './util/TextInput';
@@ -27,7 +27,7 @@ export default function Bucket({ itemId }) {
     )
 
     const itemValueSum = useSelector(
-        itemValueSumSelectorFactory(itemId)
+        itemValueSelectorFactory(itemId)
     )
 
     const [{ canDrop, isOver }, drop] = useDrop({
@@ -42,7 +42,6 @@ export default function Bucket({ itemId }) {
     return <div 
         ref={drop}
         className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
-        className="bucket"
         onClick={() => dispatch(selectItem(itemId))}
     >
         <div className="label">

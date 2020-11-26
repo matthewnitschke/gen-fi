@@ -18,7 +18,6 @@ const defaultState = {
         'a': {
             merchant: 'Amazon',
             amount: 120,
-            assignedItem: 'other'
         },
         'b': {
             merchant: 'Costco',
@@ -27,14 +26,16 @@ const defaultState = {
         'c': {
             merchant: 'Costco',
             amount: 120,
-            isIgnored: true
         }
     },
+
+    ignoredTransactions: ['c'],
 
     items: {
         'income-group': {
             label: 'Income',
-            items: ['income-1', 'income-2']
+            items: ['income-1', 'income-2'],
+            transactions: ['a']
         },
         'income-1': {
             label: 'Main Income',

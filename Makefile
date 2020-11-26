@@ -1,5 +1,13 @@
-build:
-	(cd client && yarn build)
+# build:
+# 	(cd client && yarn build)
 
-serve:
-	deno run --allow-net --allow-read server/app.ts
+# serve:
+# 	# deno run --allow-net --allow-read server/app.ts
+# 	(cd server-v2 && yarn serve)
+
+
+dev:
+	docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up
+
+prod:
+	docker-compose up

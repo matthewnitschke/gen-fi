@@ -1,0 +1,20 @@
+{
+  "name": "server-v2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "node app.js",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.0.6",
+    "mongoose": "^5.10.16",
+    "to-mils": "^1.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "prettier": "^2.2.0"
+  }
+}

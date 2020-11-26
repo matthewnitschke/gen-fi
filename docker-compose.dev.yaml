@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  proxy:
+    logging:
+      driver: none
+
+  db:
+    logging:
+      driver: none
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    command: nodemon --watch server /usr/src/app/server/app.js
+    volumes:
+      - ./server/:/usr/src/app/server
+      - ./client/:/usr/src/app/client
+    environment:
+      - NODE_ENV=development
+      - SESSION_SECRET="Shhh... development only"

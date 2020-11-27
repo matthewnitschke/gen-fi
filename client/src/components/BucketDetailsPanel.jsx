@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useOnClickOutside from '../hooks/useClickOnOutside.js';
 
 import { deleteItem, updateItem} from '../modules/items/items.actions.js'
-import { selectItem } from '../modules/selectedItem/selectedItem.actions.js'
+import { selectItem } from '../modules/root/root.actions.js'
 
 import ProgressIndicator from './util/ProgressIndicator.jsx';
 import InputTable from './util/InputTable.jsx';

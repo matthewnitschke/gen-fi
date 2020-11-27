@@ -23,15 +23,10 @@ export function itemsReducer(items = {}, action) {
         case 'ADD_BUCKET_GROUP':
             return {
                 ...items,
-                [uuid()]: { isRoot: true, label: action.label }
+                [uuid()]: { label: action.label, items: [] }
             }
 
         case 'UPDATE_ITEM':
-            console.log(action)
-            console.log({
-                ...items,
-                [action.itemId]: action.item
-            })
             return {
                 ...items,
                 [action.itemId]: action.item

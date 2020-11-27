@@ -2,7 +2,7 @@ export function addBucket(parentId) {
     return {
         type: 'ADD_BUCKET',
         label: 'Label',
-        parentId 
+        parentId
     }
 }
 

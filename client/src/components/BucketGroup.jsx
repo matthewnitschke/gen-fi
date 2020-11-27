@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import { createSelector } from 'reselect';
 
-import { addBucket, updateItem, selectItem } from '../modules/items/items.actions.js'
+import { addBucket, updateItem } from '../modules/items/items.actions.js'
 
 import { itemSelectorFactory } from '../modules/items/items.selectors.js';
 

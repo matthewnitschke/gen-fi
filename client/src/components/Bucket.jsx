@@ -4,7 +4,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { useDrop } from 'react-dnd';
 
 import { updateItem } from '../modules/items/items.actions.js';
-import { selectItem } from '../modules/selectedItem/selectedItem.actions.js';
+import { selectItem } from '../modules/root/root.actions.js';
 
 import { itemSelectorFactory, itemValueSelectorFactory } from '../modules/items/items.selectors.js';
 import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js';

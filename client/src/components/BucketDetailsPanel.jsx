@@ -47,7 +47,10 @@ export default function BucketDetailsPanel({ itemId }) {
         <div>
             <ProgressIndicator value={item.amount} max={item.maxAmount}/>
         </div>
-        <input type="button" value="Delete" onClick={() => dispatch(deleteItem(itemId))} />
+        <input type="button" value="Delete" onClick={() => {
+            dispatch(selectItem(null));
+            dispatch(deleteItem(itemId));
+        }} />
 
         <Tabs items={["Details", "Settings"]} selectedItem={selectedTab} onSelectItem={setSelectedTab} />
 

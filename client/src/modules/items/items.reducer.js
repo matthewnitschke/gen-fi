@@ -32,11 +32,19 @@ export function itemsReducer(items = {}, action) {
                 [action.itemId]: action.item
             }
 
-        
         case 'DELETE_ITEM':
+
             return Object.keys(items)
                 .filter(itemId => itemId != action.itemId)
-                .map(itemId => items[itemId])
+                .map(itemId => {
+                    let item = items[itemId];
+
+                    if (item.hasOwnProperty('items')) {
+                        item.items = item.items.filter(subItemId => subItemId != action.itemId)
+                    }
+
+                    return item;
+                })
 
         case 'ADD_TRANSACTION':
             return {

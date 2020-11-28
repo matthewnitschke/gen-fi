@@ -17,7 +17,7 @@ export function rootReducer(state = {}, action) {
             return {
                 ...state,
                 ...action.data
-            }
+            };
     }
 
     return state    

@@ -22,16 +22,23 @@ export const loadBudget = date => {
     }
   }
 
-export const saveBudget = (date, storeData) => {
+export const saveBudget = store => {
     return (dispatch) => {
-        let fmtDate = format(date, 'yyyy/MM');
+        let fmtDate = format(store.selectedMonth, 'yyyy/MM');
+
+        const dataToStore = {
+            ignoredTransactions: store.ignoredTransactions,
+            items: store.items,
+            borrows: store.borrows
+        }
+
         fetch(
             `http://localhost/budget/${fmtDate}`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(storeData)
+            body: JSON.stringify(dataToStore)
         })
     }
 }

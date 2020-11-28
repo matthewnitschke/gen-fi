@@ -36,9 +36,7 @@ router.get("/:year/:month", async (req, res) => {
   if (foundBudget) {
     response = {
       ...response,
-      items: foundBudget.items,
-      ignoredTransactions: foundBudget.ignoredTransactions,
-      borrows: foundBudget.borrows,
+      ...foundBudget.storeData,
     }
   }
 
@@ -62,6 +60,8 @@ router.post("/:year/:month", async (req, res) => {
     accountId: accountId,
     date: `${year}/${month}`,
   });
+
+  console.log(foundBudget.storeData);
 
   if (foundBudget) {
     await Budget.findOneAndUpdate(
@@ -87,5 +87,18 @@ router.post("/:year/:month", async (req, res) => {
 
   res.sendStatus(200);
 });
+
+
+router.delete('/:year/:month', async (req, res) => {
+  const { year, month } = req.params;
+  const { accountId } = req.session;
+
+  await Budget.findOneAndDelete({
+    accountId: accountId,
+    date: `${year}/${month}`,
+  });
+
+  res.status(200).send('OK');
+})
 
 module.exports = router;

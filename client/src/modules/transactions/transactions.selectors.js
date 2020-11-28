@@ -32,7 +32,7 @@ export const assignedTransactionsSelectorFactory = itemId => createSelector(
     transactionsSelector,
     itemSelectorFactory(itemId),
     (transactions, item) => {
-        if (!item.hasOwnProperty(transactions)) return {};
+        if (!item || !item.hasOwnProperty(transactions)) return {};
 
         return item.transactions.reduce((acc, id) => ({...acc, [id]: transactions[id]}), {});
     }

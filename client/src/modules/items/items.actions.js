@@ -2,7 +2,8 @@ export function addBucket(parentId) {
     return {
         type: 'ADD_BUCKET',
         label: 'Label',
-        parentId
+        parentId,
+        updateDB: true,
     }
 }
 
@@ -27,7 +28,8 @@ export function updateItem(
 export function deleteItem(itemId) {
     return {
         type: 'DELETE_ITEM',
-        itemId
+        itemId,
+        updateDB: true,
     }
 }
 

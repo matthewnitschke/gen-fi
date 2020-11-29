@@ -7,7 +7,7 @@ const router = express.Router();
 // authentication middleware
 router.use((req, res, next) => {
   req.session.accountId = "5fbfe7509a758581b265a7f5";
-  req.session.bankAccountIds = ["someid"]
+  req.session.bankAccountIds = ["5fbfe7509a758581b265a7f5"]
   next();
   // if (req.session.accountId) {
   //   next();
@@ -27,8 +27,9 @@ router.get("/:year/:month", async (req, res) => {
   });
   
   let lastOfMonth = new Date(parseInt(year), parseInt(month) + 1, 0)
+  console.log(`Searching for transactions: between ${year}-${month}-1 and ${year}-${month}-${lastOfMonth.getDate()}`)
   const transactions = await Transaction.find({
-    account_id: { "$in" : [req.session.bankAccountIds] },
+    // account_id: { "$in" : [req.session.bankAccountIds] },
     date: { $gte: `${year}-${month}-1`, $lte: `${year}-${month}-${lastOfMonth.getDate()}` }
   });
   
@@ -54,8 +55,6 @@ router.post("/:year/:month", async (req, res) => {
   const { year, month } = req.params;
   const { accountId } = req.session;
 
-  const { items, borrows } = req.body;
-
   const foundBudget = await Budget.findOne({
     accountId: accountId,
     date: `${year}/${month}`,
@@ -69,17 +68,14 @@ router.post("/:year/:month", async (req, res) => {
         _id: foundBudget._id,
       },
       {
-        storeData: { items, borrows },
+        storeData: req.body,
       }
     );
   } else {
     let newBudget = new Budget({
       accountId,
       date: `${year}/${month}`,
-      storeData: {
-        items,
-        borrows,
-      },
+      storeData: req.body
     });
 
     await newBudget.save();

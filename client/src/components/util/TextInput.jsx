@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 
-export default function TextInput({
-    value,
-    onValueChange,
-}) {
+export default function TextInput(props) {
     const [isEditing, setIsEditing] = useState(false);
 
-    const [internalValue, setInternalValue] = useState(value);
+    const [internalValue, setInternalValue] = useState(props.value);
 
     function commitValue() {
         setIsEditing(false);
 
-        onValueChange(internalValue);
+        
+        !!props.onValueChange && props.onValueChange(internalValue);
     }
 
     return <div className={`text-input ${isEditing ? 'editing' : ''}`}>
         {isEditing &&
             <input
+                {...props}
                 type="text"
                 value={internalValue}
                 onChange={(e) => setInternalValue(e.target.value)}
@@ -34,7 +33,11 @@ export default function TextInput({
         {!isEditing &&
             <div
                 onClick={() => setIsEditing(true)}
-            >{internalValue}</div>
+                onFocus={() => setIsEditing(true)}
+                tabIndex={props.tabIndex}
+            >{
+                internalValue ?? props.placeholder
+            }</div>
         }
     </div>
 }

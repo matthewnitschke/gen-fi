@@ -10,7 +10,8 @@ export function itemsReducer(items = {}, action) {
                 ...items,
                 [newItemId]: { 
                     label: action.label,
-                    value: { type: 'static', amount: 0 }
+                    value: { type: 'static', amount: 0 },
+                    transactions: [],
                 },
             }
 
@@ -33,30 +34,30 @@ export function itemsReducer(items = {}, action) {
             }
 
         case 'DELETE_ITEM':
-
             return Object.keys(items)
                 .filter(itemId => itemId != action.itemId)
                 .map(itemId => {
                     let item = items[itemId];
-
-                    if (item.hasOwnProperty('items')) {
+                    
+                    // if the itemId shows up as a subItem in a group, we need to delete it there as well
+                    if (item.items) {
                         item.items = item.items.filter(subItemId => subItemId != action.itemId)
                     }
 
                     return item;
                 })
 
-        case 'ADD_TRANSACTION':
+        case 'ADD_TRANSACTION_TO_ITEM':
             return {
                 ...items,
                 [action.itemId]: {
                     ...items[action.itemId],
-                    amount: items[action.itemId].amount + action.amount
+                    transactions: [
+                        ...items[action.itemId].transactions ?? [], 
+                        action.transactionId
+                    ]
                 }
             }
-
-        case 'SET_SELECTED_MONTH':
-            return {}
     }
 
     return items;

@@ -5,6 +5,8 @@ const TransactionSchema = new mongoose.Schema({
   date: Date,
   merchant: String,
   amount: Number,
+
+  isUserCreated: Boolean // whether or not this transaction was manually created
 });
 
 module.exports = mongoose.model("Transaction", TransactionSchema);

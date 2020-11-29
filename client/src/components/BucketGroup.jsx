@@ -1,29 +1,31 @@
 import React from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
-import { createSelector } from 'reselect';
+import { useDispatch, useSelector } from 'react-redux'
 
-import { addBucket, updateItem } from '../modules/items/items.actions.js'
-
-import { itemSelectorFactory } from '../modules/items/items.selectors.js';
+import { addBucket, updateItem } from '../modules/items/items.actions.js';
+import {selectItem} from '../modules/root/root.actions.js';
 
 import Bucket from './Bucket.jsx';
+import DeleteItemButton from './DeleteItemButton.jsx';
 import TextInput from './util/TextInput.jsx';
 
 
 export default function BucketGroup({ itemId }) {
     let dispatch = useDispatch()
 
-    const item = useSelector(itemSelectorFactory(itemId))
-    const subItems = useSelector(createSelector(
-        itemSelectorFactory(itemId),
-        item => item.items
-    ))
+    const selectedItemId = useSelector(state => state.selectedItemId)
+
+    const item = useSelector(state => state.items[itemId])
+    const subItems = useSelector(
+        state => state.items[itemId].items,
+    )
 
     return <div 
         className="bucket-group"
     >
+        {selectedItemId == itemId && <DeleteItemButton itemId={itemId}/>}
         <div className="label">
-            <TextInput 
+            <TextInput
+                onFocus={() => dispatch(selectItem(itemId))}
                 value={item.label} 
                 onValueChange={(v) => {
                     return dispatch(updateItem(itemId, {...item, label: v}));

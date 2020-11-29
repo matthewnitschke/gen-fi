@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -14,58 +14,33 @@ const defaultState = {
     selectedMonth: getFirstOfMonth(new Date()),
 
     transactions: {},
-
+    
     ignoredTransactions: [],
-
+    
+    // [itemId]: {
+    //     label: ''
+    //     value: { type: '' },
+    //     transactions: ['']
+    // }
     items: {},
 
     borrows: {},
 
-    selectedItemId: null
+    selectedItemId: null,
+    selectedTransactionId: null,
 }
 
 const store = createStore(
-    // combineReducers({
-    //     items: itemsReducer,
-    //     transactions: transactionsReducer,
-    //     borrows: borrowsReducer,
-
-    //     selectedMonth: (month = defaultState.selectedMonth, action) => month,
-    //     ignoredTransactions: (data = []) => data,
-    //     selectedItemId: (data = null) => data,
-    // }),
     (state = defaultState, action) => {
-        // let newState = rootReducer(state, action);
-
-        // let newState = combineReducers({
-        //     items: itemsReducer,
-        //     transactions: transactionsReducer,
-        //     borrows: borrowsReducer,
-        // })(newState, action);
-
         let rootState = rootReducer(state, action);
 
-        
-
-        let st = {
+        return {
             ...rootState,
             items: itemsReducer(rootState.items, action),
             transactions: transactionsReducer(rootState.transactions, action),
             borrows: borrowsReducer(rootState.borrows, action),
         };
-
-        return st;
     },
-
-    // (state = {}, action) => {
-    //     state = rootReducer(state, action);
-
-    //     state.items = itemsReducer(state.items, action);
-    //     state.transactions = transactionsReducer(state.transactions, action);
-    //     state.borrows = borrowsReducer(state.borrows, action);
-
-    //     return state;
-    // },
 
     defaultState,
 

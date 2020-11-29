@@ -18,8 +18,6 @@ router.use((req, res, next) => {
 router.get('/', async (req, res) => {
     const { from, to } = req.query;
 
-    console.log(`${from} : ${to}`)
-
     let transactions = await Transaction.find({
         fiAccountId: req.session.accountId,
         date: { $gte: from, $lte: to }
@@ -46,7 +44,8 @@ router.post('/', async (req, res) => {
         merchant,
         fiAccountId: req.session.accountId,
         amount: amount,
-        date: new Date(date)
+        date: new Date(date),
+        isUserCreated: true,
     });
 
     let postedTransaction = await newTransaction.save();

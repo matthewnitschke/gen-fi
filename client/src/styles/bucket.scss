@@ -1,6 +1,13 @@
 
+.delete-item-button {
+    position: absolute;
+    left: -3rem;
+    font-size: 1.4rem;
+    color: red;
+}
 
 .bucket-group {
+    position: relative;
     &>.label {
         font-weight: 900;
         color: #69757a;
@@ -16,6 +23,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
     margin-bottom: .7rem;
+
+    position: relative;
+    
 
     &.transaction-hovered {
         background-color: lightgrey;

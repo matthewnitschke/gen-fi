@@ -1,6 +1,6 @@
 import { loadBudget as loadBudgetAction } from './root/root.actions.js'
 
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 export const loadBudget = date => {
     return (dispatch) => {
@@ -23,14 +23,16 @@ export const loadBudget = date => {
   }
 
 export const saveBudget = store => {
-    return (dispatch) => {
+    return () => {
         let fmtDate = format(store.selectedMonth, 'yyyy/MM');
 
         const dataToStore = {
             ignoredTransactions: store.ignoredTransactions,
             items: store.items,
-            borrows: store.borrows
+            borrows: store.borrows,
         }
+
+        console.log(dataToStore);
 
         fetch(
             `http://localhost/budget/${fmtDate}`,{
@@ -40,5 +42,35 @@ export const saveBudget = store => {
             },
             body: JSON.stringify(dataToStore)
         })
+    }
+}
+
+export const newTransaction = (merchant, amount, dateString) => {
+    return (dispatch) => {
+        let fmtDate = format(
+            parse(dateString, 'MM/dd/yyyy', new Date()),
+            'yyyy-MM-dd'
+        )
+
+        fetch(
+            `http://localhost/transactions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                merchant,
+                amount,
+                date: fmtDate
+            })
+        })
+            .then(resp => resp.json())
+            .then((data) => {
+                dispatch({
+                    type: 'ADD_TRANSACTION',
+                    transaction: data,
+                })
+            })
+
     }
 }

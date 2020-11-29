@@ -6,20 +6,23 @@ import { useDrop } from 'react-dnd';
 import { updateItem } from '../modules/items/items.actions.js';
 import { selectItem } from '../modules/root/root.actions.js';
 
-import { itemSelectorFactory, itemValueSelectorFactory } from '../modules/items/items.selectors.js';
+import { itemValueSelectorFactory } from '../modules/items/items.selectors.js';
 import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js';
 
 import TextInput from './util/TextInput';
 import '../styles/bucket.scss';
 import ProgressIndicator from './util/ProgressIndicator.jsx';
+import DeleteItemButton from './DeleteItemButton.jsx';
 
 export default function Bucket({ itemId }) {
     const dispatch = useDispatch()
     
     const item = useSelector(
-        itemSelectorFactory(itemId),
+        state => state.items[itemId],
         shallowEqual
     )
+
+    const selectedItemId = useSelector(state => state.selectedItemId)
 
     const transactionSum = useSelector(
         assignedTransactionsSumSelectorFactory(itemId),
@@ -30,7 +33,7 @@ export default function Bucket({ itemId }) {
         itemValueSelectorFactory(itemId)
     )
 
-    const [{ canDrop, isOver }, drop] = useDrop({
+    const [{ isOver }, drop] = useDrop({
         accept: 'transaction',
         drop: () => ({ itemId: itemId }),
         collect: (monitor) => ({
@@ -39,11 +42,12 @@ export default function Bucket({ itemId }) {
         }),
     });
 
-    return <div 
+    return <div
         ref={drop}
         className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
         onClick={() => dispatch(selectItem(itemId))}
     >
+        {selectedItemId == itemId && <DeleteItemButton itemId={itemId}/>}
         <div className="label">
             <TextInput
                 value={item.label} 

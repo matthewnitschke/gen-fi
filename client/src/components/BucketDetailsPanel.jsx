@@ -5,14 +5,11 @@ import Card from './util/Card.jsx';
 import '../styles/bucket_details_panel.scss';
 import { useSelector, useDispatch } from 'react-redux';
 
-import useOnClickOutside from '../hooks/useClickOnOutside.js';
-
 import { deleteItem, updateItem} from '../modules/items/items.actions.js'
 import { selectItem } from '../modules/root/root.actions.js'
 
 import ProgressIndicator from './util/ProgressIndicator.jsx';
 import InputTable from './util/InputTable.jsx';
-import { itemsSelector, itemSelectorFactory } from '../modules/items/items.selectors.js';
 import { assignedTransactionsSelectorFactory } from '../modules/transactions/transactions.selectors.js';
 import { itemBorrowsSelectorFactory } from '../modules/borrows/borrows.selectors.js';
 import Tabs from './util/Tabs.jsx';
@@ -23,14 +20,12 @@ export default function BucketDetailsPanel({ itemId }) {
 
     const [selectedTab, setSelectedTab] = useState("Details");
 
-    const items = useSelector(itemsSelector);
-
-    const item = useSelector(itemSelectorFactory(itemId));
+    const items = useSelector(state => state.items);
+    const item = useSelector(state => state.items[itemId]);
     const itemTransactions = useSelector(assignedTransactionsSelectorFactory(itemId));
-    
     const itemBorrows = useSelector(itemBorrowsSelectorFactory(itemId));
 
-    useOnClickOutside(ref, () => dispatch(selectItem(null)))
+    // useOnClickOutside(ref, () => dispatch(selectItem(null)))
     
     function onValueTypeChange(e) {
         dispatch(updateItem(itemId, {

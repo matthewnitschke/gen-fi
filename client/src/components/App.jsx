@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { connect, shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import { loadBudget } from '../modules/thunks.js';
@@ -18,13 +18,13 @@ import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
 
 import '../styles/app.scss';
 import MonthSelector from './MonthSelector.jsx';
+import TransactionDetailsPanel from './TransactionDetailsPanel.jsx';
 
 export default function App() {
     const dispatch = useDispatch();
-    const rootItems = useSelector(
-        rootItemsSelectorFactory(),
-    );
+    const rootItems = useSelector(rootItemsSelectorFactory());
     const selectedItemId = useSelector(state => state.selectedItemId);
+    const selectedTransactionId = useSelector(state => state.selectedTransactionId);
     const selectedMonth = useSelector(state => state.selectedMonth);
 
     useEffect(() => {
@@ -34,13 +34,12 @@ export default function App() {
     return <DndProvider backend={HTML5Backend}>
         <div className="main-content">
             <MonthSelector />
-            {Object.keys(rootItems).map((itemId) => {
-                let item = rootItems[itemId];
-                let isGroup = item.hasOwnProperty('items')
+            {rootItems.map((item) => {
+                let isGroup = !!item.items
 
-                return <Card key={itemId}>
-                    { isGroup && <BucketGroup itemId={itemId}/> }
-                    { !isGroup && <Bucket itemId={itemId} /> }
+                return <Card key={item.id}>
+                    { isGroup && <BucketGroup itemId={item.id}/> }
+                    { !isGroup && <Bucket itemId={item.id} /> }
                 </Card>
             })}
             
@@ -50,6 +49,11 @@ export default function App() {
         <div className="rhp">
             { selectedItemId &&
                 <BucketDetailsPanel itemId={selectedItemId} />
+            }
+
+            {
+                selectedTransactionId &&
+                <TransactionDetailsPanel transactionId={selectedTransactionId} />
             }
         </div>
 

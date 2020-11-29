@@ -10,7 +10,8 @@ export function addBucket(parentId) {
 export function addBucketGroup() {
     return {
         type: 'ADD_BUCKET_GROUP',
-        label: 'Label'
+        label: 'Label',
+        updateDB: true
     }
 }
 
@@ -21,7 +22,8 @@ export function updateItem(
     return {
         type: 'UPDATE_ITEM',
         itemId,
-        item
+        item,
+        updateDB: true
     }
 }
 
@@ -29,15 +31,16 @@ export function deleteItem(itemId) {
     return {
         type: 'DELETE_ITEM',
         itemId,
-        updateDB: true,
+        updateDB: true
     }
 }
 
-export function addTransactionToItem(itemId, amount) {
+export function addTransactionToItem(itemId, transactionId) {
     return {
-        type: 'ADD_TRANSACTION',
+        type: 'ADD_TRANSACTION_TO_ITEM',
         itemId,
-        amount
+        transactionId,
+        updateDB: true
     }
 }
 
@@ -45,6 +48,7 @@ export function updateItemValue(itemId, value) {
     return {
         type: 'UPDATE_ITEM_VALUE',
         itemId,
-        value
+        value,
+        updateDB: true
     }
 }

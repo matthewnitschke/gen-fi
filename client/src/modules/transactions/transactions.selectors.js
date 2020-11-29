@@ -1,38 +1,36 @@
 import { createSelector } from 'reselect';
 
-import { itemsSelector, itemSelectorFactory } from '../items/items.selectors.js';
+import { objToListConverter } from '../../utils.js';
 
 export const transactionsSelector = state => state.transactions;
 export const ignoredTransactionsSelector = state => state.ignoredTransactions;
 
 export const unassignedTransactionsSelectorFactory = () => createSelector(
-    itemsSelector,
-    ignoredTransactionsSelector,
-    transactionsSelector,
+    state => objToListConverter(state.items),
+    state => state.ignoredTransactions,
+    state => objToListConverter(state.transactions),
     (items, ignoredTransactions, transactions) => {
-        return Object.keys(transactions).filter(id => {
-            if (ignoredTransactions.includes(id)) return false;
+        return transactions.filter(transaction => {
+            if (ignoredTransactions.includes(transaction.id)) return false;
 
-            for (let i = 0; i < Object.keys(items).length; i ++) {
-                let item = items[Object.keys(items)[i]];
+            for (let i = 0; i < items.length; i ++) {
+                let item = items[i];
 
-                if (item.hasOwnProperty('transactions') && item.transactions.includes(id)) {
+                if (item.transactions && item.transactions.includes(transaction.id)) {
                     return false;
                 }
             }
 
             return true;
-        }).reduce((acc, id) => {
-            return ({ ...acc, [id]: transactions[id] });
-        }, {});
+        });
     }
 )
 
 export const assignedTransactionsSelectorFactory = itemId => createSelector(
-    transactionsSelector,
-    itemSelectorFactory(itemId),
+    state => state.transactions,
+    state => state.items[itemId],
     (transactions, item) => {
-        if (!item || !item.hasOwnProperty(transactions)) return {};
+        if (!item || !item.transactions) return {};
 
         return item.transactions.reduce((acc, id) => ({...acc, [id]: transactions[id]}), {});
     }

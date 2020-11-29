@@ -1,6 +1,7 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 
 import Transaction from './Transaction.jsx';
+import AddTransactionButton from './AddTransactionButton.jsx';
 
 import { useSelector } from 'react-redux';
 
@@ -13,15 +14,13 @@ export default function Transactions() {
     const unassignedTransactions = useSelector(
         unassignedTransactionsSelectorFactory()
     )
-
+    
     return <div className="transactions">
-        {Object.keys(unassignedTransactions).map(id => {
-            let transaction = unassignedTransactions[id];
+        <AddTransactionButton />
+        {unassignedTransactions.map(transaction => {
             return <Transaction 
-                key={id} 
-                transactionId={id} 
-                amount={transaction.amount} 
-                merchant={transaction.merchant}
+                key={transaction.id} 
+                transactionId={transaction.id}
             />
         })}
     </div>

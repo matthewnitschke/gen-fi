@@ -12,6 +12,7 @@ import Transactions from './Transactions.jsx';
 import Card from './util/Card.jsx';
 import RootNewButton from './RootNewButton.jsx';
 import BucketDetailsPanel from './BucketDetailsPanel.jsx';
+import BankAccountsButton from './BankAccountsButton.jsx';
 
 import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
 
@@ -47,6 +48,9 @@ export default function App() {
         </div>
 
         <div className="rhp">
+            <div>
+                <BankAccountsButton />
+            </div>
             { selectedItemId &&
                 <BucketDetailsPanel itemId={selectedItemId} />
             }

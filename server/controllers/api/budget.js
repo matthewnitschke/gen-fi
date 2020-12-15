@@ -60,8 +60,6 @@ router.post("/:year/:month", async (req, res) => {
     date: `${year}/${month}`,
   });
 
-  console.log(foundBudget.storeData);
-
   if (foundBudget) {
     await Budget.findOneAndUpdate(
       {

@@ -1,11 +1,48 @@
 .details-panel {
     margin-left: 0;
 
-    &>.header {
+    .header-icons {
         display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
 
-        :first-child {
+        i {
+            cursor: pointer;
+
+            &.delete-button {
+                color: red;
+            }
+
+            &.close-button {
+                color: #0091d9;
+            }
+        }
+    }
+
+
+    &>.header {
+        display: flex;   
+        align-items: baseline;     
+        font-weight: 900;
+        margin-bottom: .5rem;
+
+        &>.label {
             width: 100%;
+            font-size: 1.3rem;
+        }
+
+        &>.amount {
+            font-size: 2rem;
+        }
+    }
+
+    .progress-indicator {
+        margin-bottom: 1.5rem;
+        height: 5px;
+        border-radius: 20px;
+
+        &>.current {
+            height: 5px;
         }
     }
 }

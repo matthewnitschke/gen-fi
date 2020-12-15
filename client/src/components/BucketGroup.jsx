@@ -5,7 +5,6 @@ import { addBucket, updateItem } from '../modules/items/items.actions.js';
 import {selectItem} from '../modules/root/root.actions.js';
 
 import Bucket from './Bucket.jsx';
-import DeleteItemButton from './DeleteItemButton.jsx';
 import TextInput from './util/TextInput.jsx';
 
 
@@ -22,11 +21,11 @@ export default function BucketGroup({ itemId }) {
     return <div 
         className="bucket-group"
     >
-        {selectedItemId == itemId && <DeleteItemButton itemId={itemId}/>}
         <div className="label">
             <TextInput
                 onFocus={() => dispatch(selectItem(itemId))}
-                value={item.label} 
+                value={item.label}
+                placeholder='Label'
                 onValueChange={(v) => {
                     return dispatch(updateItem(itemId, {...item, label: v}));
                 }}

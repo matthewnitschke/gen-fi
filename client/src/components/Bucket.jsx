@@ -12,7 +12,6 @@ import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/
 import TextInput from './util/TextInput';
 import '../styles/bucket.scss';
 import ProgressIndicator from './util/ProgressIndicator.jsx';
-import DeleteItemButton from './DeleteItemButton.jsx';
 
 export default function Bucket({ itemId }) {
     const dispatch = useDispatch()
@@ -42,15 +41,17 @@ export default function Bucket({ itemId }) {
         }),
     });
 
+    if (item == null) return null;
+
     return <div
         ref={drop}
         className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
         onClick={() => dispatch(selectItem(itemId))}
     >
-        {selectedItemId == itemId && <DeleteItemButton itemId={itemId}/>}
         <div className="label">
             <TextInput
                 value={item.label} 
+                placeholder='Label'
                 onValueChange={(v) => dispatch(updateItem(itemId, { ...item, label: v }))}
             />
         </div>

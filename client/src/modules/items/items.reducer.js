@@ -9,7 +9,7 @@ export function itemsReducer(items = {}, action) {
             var updatedItems = {
                 ...items,
                 [newItemId]: { 
-                    label: action.label,
+                    label: null,
                     value: { type: 'static', amount: 0 },
                     transactions: [],
                 },
@@ -24,7 +24,7 @@ export function itemsReducer(items = {}, action) {
         case 'ADD_BUCKET_GROUP':
             return {
                 ...items,
-                [uuid()]: { label: action.label, items: [] }
+                [uuid()]: { label: null, items: [] }
             }
 
         case 'UPDATE_ITEM':
@@ -36,7 +36,7 @@ export function itemsReducer(items = {}, action) {
         case 'DELETE_ITEM':
             return Object.keys(items)
                 .filter(itemId => itemId != action.itemId)
-                .map(itemId => {
+                .reduce((accumulator, itemId) => {
                     let item = items[itemId];
                     
                     // if the itemId shows up as a subItem in a group, we need to delete it there as well
@@ -44,8 +44,10 @@ export function itemsReducer(items = {}, action) {
                         item.items = item.items.filter(subItemId => subItemId != action.itemId)
                     }
 
-                    return item;
-                })
+                    accumulator[itemId] = item;
+
+                    return accumulator;
+                }, {})
 
         case 'ADD_TRANSACTION_TO_ITEM':
             return {

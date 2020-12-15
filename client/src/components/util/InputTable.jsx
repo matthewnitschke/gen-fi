@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import '../../styles/input-table.scss'
 
-export default function InputTable({ rows, onChange }) {
+export default function InputTable({ rows = [], onChange }) {
     let totalAmount = rows.reduce((acc, row) => acc + parseInt(row.amount), 0)
     return (
         <div className="input-table">

@@ -48,9 +48,9 @@ export default function App() {
         </div>
 
         <div className="rhp">
-            <div>
+            {/* <div>
                 <BankAccountsButton />
-            </div>
+            </div> */}
             { selectedItemId &&
                 <BucketDetailsPanel itemId={selectedItemId} />
             }

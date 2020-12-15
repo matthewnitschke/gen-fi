@@ -15,9 +15,9 @@ export default function TextInput(props) {
     return <div className={`text-input ${isEditing ? 'editing' : ''}`}>
         {isEditing &&
             <input
-                {...props}
                 type="text"
                 value={internalValue}
+                placeholder={props.placeholder}
                 onChange={(e) => setInternalValue(e.target.value)}
                 className="text-input__input"
                 autoFocus={true}
@@ -36,7 +36,7 @@ export default function TextInput(props) {
                 onFocus={() => setIsEditing(true)}
                 tabIndex={props.tabIndex}
             >{
-                internalValue ?? props.placeholder
+                !internalValue ? props.placeholder : internalValue
             }</div>
         }
     </div>

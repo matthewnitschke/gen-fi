@@ -11,7 +11,11 @@ export const itemValueSelectorFactory = itemId => createSelector(
     state => state.items[itemId],
     itemBorrowsSelectorFactory(itemId),
     (items, item, borrows) => {
-        if (!item) throw new Error(`Item with id of: '${itemId}', not found`)
+        if (!item) {
+            console.error(`Item with id of: ${itemId} not found`);
+            return 0;
+        }
+        // if (!item) throw new Error(`Item with id of: '${itemId}', not found`)
 
         let valueSum = getItemsValue(items, item);
 
@@ -52,20 +56,23 @@ const getItemsValue = (items, item) => {
     if (type == 'income' || type == 'static') {
         return item.value.amount;
     } else if (type == 'table') {
+        // sniff test, rows might be null
+        if (!item.value.rows) return 0
+
         return item.value.rows.reduce(
             (acc, row) => acc + row.amount,
             0
         )
     } else if (type == 'extra') {
-        let buckets = items.filter(id => !items[id].items)
+        let buckets = items.filter(item => !item.items)
 
         let incomeTotal = buckets
-            .filter(id => items[id].value.type == 'income')
-            .reduce((acc, id) => acc + items[id].value.amount, 0);
+            .filter(item => item.value.type == 'income')
+            .reduce((acc, item) => acc + item.value.amount, 0);
         
         let subtractionsTotal = buckets
-            .filter(id => !['income', 'extra'].includes(items[id].value.type))
-            .reduce((acc, id) => acc + getItemsValue(items, items[id]), 0)
+            .filter(item => !['income', 'extra'].includes(item.value.type))
+            .reduce((acc, item) => acc + getItemsValue(items, item), 0)
 
         return incomeTotal - subtractionsTotal
     }

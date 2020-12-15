@@ -6,6 +6,7 @@ export default function ProgressIndicator({
     value,
     max
 }) {
+    console.log(':: ' + value +  ':' + max);
 
     return <div className={`progress-indicator ${value > max ? 'full' : ''}`}>
         <div 

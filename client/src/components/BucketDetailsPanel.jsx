@@ -10,7 +10,8 @@ import { selectItem } from '../modules/root/root.actions.js'
 
 import ProgressIndicator from './util/ProgressIndicator.jsx';
 import InputTable from './util/InputTable.jsx';
-import { assignedTransactionsSelectorFactory } from '../modules/transactions/transactions.selectors.js';
+import { itemValueSelectorFactory } from '../modules/items/items.selectors.js';
+import { assignedTransactionsSelectorFactory, assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js';
 import { itemBorrowsSelectorFactory } from '../modules/borrows/borrows.selectors.js';
 import Tabs from './util/Tabs.jsx';
 
@@ -24,6 +25,9 @@ export default function BucketDetailsPanel({ itemId }) {
     const item = useSelector(state => state.items[itemId]);
     const itemTransactions = useSelector(assignedTransactionsSelectorFactory(itemId));
     const itemBorrows = useSelector(itemBorrowsSelectorFactory(itemId));
+    
+    const itemAmount = useSelector(itemValueSelectorFactory(itemId))
+    const transactionSumAmount = useSelector(assignedTransactionsSumSelectorFactory(itemId))
 
     // useOnClickOutside(ref, () => dispatch(selectItem(null)))
     
@@ -35,17 +39,23 @@ export default function BucketDetailsPanel({ itemId }) {
     }
 
     return <Card ref={ref} className="details-panel">
+        <div className="header-icons">
+            <i 
+                className="far fa-trash-alt delete-button"
+                onClick={() => {
+                    dispatch(selectItem(null));
+                    dispatch(deleteItem(itemId));
+                }}
+            ></i>
+            <i className="fas fa-times close-button"></i>
+        </div>
+
         <div className="header">
-            <div>{item.label}</div>
-            <div>${item.amount}</div>
+            <div className="label">{item.label}</div>
+            <div className="amount">${itemAmount}</div>
         </div>
-        <div>
-            <ProgressIndicator value={item.amount} max={item.maxAmount}/>
-        </div>
-        <input type="button" value="Delete" onClick={() => {
-            dispatch(selectItem(null));
-            dispatch(deleteItem(itemId));
-        }} />
+        
+        <ProgressIndicator value={transactionSumAmount} max={itemAmount}/>
 
         <Tabs items={["Details", "Settings"]} selectedItem={selectedTab} onSelectItem={setSelectedTab} />
 

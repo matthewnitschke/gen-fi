@@ -2,9 +2,6 @@ import { createSelector } from 'reselect';
 
 import { objToListConverter } from '../../utils.js';
 
-export const transactionsSelector = state => state.transactions;
-export const ignoredTransactionsSelector = state => state.ignoredTransactions;
-
 export const unassignedTransactionsSelectorFactory = () => createSelector(
     state => objToListConverter(state.items),
     state => state.ignoredTransactions,

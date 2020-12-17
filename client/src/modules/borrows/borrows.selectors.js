@@ -1,9 +1,7 @@
 import {createSelector} from 'reselect';
 
-const borrowsSelector = state => state.borrows;
-
 export const itemBorrowsSelectorFactory = itemId => createSelector(
-    borrowsSelector,
+    state => state.borrows,
     borrows => Object.keys(borrows)
         .reduce((acc, id) => {
             let borrow = borrows[id];

@@ -43,12 +43,3 @@ export function addTransactionToItem(itemId, transactionId) {
         updateDB: true
     }
 }
-
-export function updateItemValue(itemId, value) {
-    return {
-        type: 'UPDATE_ITEM_VALUE',
-        itemId,
-        value,
-        updateDB: true
-    }
-}

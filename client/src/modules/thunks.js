@@ -1,5 +1,7 @@
 import { loadBudget as loadBudgetAction } from './root/root.actions.js'
 
+import {addTransaction} from './transactions/transactions.actions.js';
+
 import { format, parse } from 'date-fns';
 
 export const loadBudget = date => {
@@ -66,10 +68,7 @@ export const newTransaction = (merchant, amount, dateString) => {
         })
             .then(resp => resp.json())
             .then((data) => {
-                dispatch({
-                    type: 'ADD_TRANSACTION',
-                    transaction: data,
-                })
+                dispatch(addTransaction(data))
             })
 
     }

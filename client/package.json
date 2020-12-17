@@ -6,7 +6,10 @@
   "author": "Matthew Nitschke <matthewcnitschke@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "parcel watch src/index.html"
+    "build": "parcel watch src/index.html",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --collect-coverage"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
@@ -26,10 +29,12 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-jest": "^26.6.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "eslint": "^7.14.0",
     "eslint-plugin-react": "^7.21.5",
+    "jest": "^26.6.3",
     "parcel-bundler": "^1.12.4",
     "redux-devtools-extension": "^2.13.8",
     "sass": "^1.29.0"

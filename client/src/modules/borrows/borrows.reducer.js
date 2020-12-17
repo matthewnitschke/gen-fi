@@ -8,9 +8,6 @@ export function borrowsReducer(borrows = {}, action) {
                 ...borrows,
                 [uuid()]: { toId: action.toId, fromId: action.fromId, amount: action.amount }
             }
-        
-        case 'SET_SELECTED_MONTH':
-            return {}
     }
 
     return borrows;

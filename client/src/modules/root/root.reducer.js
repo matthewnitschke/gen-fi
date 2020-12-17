@@ -24,7 +24,8 @@ export function rootReducer(state = {}, action) {
                 ...state,
                 selectedMonth: action.date,
                 transactions: {},
-                items: {}
+                items: {},
+                borrows: {}
             }
 
         case 'LOAD_BUDGET':

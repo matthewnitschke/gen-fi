@@ -1,3 +1,3 @@
-# GenFi
+# Fi
 
-Personal finance with genericism in mind
+A personal finance tool

@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { addBorrow } from '../../modules/borrows/borrows.actions';
-import { bucketItemsSelectorFactory } from '../../modules/items/items.selectors';
+import { bucketItemsSelectorFactory } from '../../modules/items/items.selectors.js';
+import { AppState, Item } from '../../redux/state';
 
 export default function AddBorrowButton() {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false);
 
-    const buckets = useSelector(bucketItemsSelectorFactory());
+    const buckets = useSelector<AppState, Array<Item>>(bucketItemsSelectorFactory());
 
     const [toId, setToId] = useState<string>();
     const [fromId, setFromId] = useState<string>();
@@ -38,7 +39,7 @@ export default function AddBorrowButton() {
         >
             <div>
                 <label htmlFor="fromId">From</label>
-                <select 
+                <select
                     id="fromId" 
                     value={fromId}
                     onChange={e => setFromId(e.target.value)}

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { objToListConverter } from '../../utils.js';
+import { objToListConverter } from '../../utils';
 
 export const unassignedTransactionsSelectorFactory = () => createSelector(
     state => objToListConverter(state.items),

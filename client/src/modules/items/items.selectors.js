@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { itemBorrowsSelectorFactory } from '../borrows/borrows.selectors.js';
 
-import { objToListConverter } from '../../utils.js';
+import { objToListConverter } from '../../utils';
 
 // Calculates the final value of an item, factoring in different value types,
 // with the additions and subtractions from borrows
@@ -15,12 +15,11 @@ export const itemValueSelectorFactory = itemId => createSelector(
             console.error(`Item with id of: ${itemId} not found`);
             return 0;
         }
-        // if (!item) throw new Error(`Item with id of: '${itemId}', not found`)
 
         let valueSum = getItemsValue(items, item);
 
-        borrows.to.forEach(borrow => valueSum -= borrow.amount);
-        borrows.from.forEach(borrow => valueSum += borrow.amount);
+        borrows.subtractions.forEach(({ amount }) => valueSum -= amount);
+        borrows.additions.forEach(({ amount }) => valueSum += amount);
 
         return valueSum;
     }

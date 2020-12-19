@@ -127,8 +127,8 @@ describe('items selectors', () => {
             let value1 = itemValueSelectorFactory(itemKey1)(state)
             let value2 = itemValueSelectorFactory(itemKey2)(state)
             
-            expect(value1).toEqual(16)
-            expect(value2).toEqual(4)
+            expect(value1).toEqual(4)
+            expect(value2).toEqual(16)
         })
     })
 

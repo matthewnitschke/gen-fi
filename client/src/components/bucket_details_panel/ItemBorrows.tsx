@@ -4,21 +4,31 @@ import { itemBorrowsSelectorFactory } from '../../modules/borrows/borrows.select
 import { AppState } from '../../redux/state';
 import AddBorrowButton from './AddBorrowButton';
 
+interface ContextualBorrows {
+    additions: Array<ContextualBorrow>,
+    subtractions: Array<ContextualBorrow>
+}
+
+interface ContextualBorrow {
+    target: string,
+    amount: number
+}
+
 export default function ItemBorrows({ itemId }) {
     const items = useSelector((state: AppState) => state.items);
-    const itemBorrows = useSelector(itemBorrowsSelectorFactory(itemId))
+    const itemBorrows = useSelector<any, ContextualBorrows>(itemBorrowsSelectorFactory(itemId))
 
     return <>
         <h2>Borrows</h2>
 
         <h4>From</h4>
-        {itemBorrows.from.map((borrow, i) => 
-            <div key={i}>{items[borrow.toId].label}: ${borrow.amount}</div>
+        {itemBorrows.additions.map((borrow, i) => 
+            <div key={i}>{items[borrow.target].label}: ${borrow.amount}</div>
         )}
 
         <h4>To</h4>
-        {itemBorrows.to.map((borrow, i) => 
-            <div key={i}>{items[borrow.fromId].label}: -${borrow.amount}</div>
+        {itemBorrows.subtractions.map((borrow, i) => 
+            <div key={i}>{items[borrow.target].label}: -${borrow.amount}</div>
         )}
 
         <AddBorrowButton />

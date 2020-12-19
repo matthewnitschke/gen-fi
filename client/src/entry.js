@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import configureStore from './redux/store.ts';
 
-import {getFirstOfMonth} from './utils.js';
+import {getFirstOfMonth} from './utils';
 
 let store = configureStore({
     selectedMonth: getFirstOfMonth(new Date()),

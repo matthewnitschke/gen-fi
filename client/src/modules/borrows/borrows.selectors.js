@@ -6,13 +6,19 @@ export const itemBorrowsSelectorFactory = itemId => createSelector(
         .reduce((acc, id) => {
             let borrow = borrows[id];
             if (borrow.toId == itemId) {
-                acc.from.push(borrow)
+                acc.additions.push({
+                    amount: borrow.amount,
+                    target: borrow.fromId
+                })
             } else if (borrow.fromId == itemId) {
-                acc.to.push(borrow)
+                acc.subtractions.push({
+                    amount: borrow.amount,
+                    target: borrow.toId
+                })
             }
             return acc;
         }, {
-            to: [],
-            from: [],
+            additions: [],
+            subtractions: []
         })
 )

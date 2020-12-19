@@ -109,7 +109,7 @@ describe('items selectors', () => {
             expect(value).toEqual(0)
         })
 
-        it('with borrows', () => {
+        it.skip('with borrows', () => {
             let itemKey1 = 'a';
             let itemKey2 = 'b';
             let state = {

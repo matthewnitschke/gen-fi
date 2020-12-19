@@ -15,12 +15,11 @@ export const itemValueSelectorFactory = itemId => createSelector(
             console.error(`Item with id of: ${itemId} not found`);
             return 0;
         }
-        // if (!item) throw new Error(`Item with id of: '${itemId}', not found`)
 
         let valueSum = getItemsValue(items, item);
 
-        borrows.to.forEach(borrow => valueSum -= borrow.amount);
-        borrows.from.forEach(borrow => valueSum += borrow.amount);
+        borrows.subtractions.forEach(({ amount }) => valueSum -= amount);
+        borrows.additions.forEach(({ amount }) => valueSum += amount);
 
         return valueSum;
     }

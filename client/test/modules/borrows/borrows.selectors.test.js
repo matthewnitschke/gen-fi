@@ -1,7 +1,7 @@
 import { itemBorrowsSelectorFactory } from '../../../src/modules/borrows/borrows.selectors.js';
 
 describe('borrows selectors', () => {
-    it.skip('should return an items borrows', () => {
+    it('should return an items borrows', () => {
         let itemKey = 'a';
         let state = {
             borrows: {
@@ -15,9 +15,23 @@ describe('borrows selectors', () => {
         
         let borrows = itemBorrowsSelectorFactory(itemKey)(state)
 
+        // itemBorrowsSelector takes the item key, and returns additions/subtractions
+        // with a "target" id. This contextualizes how the borrow is oriented. This method
+        // converts a state borrow format into the contextualized format
+        const convert = (borrow) => ({
+            target: borrow.toId == itemKey ? borrow.fromId : borrow.toId,
+            amount: borrow.amount
+        })
+
         expect(borrows).toEqual({
-            to: [state.borrows['b_a'], state.borrows['b_b'], state.borrows['b_d']],
-            from: [state.borrows['b_c']]
+            additions: [
+                convert(state.borrows['b_a']), 
+                convert(state.borrows['b_b']), 
+                convert(state.borrows['b_d'])
+            ],
+            subtractions: [
+                convert(state.borrows['b_c'])
+            ]
         })
     }, )
 })

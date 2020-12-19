@@ -1,7 +1,7 @@
 import { itemBorrowsSelectorFactory } from '../../../src/modules/borrows/borrows.selectors.js';
 
 describe('borrows selectors', () => {
-    it('should return an items borrows', () => {
+    it.skip('should return an items borrows', () => {
         let itemKey = 'a';
         let state = {
             borrows: {
@@ -19,5 +19,5 @@ describe('borrows selectors', () => {
             to: [state.borrows['b_a'], state.borrows['b_b'], state.borrows['b_d']],
             from: [state.borrows['b_c']]
         })
-    })
+    }, )
 })

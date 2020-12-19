@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 
 import {useSelector} from 'react-redux';
 
-import Card from './util/Card.jsx';
+import Card from './util/Card';
 
 export default function TransactionDetailsPanel({
     transactionId

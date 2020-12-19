@@ -12,16 +12,17 @@ import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/
 import TextInput from './util/TextInput';
 import '../styles/bucket.scss';
 import ProgressIndicator from './util/ProgressIndicator.jsx';
+import { AppState } from '../redux/state';
 
 export default function Bucket({ itemId }) {
     const dispatch = useDispatch()
     
     const item = useSelector(
-        state => state.items[itemId],
+        (state: AppState) => state.items[itemId],
         shallowEqual
     )
 
-    const selectedItemId = useSelector(state => state.selectedItemId)
+    const selectedItemId = useSelector((state: AppState) => state.selectedItemId)
 
     const transactionSum = useSelector(
         assignedTransactionsSumSelectorFactory(itemId),

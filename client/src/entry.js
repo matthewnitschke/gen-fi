@@ -2,9 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
 
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 
-import store from './store.js';
+import configureStore from './redux/store.ts';
+
+import {getFirstOfMonth} from './utils.js';
+
+let store = configureStore({
+    selectedMonth: getFirstOfMonth(new Date()),
+
+    items: {},
+    transactions: {},
+    borrows: {},
+    
+    ignoredTransactions: [],
+    selectedItemId: null,
+    selectedTransactionId: null,
+});
 
 ReactDOM.render(
     <Provider store={store}>

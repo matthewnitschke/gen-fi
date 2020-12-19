@@ -8,11 +8,12 @@ import { itemValueSelectorFactory } from '../../modules/items/items.selectors.js
 import { assignedTransactionsSumSelectorFactory } from '../../modules/transactions/transactions.selectors.js';
 
 import ProgressIndicator from '../util/ProgressIndicator.jsx';
+import { AppState } from '../../redux/state';
 
 export default function BucketDetailsHeader({ itemId }) {
     const dispatch = useDispatch();
 
-    const item = useSelector(state => state.items[itemId]);
+    const item = useSelector((state: AppState) => state.items[itemId]);
     const itemAmount = useSelector(itemValueSelectorFactory(itemId))
     const transactionSumAmount = useSelector(assignedTransactionsSumSelectorFactory(itemId))
 

@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 
-import Card from './util/Card.jsx';
+import Card from './util/Card';
 
 import '../styles/root_new_button.scss';
 import { useDispatch } from 'react-redux';

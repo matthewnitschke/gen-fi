@@ -41,9 +41,12 @@ export const rootItemsSelectorFactory = () => createSelector(
 
 export const hasExtraItemTypeSelectorFactory = () => createSelector(
     state => state.items,
-    items => Object.keys(items)
-        .find(id => items[id]?.value?.type == 'extra') ?? []
-        .length >= 1
+    items => {
+        let extraTypes = Object.keys(items)
+            .find(id => items[id]?.value?.type == 'extra');
+
+        return extraTypes != null;
+    }
 )
 
 // ---------------------- utils ----------------------

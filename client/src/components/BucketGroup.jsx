@@ -4,14 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addBucket, updateItem } from '../modules/items/items.actions.js';
 import {selectItem} from '../modules/root/root.actions.js';
 
-import Bucket from './Bucket.jsx';
+import Bucket from './Bucket.tsx';
 import TextInput from './util/TextInput.jsx';
-
 
 export default function BucketGroup({ itemId }) {
     let dispatch = useDispatch()
-
-    const selectedItemId = useSelector(state => state.selectedItemId)
 
     const item = useSelector(state => state.items[itemId])
     const subItems = useSelector(

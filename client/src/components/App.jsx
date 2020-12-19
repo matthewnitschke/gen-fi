@@ -6,12 +6,12 @@ import { useDispatch } from 'react-redux';
 
 import { loadBudget } from '../modules/thunks.js';
 
-import BucketGroup from './BucketGroup.jsx';
-import Bucket from './Bucket.jsx';
-import Transactions from './Transactions.jsx';
-import Card from './util/Card.jsx';
-import RootNewButton from './RootNewButton.jsx';
-import BucketDetailsPanel from './bucket_details_panel/BucketDetailsPanel.jsx';
+import BucketGroup from './BucketGroup';
+import Bucket from './Bucket';
+import Transactions from './Transactions';
+import Card from './util/Card';
+import RootNewButton from './RootNewButton';
+import BucketDetailsPanel from './bucket_details_panel/BucketDetailsPanel';
 
 import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
 

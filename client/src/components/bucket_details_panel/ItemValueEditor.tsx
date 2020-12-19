@@ -3,9 +3,10 @@ import InputTable from '../util/InputTable';
 import { useSelector, useDispatch } from 'react-redux';
 import { hasExtraItemTypeSelectorFactory } from '../../modules/items/items.selectors.js';
 import { updateItem } from '../../modules/items/items.actions.js';
+import { AppState } from '../../redux/state';
 
 export default function ItemValueEditor({ itemId }) {
-    const item = useSelector(state => state.items[itemId]);
+    const item = useSelector((state: AppState) => state.items[itemId]);
 
     const doesExtraBucketAlreadyExist = useSelector(hasExtraItemTypeSelectorFactory());
 

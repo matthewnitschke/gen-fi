@@ -11,8 +11,7 @@ import Bucket from './Bucket.jsx';
 import Transactions from './Transactions.jsx';
 import Card from './util/Card.jsx';
 import RootNewButton from './RootNewButton.jsx';
-import BucketDetailsPanel from './BucketDetailsPanel.jsx';
-import BankAccountsButton from './BankAccountsButton.jsx';
+import BucketDetailsPanel from './bucket_details_panel/BucketDetailsPanel.jsx';
 
 import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
 

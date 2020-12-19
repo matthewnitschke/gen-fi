@@ -117,7 +117,7 @@ describe('items reducer', () => {
         expect(items['group'].items).toEqual(expectedGroupKeys)
     })
 
-    it.skip('should delete group item and its children', () => {
+    it('should delete group item and its children', () => {
         let deleteKey = 'group';
         let items = itemsReducer(
             testItems,

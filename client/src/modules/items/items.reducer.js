@@ -47,7 +47,7 @@ export function itemsReducer(items = {}, action) {
                     return true;
                 })
                 .reduce((accumulator, itemId) => {
-                    let item = items[itemId];
+                    let item = {...items[itemId]};
                     
                     // if the itemId shows up as a subItem in a group, we need to delete it there as well
                     if (item.items) {

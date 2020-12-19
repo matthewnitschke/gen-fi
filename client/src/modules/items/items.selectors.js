@@ -39,6 +39,13 @@ export const rootItemsSelectorFactory = () => createSelector(
     }
 )
 
+export const bucketItemsSelectorFactory = () => createSelector(
+    state => objToListConverter(state.items),
+    items => {
+        return items.filter(item => !item.hasOwnProperty('items'))
+    }
+)
+
 export const hasExtraItemTypeSelectorFactory = () => createSelector(
     state => state.items,
     items => {

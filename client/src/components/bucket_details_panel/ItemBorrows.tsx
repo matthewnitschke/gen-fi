@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { itemBorrowsSelectorFactory } from '../../modules/borrows/borrows.selectors';
 import { AppState } from '../../redux/state';
+import AddBorrowButton from './AddBorrowButton';
 
 export default function ItemBorrows({ itemId }) {
     const items = useSelector((state: AppState) => state.items);
@@ -20,6 +21,6 @@ export default function ItemBorrows({ itemId }) {
             <div key={i}>{items[borrow.fromId].label}: -${borrow.amount}</div>
         )}
 
-        <input type="button" value="Borrow"/>
+        <AddBorrowButton />
     </>;
 }

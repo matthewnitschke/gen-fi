@@ -6,9 +6,9 @@ export const itemBorrowsSelectorFactory = itemId => createSelector(
         .reduce((acc, id) => {
             let borrow = borrows[id];
             if (borrow.toId == itemId) {
-                acc.to.push(borrow)
-            } else if (borrow.fromId == itemId) {
                 acc.from.push(borrow)
+            } else if (borrow.fromId == itemId) {
+                acc.to.push(borrow)
             }
             return acc;
         }, {

@@ -117,6 +117,16 @@ describe('items reducer', () => {
         expect(items['group'].items).toEqual(expectedGroupKeys)
     })
 
+    it('should delete group item and its children', () => {
+        let deleteKey = 'group';
+        let items = itemsReducer(
+            testItems,
+            deleteItem(deleteKey)
+        )
+
+        expect(Object.keys(items)).toEqual(['item__not-in-group'])
+    })
+
     it('should add transaction to item', () => {
         let itemKey = 'item__not-in-group';
         let transactionId = 'someTransactionId'

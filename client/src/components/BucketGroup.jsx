@@ -18,9 +18,8 @@ export default function BucketGroup({ itemId }) {
     return <div 
         className="bucket-group"
     >
-        <div className="label">
+        <div className="label" onClick={() => {dispatch(selectItem(itemId))}}>
             <TextInput
-                onFocus={() => dispatch(selectItem(itemId))}
                 value={item.label}
                 placeholder='Label'
                 onValueChange={(v) => {

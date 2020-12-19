@@ -34,8 +34,18 @@ export function itemsReducer(items = {}, action) {
             }
 
         case 'DELETE_ITEM':
+            let isGroup = items[action.itemId].hasOwnProperty('items')
+
             return Object.keys(items)
                 .filter(itemId => itemId != action.itemId)
+                .filter(itemId => {
+                    // if the item we are deleting is a group, also remove the items 
+                    // nested within the group
+                    if (isGroup) {
+                        return !items[action.itemId].items.includes(itemId)
+                    }
+                    return true;
+                })
                 .reduce((accumulator, itemId) => {
                     let item = items[itemId];
                     

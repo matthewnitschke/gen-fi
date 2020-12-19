@@ -12,6 +12,7 @@ import Transactions from './Transactions';
 import Card from './util/Card';
 import RootNewButton from './RootNewButton';
 import BucketDetailsPanel from './bucket_details_panel/BucketDetailsPanel';
+import BucketGroupDetailsPanel from './BucketGroupDetailsPanel';
 
 import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
 
@@ -23,9 +24,13 @@ import TransactionDetailsPanel from './TransactionDetailsPanel.jsx';
 export default function App() {
     const dispatch = useDispatch();
     const rootItems = useSelector(rootItemsSelectorFactory());
-    const selectedItemId = useSelector(state => state.selectedItemId);
     const selectedTransactionId = useSelector(state => state.selectedTransactionId);
     const selectedMonth = useSelector(state => state.selectedMonth);
+
+    const selectedItemId = useSelector(state => state.selectedItemId);
+    const isSelectedItemAGroup = useSelector(
+        state => state.items[state.selectedItemId],
+    )?.hasOwnProperty('items') == true;
 
     useEffect(() => {
         dispatch(loadBudget(selectedMonth))
@@ -50,8 +55,11 @@ export default function App() {
             {/* <div>
                 <BankAccountsButton />
             </div> */}
-            { selectedItemId &&
+            { selectedItemId && !isSelectedItemAGroup &&
                 <BucketDetailsPanel itemId={selectedItemId} />
+            }
+            { selectedItemId && isSelectedItemAGroup &&
+                <BucketGroupDetailsPanel itemId={selectedItemId} />
             }
 
             {

@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { itemBorrowsSelectorFactory } from '../borrows/borrows.selectors.js';
 
-import { objToListConverter } from '../../utils.js';
+import { objToListConverter } from '../../utils';
 
 // Calculates the final value of an item, factoring in different value types,
 // with the additions and subtractions from borrows

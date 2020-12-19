@@ -4,9 +4,19 @@ import { itemBorrowsSelectorFactory } from '../../modules/borrows/borrows.select
 import { AppState } from '../../redux/state';
 import AddBorrowButton from './AddBorrowButton';
 
+interface ContextualBorrows {
+    additions: Array<ContextualBorrow>,
+    subtractions: Array<ContextualBorrow>
+}
+
+interface ContextualBorrow {
+    target: string,
+    amount: number
+}
+
 export default function ItemBorrows({ itemId }) {
     const items = useSelector((state: AppState) => state.items);
-    const itemBorrows = useSelector(itemBorrowsSelectorFactory(itemId))
+    const itemBorrows = useSelector<any, ContextualBorrows>(itemBorrowsSelectorFactory(itemId))
 
     return <>
         <h2>Borrows</h2>

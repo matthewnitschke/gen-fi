@@ -1,4 +1,4 @@
-export function getFirstOfMonth(date) {
+export function getFirstOfMonth(date: Date) {
     return new Date(date.getFullYear(), date.getMonth(), 1);
 }
 
@@ -6,7 +6,7 @@ export function getFirstOfMonth(date) {
 ///
 /// Object format: {id: {data}}
 /// Returned list format: [{id: id, ...data}]
-export const objToListConverter = obj => 
+export const objToListConverter = (obj: Object) => 
     Object.keys(obj)
         .reduce(
             (acc, id) => {

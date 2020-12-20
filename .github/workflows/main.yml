@@ -1,4 +1,4 @@
-name: Client Tests
+name: CI
 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
@@ -11,12 +11,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Dependencies
+        working-directory: client
+        run: yarn
+      
+      - name: Lint
+        uses: mooyoul/tslint-actions@v1.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: '*.ts|*.tsx'
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v3.1
+        with:
+          dry: true
+
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         
-      - name: Install modules
+      - name: Dependencies
         working-directory: client
         run: yarn
         

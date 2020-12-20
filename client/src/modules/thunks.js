@@ -14,8 +14,9 @@ export const loadBudget = date => {
                     dispatch(loadBudgetAction({
                         items: {}, 
                         borrows: {},
-                        ignoredTransactions: [],
                         transactions: {},
+                        ignoredTransactionIds: [],
+                        rootItemIds: [],
                     }))
                 } else {
                     dispatch(loadBudgetAction(data))
@@ -29,7 +30,8 @@ export const saveBudget = store => {
         let fmtDate = format(store.selectedMonth, 'yyyy/MM');
 
         const dataToStore = {
-            ignoredTransactions: store.ignoredTransactions,
+            ignoredTransactionIds: store.ignoredTransactionIds,
+            rootItemIds: store.rootItemIds,
             items: store.items,
             borrows: store.borrows,
         }
@@ -43,6 +45,21 @@ export const saveBudget = store => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(dataToStore)
+        })
+    }
+}
+
+export const resetBudget = store => {
+    return () => {
+        let fmtDate = format(store.selectedMonth, 'yyyy/MM');
+
+        fetch(
+            `http://localhost/budget/${fmtDate}`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
         })
     }
 }

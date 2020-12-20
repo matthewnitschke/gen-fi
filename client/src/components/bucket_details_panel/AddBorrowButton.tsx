@@ -71,7 +71,10 @@ export default function AddBorrowButton() {
                 />
             </div>
 
-            <input type="button" value="Create" onClick={() => dispatch(addBorrow(toId, fromId, amount))}/>
+            <input type="button" value="Create" onClick={() => {
+                dispatch(addBorrow(toId, fromId, amount));
+                closeModal();
+            }}/>
         </Modal>
     </>
 }

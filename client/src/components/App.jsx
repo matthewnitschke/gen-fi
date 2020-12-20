@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import { loadBudget } from '../modules/thunks.js';
+import { reorderRootItemIds } from '../modules/root/root.actions.js';
 
 import BucketGroup from './BucketGroup';
 import Bucket from './Bucket';
@@ -13,8 +14,7 @@ import Card from './util/Card';
 import RootNewButton from './RootNewButton';
 import BucketDetailsPanel from './bucket_details_panel/BucketDetailsPanel';
 import BucketGroupDetailsPanel from './BucketGroupDetailsPanel';
-
-import { rootItemsSelectorFactory } from '../modules/items/items.selectors.js';
+import DevModalButton from './DevModalButton';
 
 
 import '../styles/app.scss';
@@ -23,7 +23,10 @@ import TransactionDetailsPanel from './TransactionDetailsPanel.jsx';
 
 export default function App() {
     const dispatch = useDispatch();
-    const rootItems = useSelector(rootItemsSelectorFactory());
+
+    const items = useSelector(state => state.items);
+    const rootItemIds = useSelector(state => state.rootItemIds);
+
     const selectedTransactionId = useSelector(state => state.selectedTransactionId);
     const selectedMonth = useSelector(state => state.selectedMonth);
 
@@ -37,14 +40,25 @@ export default function App() {
     }, [])
     
     return <DndProvider backend={HTML5Backend}>
+        <div>
+            <DevModalButton />
+        </div>
         <div className="main-content">
             <MonthSelector />
-            {rootItems.map((item) => {
-                let isGroup = !!item.items
+            {rootItemIds.map((itemId, i) => {
+                let isGroup = items[itemId].hasOwnProperty('items');
 
-                return <Card key={item.id}>
-                    { isGroup && <BucketGroup itemId={item.id}/> }
-                    { !isGroup && <Bucket itemId={item.id} /> }
+                return <Card
+                    key={itemId}
+                    isReorderable={true}
+                    index={i}
+                    moveCard={(dragIndex, hoverIndex) => {
+                        let dragItemId = rootItemIds[dragIndex];
+                        dispatch(reorderRootItemIds(dragItemId, dragIndex, hoverIndex));
+                    }}
+                >
+                    { isGroup && <BucketGroup itemId={itemId}/> }
+                    { !isGroup && <Bucket itemId={itemId} /> }
                 </Card>
             })}
             

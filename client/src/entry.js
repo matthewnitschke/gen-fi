@@ -9,13 +9,14 @@ import configureStore from './redux/store.ts';
 import {getFirstOfMonth} from './utils';
 
 let store = configureStore({
-    selectedMonth: getFirstOfMonth(new Date()),
-
     items: {},
     transactions: {},
     borrows: {},
     
-    ignoredTransactions: [],
+    rootItemIds: [],
+    ignoredTransactionIds: [],
+    
+    selectedMonth: getFirstOfMonth(new Date()),
     selectedItemId: null,
     selectedTransactionId: null,
 });

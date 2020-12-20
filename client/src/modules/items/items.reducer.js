@@ -1,14 +1,12 @@
 import { v4 as uuid } from 'uuid';
 
 export function itemsReducer(items = {}, action) {
-    switch(action.type) {    
+    switch(action.type) {
 
         case 'ADD_BUCKET':
-            var newItemId = uuid();
-
             var updatedItems = {
                 ...items,
-                [newItemId]: { 
+                [action.itemId]: { 
                     label: null,
                     value: { type: 'static', amount: 0 },
                     transactions: [],
@@ -16,7 +14,7 @@ export function itemsReducer(items = {}, action) {
             }
 
             if (action.parentId) {
-                updatedItems[action.parentId].items.push(newItemId)
+                updatedItems[action.parentId].items.push(action.itemId)
             }
 
             return updatedItems
@@ -24,7 +22,7 @@ export function itemsReducer(items = {}, action) {
         case 'ADD_BUCKET_GROUP':
             return {
                 ...items,
-                [uuid()]: { label: null, items: [] }
+                [action.itemId]: { label: null, items: [] }
             }
 
         case 'UPDATE_ITEM':

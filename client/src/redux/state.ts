@@ -1,11 +1,16 @@
 export interface AppState {
-    selectedMonth: Date,
 
+    // data map props
     items: Map<string, Item>,
     transactions: Map<string, Transaction>,
     borrows: Map<string, Borrow>,
-
-    ignoredTransactions: Array<string>,
+    
+    // data decorator props
+    rootItemIds: Array<string>,
+    ignoredTransactionIds: Array<string>,
+    
+    // selection props
+    selectedMonth: Date,
     selectedItemId: string,
     selectedTransactionId: string
 }
@@ -16,6 +21,14 @@ export interface AppState {
 export interface Item {
     id?: string,
     label: string,
+    order: number,
+}
+
+export interface BucketGroup extends Item {
+    items: Array<string>
+}
+
+export interface Bucket extends Item {
     value: ItemValue
 }
 

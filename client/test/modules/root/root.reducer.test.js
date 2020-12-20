@@ -23,10 +23,10 @@ describe('root reducer', () => {
 
     it('should ignore transaction', () => {
         let state = rootReducer({
-            ignoredTransactions: ['a']
+            ignoredTransactionIds: ['a']
         }, ignoreTransaction('b'))
 
-        expect(state.ignoredTransactions).toEqual(
+        expect(state.ignoredTransactionIds).toEqual(
             expect.arrayContaining(['b'])
         )
     })

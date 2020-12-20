@@ -9,7 +9,7 @@ describe('transactions selectors', () => {
                'i_b': { },
                'i_c': { transactions: ['t_c'] }
            },
-           ignoredTransactions: ['t_d', 't_e'],
+           ignoredTransactionIds: ['t_d', 't_e'],
            transactions: {
                't_a': {},
                't_b': {},

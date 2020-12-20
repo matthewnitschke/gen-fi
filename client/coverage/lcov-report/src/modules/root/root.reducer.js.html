@@ -151,7 +151,7 @@
         case 'IGNORE_TRANSACTION':
             return {
                 ...state,
-                ignoredTransactions: [...state.ignoredTransactions, action.transactionId]
+                ignoredTransactionIds: [...state.ignoredTransactionIds, action.transactionId]
             }
 &nbsp;
         case 'SET_SELECTED_MONTH':

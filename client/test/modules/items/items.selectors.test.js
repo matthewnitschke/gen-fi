@@ -131,21 +131,4 @@ describe('items selectors', () => {
             expect(value2).toEqual(16)
         })
     })
-
-    it('should return root items', () => {
-        let state = {
-            items: {
-                'a': { label: 'a' },
-                'b': { label: 'b' },
-                'c': { label: 'c', items: ['a'] }
-            }
-        }
-
-        let rootItems = rootItemsSelectorFactory()(state);
-
-        expect(rootItems).toEqual([
-            { id: 'b', label: 'b' },
-            { id: 'c', label: 'c', items: ['a'] }
-        ])
-    })
 });

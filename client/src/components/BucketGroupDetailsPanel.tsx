@@ -21,5 +21,6 @@ export default function BucketGroupDetailsPanel({ itemId }) {
                 dispatch(selectItem(null))
                 dispatch(deleteItem(itemId))
             }}/>
+            
     </Card>
 }

@@ -25,6 +25,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pattern: '*.ts|*.tsx'
+          config: client/tslint.json
 
       - name: Prettify code
         uses: creyD/prettier_action@v3.1

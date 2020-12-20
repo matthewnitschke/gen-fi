@@ -1,12 +1,12 @@
 // simple utility to manually trigger a database update
-export const updateDB = () => ({ 
+export const updateDB = () => ({
     type: '', // no reducer actions
-    updateDB: true 
+    updateDB: true,
 })
 
-export const selectItem = itemId => ({
+export const selectItem = (itemId) => ({
     type: 'SELECT_ITEM',
-    itemId
+    itemId,
 })
 
 export const reorderRootItemIds = (itemId, oldIndex, newIndex) => ({
@@ -18,25 +18,25 @@ export const reorderRootItemIds = (itemId, oldIndex, newIndex) => ({
     // We updateDB on drop for reordering of items, for performace reasons
 })
 
-export const selectTransaction = transactionId => ({
+export const selectTransaction = (transactionId) => ({
     type: 'SELECT_TRANSACTION',
-    transactionId
+    transactionId,
 })
 
-export const setSelectedMonth = date => ({
+export const setSelectedMonth = (date) => ({
     type: 'SET_SELECTED_MONTH',
-    date
+    date,
 })
 
-export const loadBudget = data => ({
+export const loadBudget = (data) => ({
     type: 'LOAD_BUDGET',
-    data
+    data,
 })
 
 export function ignoreTransaction(transactionId) {
     return {
         type: 'IGNORE_TRANSACTION',
         transactionId,
-        updateDB: true
+        updateDB: true,
     }
 }

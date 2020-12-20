@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import '../../styles/input-table.scss'
 
@@ -31,7 +31,13 @@ export default function InputTable({ rows = [], onChange }) {
                     ))}
                     <tr>
                         <td>
-                            <input type="button" value="Add" onClick={() => onChange([...rows, {name: '', amount: 0}])} />
+                            <input
+                                type="button"
+                                value="Add"
+                                onClick={() =>
+                                    onChange([...rows, { name: '', amount: 0 }])
+                                }
+                            />
                         </td>
                         <td>Total: {totalAmount}</td>
                     </tr>
@@ -49,7 +55,7 @@ function TableRow({ data, onChange, onDelete }) {
         onChange({
             ...data,
             name: internalName,
-            amount: parseInt(internalAmount)
+            amount: parseInt(internalAmount),
         })
     }
 

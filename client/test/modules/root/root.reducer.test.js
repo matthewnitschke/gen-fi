@@ -1,5 +1,11 @@
-import { rootReducer } from "../../../src/modules/root/root.reducer.js";
-import { selectItem, selectTransaction, ignoreTransaction, setSelectedMonth, loadBudget } from "../../../src/modules/root/root.actions.js";
+import { rootReducer } from '../../../src/modules/root/root.reducer.js'
+import {
+    selectItem,
+    selectTransaction,
+    ignoreTransaction,
+    setSelectedMonth,
+    loadBudget,
+} from '../../../src/modules/root/root.actions.js'
 
 describe('root reducer', () => {
     it('should return default state', () => {
@@ -8,23 +14,26 @@ describe('root reducer', () => {
     })
 
     it('should select item', () => {
-        let selectedItemId = 'a';
+        let selectedItemId = 'a'
         let state = rootReducer({}, selectItem(selectedItemId))
 
         expect(state.selectedItemId).toEqual(selectedItemId)
     })
 
     it('should select transaction', () => {
-        let selectedTransactionId = 'a';
+        let selectedTransactionId = 'a'
         let state = rootReducer({}, selectTransaction(selectedTransactionId))
 
         expect(state.selectedTransactionId).toEqual(selectedTransactionId)
     })
 
     it('should ignore transaction', () => {
-        let state = rootReducer({
-            ignoredTransactionIds: ['a']
-        }, ignoreTransaction('b'))
+        let state = rootReducer(
+            {
+                ignoredTransactionIds: ['a'],
+            },
+            ignoreTransaction('b')
+        )
 
         expect(state.ignoredTransactionIds).toEqual(
             expect.arrayContaining(['b'])
@@ -37,18 +46,18 @@ describe('root reducer', () => {
             {
                 selectedMonth: new Date('1-1-1'),
                 transactions: { a: {} },
-                items: {b: {}},
-                borrows: {c: {}}
+                items: { b: {} },
+                borrows: { c: {} },
             },
             setSelectedMonth(newDate)
         )
-        
+
         expect(state).toEqual(
             expect.objectContaining({
                 selectedMonth: newDate,
                 transactions: {},
                 items: {},
-                borrows: {}
+                borrows: {},
             })
         )
     })
@@ -60,7 +69,7 @@ describe('root reducer', () => {
 
         expect(state).toEqual({
             ...newData,
-            ...existingData
+            ...existingData,
         })
     })
 })

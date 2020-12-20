@@ -1,27 +1,25 @@
 export interface AppState {
-
     // data map props
-    items: Map<string, Item>,
-    transactions: Map<string, Transaction>,
-    borrows: Map<string, Borrow>,
-    
+    items: Map<string, Item>
+    transactions: Map<string, Transaction>
+    borrows: Map<string, Borrow>
+
     // data decorator props
-    rootItemIds: Array<string>,
-    ignoredTransactionIds: Array<string>,
-    
+    rootItemIds: Array<string>
+    ignoredTransactionIds: Array<string>
+
     // selection props
-    selectedMonth: Date,
-    selectedItemId: string,
+    selectedMonth: Date
+    selectedItemId: string
     selectedTransactionId: string
 }
-
 
 // ---------------------- Item ----------------------
 
 export interface Item {
-    id?: string,
-    label: string,
-    order: number,
+    id?: string
+    label: string
+    order: number
 }
 
 export interface BucketGroup extends Item {
@@ -36,8 +34,12 @@ interface ItemValue {
     type: ItemValueType
 }
 
-interface StaticItemValue extends ItemValue { amount: number }
-interface IncomeItemValue extends ItemValue { amount: number }
+interface StaticItemValue extends ItemValue {
+    amount: number
+}
+interface IncomeItemValue extends ItemValue {
+    amount: number
+}
 interface TableItemValue extends ItemValue {
     rows: Map<string, number>
 }
@@ -47,19 +49,19 @@ enum ItemValueType {
     income,
     static,
     table,
-    extra
+    extra,
 }
 
 // ---------------------- Other ----------------------
 
 interface Transaction {
-    merchant: string,
-    amount: number,
+    merchant: string
+    amount: number
     date: Date
 }
 
 interface Borrow {
-    toId: string,
-    fromId: string,
+    toId: string
+    fromId: string
     amount: number
 }

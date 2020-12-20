@@ -1,11 +1,11 @@
 .card {
     margin: 1rem 0;
-    padding: .7rem;
+    padding: 0.7rem;
     border-radius: 8px;
 
     &:not(.skin-dashed) {
-        background-color: #FFF;
-        box-shadow: 0 1px 3px 0 rgba(31,36,38,.1);
+        background-color: #fff;
+        box-shadow: 0 1px 3px 0 rgba(31, 36, 38, 0.1);
     }
 
     &.skin-dashed {

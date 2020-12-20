@@ -1,5 +1,5 @@
-import { transactionsReducer } from "../../../src/modules/transactions/transactions.reducer.js";
-import { addTransaction } from "../../../src/modules/transactions/transactions.actions.js";
+import { transactionsReducer } from '../../../src/modules/transactions/transactions.reducer.js'
+import { addTransaction } from '../../../src/modules/transactions/transactions.actions.js'
 
 describe('transactions reducer', () => {
     it('should return default state', () => {
@@ -8,15 +8,15 @@ describe('transactions reducer', () => {
     })
 
     it('should add transaction', () => {
-        let newTransactionId = 'someId';
+        let newTransactionId = 'someId'
         let newTransactionData = { _id: newTransactionId, amount: 2 }
         let transactions = transactionsReducer(
             {},
-            addTransaction(newTransactionData),
+            addTransaction(newTransactionData)
         )
 
         expect(transactions).toEqual({
-            [newTransactionId]: newTransactionData
+            [newTransactionId]: newTransactionData,
         })
     })
 })

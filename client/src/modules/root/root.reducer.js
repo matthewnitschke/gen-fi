@@ -1,22 +1,24 @@
 export function rootReducer(state = {}, action) {
-
-    switch(action.type) {
+    switch (action.type) {
         case 'SELECT_ITEM':
             return {
                 ...state,
-                selectedItemId: action.itemId
+                selectedItemId: action.itemId,
             }
 
         case 'SELECT_TRANSACTION':
             return {
                 ...state,
-                selectedTransactionId: action.transactionId
+                selectedTransactionId: action.transactionId,
             }
-        
+
         case 'IGNORE_TRANSACTION':
             return {
                 ...state,
-                ignoredTransactionIds: [...state.ignoredTransactionIds, action.transactionId]
+                ignoredTransactionIds: [
+                    ...state.ignoredTransactionIds,
+                    action.transactionId,
+                ],
             }
 
         case 'ADD_BUCKET':
@@ -33,20 +35,22 @@ export function rootReducer(state = {}, action) {
             }
 
         case 'REORDER_ROOT_ITEM_IDS':
-            var newRootItemIds = [...state.rootItemIds];
+            var newRootItemIds = [...state.rootItemIds]
 
-            newRootItemIds.splice(action.oldIndex, 1);
-            newRootItemIds.splice(action.newIndex, 0, action.itemId);
+            newRootItemIds.splice(action.oldIndex, 1)
+            newRootItemIds.splice(action.newIndex, 0, action.itemId)
 
             return {
                 ...state,
-                rootItemIds: newRootItemIds
+                rootItemIds: newRootItemIds,
             }
-        
+
         case 'DELETE_ITEM':
             return {
                 ...state,
-                rootItemIds: state.rootItemIds.filter(itemId => itemId != action.itemId)
+                rootItemIds: state.rootItemIds.filter(
+                    (itemId) => itemId != action.itemId
+                ),
             }
 
         case 'SET_SELECTED_MONTH':
@@ -55,15 +59,15 @@ export function rootReducer(state = {}, action) {
                 selectedMonth: action.date,
                 transactions: {},
                 items: {},
-                borrows: {}
+                borrows: {},
             }
 
         case 'LOAD_BUDGET':
             return {
                 ...state,
-                ...action.data
-            };
+                ...action.data,
+            }
     }
 
-    return state    
+    return state
 }

@@ -1,4 +1,5 @@
 format:
+	(cd client && yarn format)
 	(cd server && yarn format)
 
 dev:

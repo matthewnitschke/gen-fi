@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const TransactionSchema = new mongoose.Schema({
   fiAccountId: String, // the accountId associated with this application
@@ -6,7 +6,7 @@ const TransactionSchema = new mongoose.Schema({
   merchant: String,
   amount: Number,
 
-  isUserCreated: Boolean // whether or not this transaction was manually created
+  isUserCreated: Boolean, // whether or not this transaction was manually created
 });
 
-module.exports = mongoose.model("Transaction", TransactionSchema);
+module.exports = mongoose.model('Transaction', TransactionSchema);

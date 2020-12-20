@@ -1,29 +1,29 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './components/App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App.jsx';
 
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
-import configureStore from './redux/store.ts'
+import configureStore from './redux/store.ts';
 
-import { getFirstOfMonth } from './utils'
+import { getFirstOfMonth } from './utils';
 
 let store = configureStore({
-    items: {},
-    transactions: {},
-    borrows: {},
+  items: {},
+  transactions: {},
+  borrows: {},
 
-    rootItemIds: [],
-    ignoredTransactionIds: [],
+  rootItemIds: [],
+  ignoredTransactionIds: [],
 
-    selectedMonth: getFirstOfMonth(new Date()),
-    selectedItemId: null,
-    selectedTransactionId: null,
-})
+  selectedMonth: getFirstOfMonth(new Date()),
+  selectedItemId: null,
+  selectedTransactionId: null,
+});
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
-)
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);

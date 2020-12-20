@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import '../../styles/tabs.scss'
+import '../../styles/tabs.scss';
 
 // export default function TabView({
 //     headers
@@ -15,22 +15,22 @@ import '../../styles/tabs.scss'
 // }
 
 export default function Tabs({
-    items,
+  items,
 
-    selectedItem,
-    onSelectItem,
+  selectedItem,
+  onSelectItem,
 }) {
-    return (
-        <div className="tabs">
-            {items.map((tab) => (
-                <div
-                    className={`tab ${selectedItem == tab ? 'selected' : ''}`}
-                    key={tab}
-                    onClick={() => onSelectItem(tab)}
-                >
-                    {tab}
-                </div>
-            ))}
+  return (
+    <div className="tabs">
+      {items.map((tab) => (
+        <div
+          className={`tab ${selectedItem == tab ? 'selected' : ''}`}
+          key={tab}
+          onClick={() => onSelectItem(tab)}
+        >
+          {tab}
         </div>
-    )
+      ))}
+    </div>
+  );
 }

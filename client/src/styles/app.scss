@@ -1,70 +1,70 @@
 html,
 body,
 #root {
-    margin: 0;
-    height: 100%;
+  margin: 0;
+  height: 100%;
 }
 
 body {
-    font-family: 'Lato', sans-serif;
+  font-family: 'Lato', sans-serif;
 
-    background-color: #f5f7f8;
+  background-color: #f5f7f8;
 }
 
 #root {
-    display: grid;
-    grid-template-columns: 20rem auto 30rem;
-    grid-template-rows: auto;
+  display: grid;
+  grid-template-columns: 20rem auto 30rem;
+  grid-template-rows: auto;
 
-    column-gap: 10px;
+  column-gap: 10px;
 }
 
 .main-content {
-    // width: 100%;
-    grid-column-start: 2;
+  // width: 100%;
+  grid-column-start: 2;
 }
 
 .rhp {
-    grid-column-start: 3;
+  grid-column-start: 3;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    .details-panel {
-        height: 100%;
-    }
+  .details-panel {
+    height: 100%;
+  }
 }
 
 .link {
-    cursor: pointer;
-    // font-weight: 600;
-    color: #0091d9;
+  cursor: pointer;
+  // font-weight: 600;
+  color: #0091d9;
 
-    font-size: 0.8rem;
+  font-size: 0.8rem;
 
-    &:hover {
-        color: #006fa6;
-    }
+  &:hover {
+    color: #006fa6;
+  }
 }
 
 .text-input {
-    border-radius: 4px;
-    border: 1px solid transparent;
-    padding: 0.3rem;
-    margin: 0.2rem 0;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 0.3rem;
+  margin: 0.2rem 0;
 
-    &:hover:not(.editing) {
-        border-color: #f5f7f8;
-        background-color: #f5f7f8;
-    }
+  &:hover:not(.editing) {
+    border-color: #f5f7f8;
+    background-color: #f5f7f8;
+  }
 
-    &.editing {
-        border-color: #006fa6;
-    }
+  &.editing {
+    border-color: #006fa6;
+  }
 
-    input[type='text'] {
-        width: 100%;
-        outline: none;
-        border: none;
-    }
+  input[type='text'] {
+    width: 100%;
+    outline: none;
+    border: none;
+  }
 }

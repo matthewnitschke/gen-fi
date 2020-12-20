@@ -1,50 +1,50 @@
 .delete-item-button {
-    position: absolute;
-    left: -3rem;
-    font-size: 1.4rem;
-    color: red;
+  position: absolute;
+  left: -3rem;
+  font-size: 1.4rem;
+  color: red;
 }
 
 .bucket-group {
-    position: relative;
-    & > .label {
-        font-weight: 900;
-        color: #69757a;
-        margin-bottom: 0.5rem;
-    }
+  position: relative;
+  & > .label {
+    font-weight: 900;
+    color: #69757a;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .bucket {
-    margin-top: 0;
+  margin-top: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0.7rem;
 
-    position: relative;
+  position: relative;
 
-    &.transaction-hovered {
-        background-color: lightgrey;
-    }
+  &.transaction-hovered {
+    background-color: lightgrey;
+  }
 
-    & > .label {
-        flex-grow: 1;
-        margin-right: 0.5rem;
-    }
+  & > .label {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+  }
 
-    & > .max-amount {
-        flex-grow: 0;
-    }
+  & > .max-amount {
+    flex-grow: 0;
+  }
 
-    & > .amount-slider {
-        margin-top: 0.7rem;
-        width: 100%;
-    }
+  & > .amount-slider {
+    margin-top: 0.7rem;
+    width: 100%;
+  }
 }
 
 .bucket-group .bucket {
-    padding-top: 0;
-    padding-left: 0;
+  padding-top: 0;
+  padding-left: 0;
 }

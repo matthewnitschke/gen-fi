@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const BudgetSchema = new mongoose.Schema({
   accountId: String,
@@ -6,4 +6,4 @@ const BudgetSchema = new mongoose.Schema({
   storeData: mongoose.Schema.Types.Mixed,
 });
 
-module.exports = mongoose.model("Budget", BudgetSchema);
+module.exports = mongoose.model('Budget', BudgetSchema);

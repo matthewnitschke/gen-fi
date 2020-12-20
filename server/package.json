@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "node app.js",
-    "format": "prettier --write ."
+    "format": "prettier --write . --config ../.prettierrc"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

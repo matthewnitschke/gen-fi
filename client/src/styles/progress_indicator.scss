@@ -1,15 +1,15 @@
 .progress-indicator {
-    background-color: lightgrey;
+  background-color: lightgrey;
+  height: 2px;
+  overflow: hidden;
+
+  &.full .current {
+    background-color: #e64b40;
+  }
+
+  & > .current {
+    background-color: #62ce66;
     height: 2px;
-    overflow: hidden;
-
-    &.full .current {
-        background-color: #e64b40;
-    }
-
-    & > .current {
-        background-color: #62ce66;
-        height: 2px;
-        transition: width 0.5s;
-    }
+    transition: width 0.5s;
+  }
 }

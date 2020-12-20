@@ -1,16 +1,16 @@
 .tabs {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    & > .tab {
-        width: 4rem;
-        margin: 0 0.5rem;
-        text-align: center;
-        cursor: pointer;
+  & > .tab {
+    width: 4rem;
+    margin: 0 0.5rem;
+    text-align: center;
+    cursor: pointer;
 
-        &.selected {
-            font-weight: 600;
-            text-decoration: underline;
-        }
+    &.selected {
+      font-weight: 600;
+      text-decoration: underline;
     }
+  }
 }

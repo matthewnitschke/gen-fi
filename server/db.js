@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const toMils = require("to-mils");
+const mongoose = require('mongoose');
+const toMils = require('to-mils');
 
-const mongoUrl = "mongodb://db/fi";
-const retryTime = "5sec";
+const mongoUrl = 'mongodb://db/fi';
+const retryTime = '5sec';
 
 var connectWithRetry = function (resolve) {
   return mongoose.connect(mongoUrl, function (err) {
@@ -12,7 +12,7 @@ var connectWithRetry = function (resolve) {
       );
       setTimeout(() => connectWithRetry(resolve), toMils(retryTime));
     } else {
-      console.log("Connected to mongo db");
+      console.log('Connected to mongo db');
       resolve();
     }
   });

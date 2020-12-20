@@ -1,5 +1,5 @@
-import { borrowsReducer } from "../../../src/modules/borrows/borrows.reducer.js";
-import { addBorrow } from "../../../src/modules/borrows/borrows.actions.js";
+import { borrowsReducer } from '../../../src/modules/borrows/borrows.reducer.js'
+import { addBorrow } from '../../../src/modules/borrows/borrows.actions.js'
 
 describe('borrows reducer', () => {
     it('should return default state', () => {
@@ -8,15 +8,12 @@ describe('borrows reducer', () => {
     })
 
     it('should add transaction', () => {
-        let borrows = borrowsReducer(
-            {},
-            addBorrow('to', 'from', 99),
-        )
+        let borrows = borrowsReducer({}, addBorrow('to', 'from', 99))
 
-        let newBorrowKey = Object.keys(borrows)[0];
+        let newBorrowKey = Object.keys(borrows)[0]
 
         expect(borrows).toEqual({
-            [newBorrowKey]: { toId: 'to', fromId: 'from', amount: 99 }
+            [newBorrowKey]: { toId: 'to', fromId: 'from', amount: 99 },
         })
     })
 })

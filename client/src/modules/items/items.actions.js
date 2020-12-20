@@ -1,9 +1,6 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 
-export function addBucket(
-    parentId,
-    itemId = uuid()
-) {
+export function addBucket(parentId, itemId = uuid()) {
     return {
         type: 'ADD_BUCKET',
         itemId,
@@ -13,26 +10,21 @@ export function addBucket(
     }
 }
 
-export function addBucketGroup(
-    itemId = uuid()
-) {
+export function addBucketGroup(itemId = uuid()) {
     return {
         type: 'ADD_BUCKET_GROUP',
         itemId,
         label: 'Label',
-        updateDB: true
+        updateDB: true,
     }
 }
 
-export function updateItem(
-    itemId,
-    item
-) {
+export function updateItem(itemId, item) {
     return {
         type: 'UPDATE_ITEM',
         itemId,
         item,
-        updateDB: true
+        updateDB: true,
     }
 }
 
@@ -40,7 +32,7 @@ export function deleteItem(itemId) {
     return {
         type: 'DELETE_ITEM',
         itemId,
-        updateDB: true
+        updateDB: true,
     }
 }
 
@@ -49,6 +41,6 @@ export function addTransactionToItem(itemId, transactionId) {
         type: 'ADD_TRANSACTION_TO_ITEM',
         itemId,
         transactionId,
-        updateDB: true
+        updateDB: true,
     }
 }

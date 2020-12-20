@@ -1,19 +1,19 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react'
 
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux'
 
-import Card from './util/Card';
+import Card from './util/Card'
 
-export default function TransactionDetailsPanel({
-    transactionId
-}) {
+export default function TransactionDetailsPanel({ transactionId }) {
     const transaction = useSelector(
-        state => state.transactions[transactionId]
+        (state) => state.transactions[transactionId]
     )
 
-    return <Card>
-        <h1>{transaction.merchant}</h1>
-        <div>Amount: ${transaction.amount}</div>
-        <div>Date: {transaction.date}</div>
-    </Card>
+    return (
+        <Card>
+            <h1>{transaction.merchant}</h1>
+            <div>Amount: ${transaction.amount}</div>
+            <div>Date: {transaction.date}</div>
+        </Card>
+    )
 }

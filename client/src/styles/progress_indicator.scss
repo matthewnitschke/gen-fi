@@ -7,9 +7,9 @@
         background-color: #e64b40;
     }
 
-    &>.current {
+    & > .current {
         background-color: #62ce66;
         height: 2px;
-        transition: width .5s;
+        transition: width 0.5s;
     }
 }

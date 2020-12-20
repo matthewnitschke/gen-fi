@@ -1,8 +1,4 @@
-export function addBorrow(
-    toId,
-    fromId,
-    amount,
-) {
+export function addBorrow(toId, fromId, amount) {
     return {
         type: 'ADD_BORROW',
         toId,

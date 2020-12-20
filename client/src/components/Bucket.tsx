@@ -1,22 +1,22 @@
-import React, { useRef } from 'react';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import React, { useRef } from 'react'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd'
 
-import { updateItem } from '../modules/items/items.actions.js';
-import { selectItem } from '../modules/root/root.actions.js';
+import { updateItem } from '../modules/items/items.actions.js'
+import { selectItem } from '../modules/root/root.actions.js'
 
-import { itemValueSelectorFactory } from '../modules/items/items.selectors.js';
-import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js';
+import { itemValueSelectorFactory } from '../modules/items/items.selectors.js'
+import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js'
 
-import TextInput from './util/TextInput';
-import '../styles/bucket.scss';
-import ProgressIndicator from './util/ProgressIndicator.jsx';
-import { AppState } from '../redux/state';
+import TextInput from './util/TextInput'
+import '../styles/bucket.scss'
+import ProgressIndicator from './util/ProgressIndicator.jsx'
+import { AppState } from '../redux/state'
 
 export default function Bucket({ itemId }) {
     const dispatch = useDispatch()
-    
+
     const item = useSelector(
         (state: AppState) => state.items[itemId],
         shallowEqual
@@ -36,28 +36,30 @@ export default function Bucket({ itemId }) {
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),
         }),
-    });
+    })
 
-    
+    if (item == null) return null
 
-    if (item == null) return null;
+    return (
+        <div
+            ref={drop}
+            className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
+            onClick={() => dispatch(selectItem(itemId))}
+        >
+            <div className="label">
+                <TextInput
+                    value={item.label}
+                    placeholder="Label"
+                    onValueChange={(v) =>
+                        dispatch(updateItem(itemId, { ...item, label: v }))
+                    }
+                />
+            </div>
+            <div className="max-amount">${itemValueSum}</div>
 
-    return <div
-        ref={drop}
-        className={`bucket ${isOver ? 'transaction-hovered' : ''}`}
-        onClick={() => dispatch(selectItem(itemId))}
-    >
-        <div className="label">
-            <TextInput
-                value={item.label} 
-                placeholder='Label'
-                onValueChange={(v) => dispatch(updateItem(itemId, { ...item, label: v }))}
-            />
+            <div className="amount-slider">
+                <ProgressIndicator value={transactionSum} max={itemValueSum} />
+            </div>
         </div>
-        <div className="max-amount">${itemValueSum}</div>
-
-        <div className="amount-slider">
-            <ProgressIndicator value={transactionSum} max={itemValueSum}/>
-        </div>
-    </div>
+    )
 }

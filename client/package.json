@@ -6,7 +6,8 @@
     "author": "Matthew Nitschke <matthewcnitschke@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "build": "parcel watch src/index.html",
+        "build:dev": "parcel watch src/index.html",
+        "build:prod": "parcel build src/index.html",
         "test": "jest",
         "test:watch": "jest --watch",
         "test:coverage": "jest --collect-coverage",

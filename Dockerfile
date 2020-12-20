@@ -15,7 +15,7 @@ RUN yarn install
 
 # build
 COPY client .
-RUN yarn build
+RUN yarn build:prod
 
 # -- Server --
 

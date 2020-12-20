@@ -1,33 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fi - Login</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
+
 <body>
-    <h2>Fi</h2>
+    <div id="app">
+        <h2>Fi</h2>
 
-    <form action="/login/authenticate" method="POST">
-        <div>
-            <label for="user">Username</label>
-            <input 
-                type="text"
-                id="user"
-                name="username"
-            />
-        </div>
-    
-        <div>
-            <label for="pass">Password</label>
-            <input 
-                type="password" 
-                id="pass"
-                name="password"
-            />
-        </div>
+        <form @submit="submit">
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" v-model="email" />
+            </div>
 
-        <input type="submit" value="Login">
-    </form>
+            <div>
+                <label for="pass">Password</label>
+                <input type="password" id="pass" v-model="password" />
+            </div>
+
+            <div v-if="isSignup">
+
+                <div>
+                    <label for="verify-pass">Verify Password</label>
+                    <input type="password" id="verify-pass" v-model="verifyPassword" />
+                </div>
+
+                <a href="#" v-on:click="isSignup = false">Sign In</a>
+
+                {{ message }}
+
+                <input type="submit" value="Signup">
+            </div>
+            <div v-else>
+
+                <a href="#" v-on:click="isSignup = true">Signup</a>
+
+                {{ message }}
+
+                <input type="submit" value="Login">
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                email: '',
+                password: '',
+                verifyPassword: '',
+
+                message: '',
+
+                isSignup: false
+            },
+            methods: {
+                submit: async function(e) {
+                    e.preventDefault();
+
+                    let url = '/login/authenticate'
+                    if (this.isSignup) {
+                        if (this.password != this.verifyPassword) {
+                            this.message = 'Passwords do not match'
+                            return;
+                        }
+                        url = '/login/signup'
+                    }
+
+                    let resp = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: this.email,
+                            password: this.password,
+                        }),
+                    })
+
+                    if (resp.status < 300){
+                        window.location = '/'
+                    }
+                },
+            }
+        })
+    </script>
 </body>
+
 </html>

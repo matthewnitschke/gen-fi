@@ -17,10 +17,15 @@ jobs:
       - uses: actions/checkout@v2
         
       - name: Install modules
-        run: (cd client && yarn)
+        working-directory: client
+        run: yarn
         
-      - name: Test Coverage
-        uses: anuraag016/Jest-Coverage-Diff@master
+      - name: Run Tests
+        working-directory: client
+        run: yarn test:coverage
+        
+      - name: Report Coverage
+        uses: codecov/codecov-action@v1
         with:
-          runCommand: cd client
-          fullCoverageDiff: false
+          directory: client
+          

@@ -19,5 +19,7 @@ jobs:
       - name: Install modules
         run: (cd client && yarn)
         
-      - name: Run tests
-        run: (cd client && yarn test)
+      - name: TestCoverage
+        uses: anuraag016/Jest-Coverage-Diff@master
+        with:
+          fullCoverageDiff: false

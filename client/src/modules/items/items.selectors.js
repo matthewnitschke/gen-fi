@@ -25,28 +25,6 @@ export const itemValueSelectorFactory = itemId => createSelector(
     }
 );
 
-// // selects only the items that should be rendered at the root of the item tree
-// export const rootItemsSelectorFactory = () => createSelector(
-//     state => objToListConverter(state.items), // convert the item map into a item list
-//     items => {
-//         let subItemKeys = items.reduce(
-//             (acc, item) => item.items ? [...acc, ...item.items] : acc, 
-//             []
-//         );
-       
-//         let rootItems = items.filter(item => !subItemKeys.includes(item.id))
-
-//         rootItems.sort((a, b) => {
-//             let aOrder = a ?? Number.MAX_SAFE_INTEGER;
-//             let bOrder = b ?? Number.MAX_SAFE_INTEGER;
-
-//             return aOrder - bOrder;
-//         })
-
-//         return rootItems;
-//     }
-// )
-
 export const bucketItemsSelectorFactory = () => createSelector(
     state => objToListConverter(state.items),
     items => {

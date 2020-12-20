@@ -1,6 +1,21 @@
+// simple utility to manually trigger a database update
+export const updateDB = () => ({ 
+    type: '', // no reducer actions
+    updateDB: true 
+})
+
 export const selectItem = itemId => ({
     type: 'SELECT_ITEM',
     itemId
+})
+
+export const reorderRootItemIds = (itemId, oldIndex, newIndex) => ({
+    type: 'REORDER_ROOT_ITEM_IDS',
+    itemId,
+    oldIndex,
+    newIndex,
+
+    // We updateDB on drop for reordering of items, for performace reasons
 })
 
 export const selectTransaction = transactionId => ({

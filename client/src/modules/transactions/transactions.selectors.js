@@ -4,11 +4,11 @@ import { objToListConverter } from '../../utils';
 
 export const unassignedTransactionsSelectorFactory = () => createSelector(
     state => objToListConverter(state.items),
-    state => state.ignoredTransactions,
+    state => state.ignoredTransactionIds,
     state => objToListConverter(state.transactions),
-    (items, ignoredTransactions, transactions) => {
+    (items, ignoredTransactionIds, transactions) => {
         return transactions.filter(transaction => {
-            if (ignoredTransactions.includes(transaction.id)) return false;
+            if (ignoredTransactionIds.includes(transaction.id)) return false;
 
             for (let i = 0; i < items.length; i ++) {
                 let item = items[i];

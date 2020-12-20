@@ -1,15 +1,24 @@
-export function addBucket(parentId) {
+import { v4 as uuid } from 'uuid';
+
+export function addBucket(
+    parentId,
+    itemId = uuid()
+) {
     return {
         type: 'ADD_BUCKET',
+        itemId,
         label: 'Label',
         parentId,
         updateDB: true,
     }
 }
 
-export function addBucketGroup() {
+export function addBucketGroup(
+    itemId = uuid()
+) {
     return {
         type: 'ADD_BUCKET_GROUP',
+        itemId,
         label: 'Label',
         updateDB: true
     }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
-import { useDrop } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 
 import { updateItem } from '../modules/items/items.actions.js';
 import { selectItem } from '../modules/root/root.actions.js';
@@ -22,16 +22,12 @@ export default function Bucket({ itemId }) {
         shallowEqual
     )
 
-    const selectedItemId = useSelector((state: AppState) => state.selectedItemId)
-
     const transactionSum = useSelector(
         assignedTransactionsSumSelectorFactory(itemId),
         shallowEqual
     )
 
-    const itemValueSum = useSelector(
-        itemValueSelectorFactory(itemId)
-    )
+    const itemValueSum = useSelector(itemValueSelectorFactory(itemId))
 
     const [{ isOver }, drop] = useDrop({
         accept: 'transaction',
@@ -41,6 +37,8 @@ export default function Bucket({ itemId }) {
             canDrop: monitor.canDrop(),
         }),
     });
+
+    
 
     if (item == null) return null;
 
@@ -61,6 +59,5 @@ export default function Bucket({ itemId }) {
         <div className="amount-slider">
             <ProgressIndicator value={transactionSum} max={itemValueSum}/>
         </div>
-
     </div>
 }

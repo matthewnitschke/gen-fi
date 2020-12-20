@@ -57,6 +57,7 @@ export function rootReducer(state = {}, action) {
             return {
                 ...state,
                 selectedMonth: action.date,
+                rootItemIds: [],
                 transactions: {},
                 items: {},
                 borrows: {},

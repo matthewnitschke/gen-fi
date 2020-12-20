@@ -5,3 +5,15 @@
 [![Build](https://github.com/matthewnitschke/fi/workflows/Build/badge.svg)](https://github.com/matthewnitschke/fi/actions)
 
 A personal finance tool
+
+## Development
+
+Build the client
+```
+cd client && yarn build:dev
+```
+
+Build the server
+```
+make dev
+```

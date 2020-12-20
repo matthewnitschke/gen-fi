@@ -6,7 +6,11 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 RUN yarn global add parcel-bundler
 
+
 # -- Client --
+
+COPY auth-client /usr/src/app/auth-client
+
 WORKDIR /usr/src/app/client
 
 # deps

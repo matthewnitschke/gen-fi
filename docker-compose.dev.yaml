@@ -16,6 +16,7 @@ services:
     volumes:
       - ./server/:/usr/src/app/server
       - ./client/:/usr/src/app/client
+      - ./auth-client/:/usr/src/app/auth-client
     environment:
       - NODE_ENV=development
       - SESSION_SECRET="Shhh... development only"

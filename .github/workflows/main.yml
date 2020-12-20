@@ -22,5 +22,5 @@ jobs:
       - name: Test Coverage
         uses: anuraag016/Jest-Coverage-Diff@master
         with:
-          working-directory: ./client
+          runCommand: cd client
           fullCoverageDiff: false

@@ -4,10 +4,12 @@ import { addTransaction } from './transactions/transactions.actions.js';
 
 import { format, parse } from 'date-fns';
 
+const serverUrl = `http://localhost`;
+
 export const loadBudget = (date) => {
   return (dispatch) => {
     let fmtDate = format(date, 'yyyy/MM');
-    fetch(`http://localhost/budget/${fmtDate}`)
+    fetch(`${serverUrl}/budget/${fmtDate}`)
       .then((resp) => resp.json())
       .then((data) => {
         if (data == null) {
@@ -40,7 +42,7 @@ export const saveBudget = (store) => {
 
     console.log(dataToStore);
 
-    fetch(`http://localhost/budget/${fmtDate}`, {
+    fetch(`${serverUrl}/budget/${fmtDate}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +56,7 @@ export const resetBudget = (store) => {
   return () => {
     let fmtDate = format(store.selectedMonth, 'yyyy/MM');
 
-    fetch(`http://localhost/budget/${fmtDate}`, {
+    fetch(`${serverUrl}budget/${fmtDate}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +73,7 @@ export const newTransaction = (merchant, amount, dateString) => {
       'yyyy-MM-dd'
     );
 
-    fetch(`http://localhost/transactions`, {
+    fetch(`${serverUrl}/transactions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -86,5 +88,13 @@ export const newTransaction = (merchant, amount, dateString) => {
       .then((data) => {
         dispatch(addTransaction(data));
       });
+  };
+};
+
+export const logout = () => {
+  return () => {
+    fetch(`${serverUrl}/login/logout`, {
+      method: 'POST',
+    }).then(() => window.location.reload());
   };
 };

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addBorrow } from '../../modules/borrows/borrows.actions';
 import { bucketItemsSelectorFactory } from '../../modules/items/items.selectors.js';
 import { AppState, Item } from '../../redux/state';
+import Button from '../util/Button';
 
 export default function AddBorrowButton() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function AddBorrowButton() {
 
   return (
     <>
-      <input type="button" value="Add Borrow" onClick={() => setIsOpen(true)} />
+      <Button value="Add Borrow" onClick={() => setIsOpen(true)} />
 
       <Modal
         isOpen={isOpen}
@@ -75,8 +76,7 @@ export default function AddBorrowButton() {
           />
         </div>
 
-        <input
-          type="button"
+        <Button
           value="Create"
           onClick={() => {
             dispatch(addBorrow(toId, fromId, amount));

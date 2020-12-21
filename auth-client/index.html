@@ -7,46 +7,46 @@
     <title>Fi - Login</title>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <link rel="stylesheet" href="login/styles.css">
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap"
+      rel="stylesheet"
+    />
 </head>
 
 <body>
     <div id="app">
-        <h2>Fi</h2>
 
-        <form @submit="submit">
-            <div>
-                <label for="email">Email</label>
-                <input type="text" id="email" v-model="email" />
-            </div>
-
-            <div>
-                <label for="pass">Password</label>
-                <input type="password" id="pass" v-model="password" />
-            </div>
-
-            <div v-if="isSignup">
-
-                <div>
+        <div class="login-form__wrapper">
+            <form @submit="submit">
+                <h2>Fi</h2>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" v-model="email" />
+                </div>
+    
+                <div class="input-group">
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass" v-model="password" />
+                </div>
+    
+    
+                <div v-if="isSignup" class="input-group">
                     <label for="verify-pass">Verify Password</label>
                     <input type="password" id="verify-pass" v-model="verifyPassword" />
                 </div>
-
-                <a href="#" v-on:click="isSignup = false">Sign In</a>
-
+        
+                
                 {{ message }}
-
-                <input type="submit" value="Signup">
+                <input type="submit" :value="isSignup ? 'Sign Up' : 'Login'">
+            </form>
+            <div class="login-form__footer">
+                <a v-if="isSignup" @click="isSignup = false">Back</a>
+                <a v-else @click="isSignup = true">Create Account</a>
             </div>
-            <div v-else>
-
-                <a href="#" v-on:click="isSignup = true">Signup</a>
-
-                {{ message }}
-
-                <input type="submit" value="Login">
-            </div>
-
-        </form>
+        </div>
     </div>
 
     <script>

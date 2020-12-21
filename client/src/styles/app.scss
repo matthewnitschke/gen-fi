@@ -1,3 +1,13 @@
+:root {
+  --red: red;
+  --red-dark: #b51919;
+
+  --blue: #0091d9;
+  --blue-dark: #006fa6;
+
+  --background: #f5f7f8;
+}
+
 html,
 body,
 #root {
@@ -38,12 +48,12 @@ body {
 .link {
   cursor: pointer;
   // font-weight: 600;
-  color: #0091d9;
+  color: var(--blue);
 
   font-size: 0.8rem;
 
   &:hover {
-    color: #006fa6;
+    color: var(--blue-dark);
   }
 }
 
@@ -54,12 +64,12 @@ body {
   margin: 0.2rem 0;
 
   &:hover:not(.editing) {
-    border-color: #f5f7f8;
-    background-color: #f5f7f8;
+    border-color: var(--background);
+    background-color: var(--background);
   }
 
   &.editing {
-    border-color: #006fa6;
+    border-color: var(--blue-dark);
   }
 
   input[type='text'] {

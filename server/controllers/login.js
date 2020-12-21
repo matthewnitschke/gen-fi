@@ -7,6 +7,9 @@ const User = require('../models/User.js');
 router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../auth-client/index.html'));
 });
+router.get('/styles.css', (req, res) =>
+  res.sendFile(path.join(__dirname, '../../auth-client/styles.css'))
+);
 
 router.post('/authenticate', async (req, res) => {
   console.log('authenticate');
@@ -57,6 +60,15 @@ router.post('/signup', async (req, res) => {
         message: 'User added successfully.',
       });
     }
+  });
+});
+
+router.post('/logout', async (req, res) => {
+  console.log('logout');
+  req.session.destroy();
+
+  res.status(200).send({
+    message: 'User logged out successfully',
   });
 });
 

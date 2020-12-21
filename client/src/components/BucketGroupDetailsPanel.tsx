@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../redux/state';
 import { selectItem } from '../modules/root/root.actions';
 import { deleteItem } from '../modules/items/items.actions';
+import PanelHeaderToolbar from './util/PanelHeaderToolbar';
 
 export default function BucketGroupDetailsPanel({ itemId }) {
   const dispatch = useDispatch();
@@ -12,16 +13,19 @@ export default function BucketGroupDetailsPanel({ itemId }) {
 
   return (
     <Card>
-      <h2>{groupItem.label}</h2>
-
-      <input
-        type="button"
-        value="Delete"
-        onClick={() => {
+      <PanelHeaderToolbar
+        onDelete={() => {
           dispatch(selectItem(null));
           dispatch(deleteItem(itemId));
         }}
+        onClose={() => {
+          dispatch(selectItem(null));
+        }}
       />
+
+      <h2>{groupItem.label ? groupItem.label : 'Label'}</h2>
+
+      <p>Nothing here yet.... Future plans though :)</p>
     </Card>
   );
 }

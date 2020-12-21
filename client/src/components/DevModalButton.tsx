@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useStore } from 'react-redux';
 import { AppState } from '../redux/state';
 
-import { resetBudget } from '../modules/thunks';
+import { resetBudget, logout } from '../modules/thunks';
 import Modal from 'react-modal';
 
 export default function DevModalButton() {
@@ -17,7 +17,7 @@ export default function DevModalButton() {
 
   return (
     <div>
-      <input type="button" value="Dev" onClick={() => setIsOpen(true)} />
+      <i className="fas fa-code" onClick={() => setIsOpen(true)}></i>
 
       <Modal
         isOpen={isOpen}
@@ -35,6 +35,7 @@ export default function DevModalButton() {
         <button onClick={() => dispatch(resetBudget(store.getState()))}>
           Reset Current Budget
         </button>
+        <button onClick={() => dispatch(logout())}>Logout</button>
       </Modal>
     </div>
   );

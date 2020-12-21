@@ -7,33 +7,32 @@ import { selectItem } from '../../modules/root/root.actions.js';
 import { itemValueSelectorFactory } from '../../modules/items/items.selectors.js';
 import { assignedTransactionsSumSelectorFactory } from '../../modules/transactions/transactions.selectors.js';
 
-import ProgressIndicator from '../util/ProgressIndicator.jsx';
+import ProgressIndicator from '../util/ProgressIndicator';
 import { AppState } from '../../redux/state';
+import PanelHeaderToolbar from '../util/PanelHeaderToolbar';
 
 export default function BucketDetailsHeader({ itemId }) {
   const dispatch = useDispatch();
 
   const item = useSelector((state: AppState) => state.items[itemId]);
-  const itemAmount = useSelector(itemValueSelectorFactory(itemId));
-  const transactionSumAmount = useSelector(
+  const itemAmount = useSelector<AppState, number>(
+    itemValueSelectorFactory(itemId)
+  );
+  const transactionSumAmount = useSelector<AppState, number>(
     assignedTransactionsSumSelectorFactory(itemId)
   );
 
   return (
     <>
-      <div className="header-icons">
-        <i
-          className="far fa-trash-alt delete-button"
-          onClick={() => {
-            dispatch(selectItem(null));
-            dispatch(deleteItem(itemId));
-          }}
-        ></i>
-        <i
-          className="fas fa-times close-button"
-          onClick={() => dispatch(selectItem(null))}
-        ></i>
-      </div>
+      <PanelHeaderToolbar
+        onDelete={() => {
+          dispatch(selectItem(null));
+          dispatch(deleteItem(itemId));
+        }}
+        onClose={() => {
+          dispatch(selectItem(null));
+        }}
+      />
 
       <div className="header">
         <div className="label">{item.label}</div>

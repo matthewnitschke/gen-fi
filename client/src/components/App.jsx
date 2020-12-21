@@ -19,6 +19,19 @@ import DevModalButton from './DevModalButton';
 import '../styles/app.scss';
 import MonthSelector from './MonthSelector.jsx';
 import TransactionDetailsPanel from './TransactionDetailsPanel.jsx';
+import BankAccountsButton from './BankAccountsButton';
+import styled from 'styled-components';
+
+const LHPToolbarStyled = styled.div`
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin: 0.5rem;
+
+  & > * {
+    margin: 0 0.3rem;
+  }
+`;
 
 export default function App() {
   const dispatch = useDispatch();
@@ -44,8 +57,12 @@ export default function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div>
-        <DevModalButton />
+        <LHPToolbarStyled>
+          <DevModalButton />
+          <BankAccountsButton />
+        </LHPToolbarStyled>
       </div>
+
       <div className="main-content">
         <MonthSelector />
         {rootItemIds.map((itemId, i) => {

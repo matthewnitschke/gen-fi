@@ -1,6 +1,17 @@
 version: "2"
 
 services:
+  ngrok:
+    image: wernight/ngrok:latest
+    ports:
+      - 4040:4040
+    environment:
+      NGROK_PROTOCOL: http
+      NGROK_PORT: proxy:80
+      NGROK_AUTH: ${NGROK_AUTH}
+    depends_on:
+      - proxy
+
   proxy:
     image: nginx
     ports:

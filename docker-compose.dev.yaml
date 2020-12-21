@@ -1,4 +1,7 @@
 services:
+  ngrok:
+    entrypoint: ["echo", "ngrok disabled in dev mode"]
+
   proxy:
     logging:
       driver: none

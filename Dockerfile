@@ -27,4 +27,6 @@ WORKDIR ../server
 COPY server/package.json package.json
 RUN yarn install
 
+COPY server .
+
 CMD ["yarn", "serve"]

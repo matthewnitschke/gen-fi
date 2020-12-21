@@ -9,9 +9,9 @@ RUN yarn global add parcel-bundler
 
 # -- Client --
 
-COPY auth-client /usr/src/app/auth-client
+COPY auth-client auth-client
 
-WORKDIR /usr/src/app/client
+WORKDIR client
 
 # deps
 COPY client/package.json package.json
@@ -23,7 +23,7 @@ RUN yarn build:prod
 
 # -- Server --
 
-WORKDIR /usr/src/app/server
+WORKDIR ../server
 COPY server/package.json package.json
 RUN yarn install
 

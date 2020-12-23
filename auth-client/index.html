@@ -38,8 +38,10 @@
                     <input type="password" id="verify-pass" v-model="verifyPassword" />
                 </div>
         
-                
-                {{ message }}
+                <div style="margin-bottom: 0.7rem;">
+                    {{ message }}
+                </div>
+
                 <input type="submit" :value="isSignup ? 'Sign Up' : 'Login'">
             </form>
             <div class="login-form__footer">
@@ -87,6 +89,9 @@
 
                     if (resp.status < 300){
                         window.location = '/'
+                    } else {
+                        let body = await resp.json()
+                        this.message = body.message;
                     }
                 },
             }

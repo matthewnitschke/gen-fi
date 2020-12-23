@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-const User = require('../models/User.js');
+const Account = require('../models/Account.js');
 
 router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../auth-client/index.html'));
@@ -15,19 +15,18 @@ router.post('/authenticate', async (req, res) => {
   console.log('authenticate');
   const { email, password } = req.body;
 
-  let user = await User.findOne({
+  let account = await Account.findOne({
     email,
   });
 
-  if (user === null) {
+  if (account === null) {
     return res.status(400).send({
       message: 'User not found.',
     });
   } else {
-    if (user.isValidPassword(password)) {
+    if (account.isValidPassword(password)) {
       // valid password, add the session vars
-      req.session.accountId = '5fbfe7509a758581b265a7f5';
-      req.session.bankAccountIds = ['someid'];
+      req.session.accountId = account._id;
 
       return res.status(201).send({
         message: 'Authenticated!',
@@ -44,13 +43,13 @@ router.post('/signup', async (req, res) => {
   console.log('signup');
   const { email, password } = req.body;
 
-  let newUser = new User({
+  let newAccount = new Account({
     email,
   });
 
-  newUser.setPassword(password);
+  newAccount.setPassword(password);
 
-  newUser.save((err) => {
+  newAccount.save((err) => {
     if (err) {
       return res.status(400).send({
         message: 'Failed to add user.',
@@ -64,7 +63,6 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/logout', async (req, res) => {
-  console.log('logout');
   req.session.destroy();
 
   res.status(200).send({

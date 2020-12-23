@@ -21,7 +21,7 @@ export default function DevModalButton() {
 
       <Modal
         isOpen={isOpen}
-        onRequestHide={closeModal}
+        onRequestClose={closeModal}
         ariaHideApp={false}
         style={{
           content: {

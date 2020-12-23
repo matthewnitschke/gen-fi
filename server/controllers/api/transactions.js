@@ -3,18 +3,6 @@ const Transaction = require('../../models/Transaction.js');
 const express = require('express');
 const router = express.Router();
 
-// authentication middleware
-router.use((req, res, next) => {
-  req.session.accountId = '5fbfe7509a758581b265a7f5';
-  req.session.bankAccountIds = ['someid'];
-  next();
-  // if (req.session.accountId) {
-  //   next();
-  // } else {
-  //   res.status(500).send("Not Authenticated");
-  // }
-});
-
 router.get('/', async (req, res) => {
   const { from, to } = req.query;
 

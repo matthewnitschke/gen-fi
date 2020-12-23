@@ -4,7 +4,7 @@ import { addTransaction } from './transactions/transactions.actions.js';
 
 import { format, parse } from 'date-fns';
 
-const serverUrl = `http://localhost`;
+const serverUrl = `http://${window.location.host}`;
 
 export const loadBudget = (date) => {
   return (dispatch) => {

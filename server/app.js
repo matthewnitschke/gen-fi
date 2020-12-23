@@ -32,7 +32,6 @@ const port = 8080;
 
   app.use('/budget', require('./controllers/api/budget.js'));
   app.use('/transactions', require('./controllers/api/transactions.js'));
-  app.use('/user', require('./controllers/api/user.js'));
 
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

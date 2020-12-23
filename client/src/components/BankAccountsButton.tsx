@@ -12,7 +12,7 @@ export default function BankAccountsButton() {
 
       <Modal
         isOpen={isOpen}
-        onRequestHide={() => setIsOpen(false)}
+        onRequestClose={() => setIsOpen(false)}
         style={{
           content: {
             margin: 'auto',

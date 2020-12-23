@@ -4,18 +4,6 @@ const Transaction = require('../../models/Transaction.js');
 const express = require('express');
 const router = express.Router();
 
-// authentication middleware
-router.use((req, res, next) => {
-  req.session.accountId = '5fbfe7509a758581b265a7f5';
-  req.session.bankAccountIds = ['5fbfe7509a758581b265a7f5'];
-  next();
-  // if (req.session.accountId) {
-  //   next();
-  // } else {
-  //   res.status(500).send("Not Authenticated");
-  // }
-});
-
 router.get('/:year/:month', async (req, res) => {
   const { year, month } = req.params;
   const { accountId } = req.session;
@@ -30,7 +18,7 @@ router.get('/:year/:month', async (req, res) => {
     `Searching for transactions: between ${year}-${month}-1 and ${year}-${month}-${lastOfMonth.getDate()}`
   );
   const transactions = await Transaction.find({
-    // account_id: { "$in" : [req.session.bankAccountIds] },
+    fiAccountId: req.session.accountId,
     date: {
       $gte: `${year}-${month}-1`,
       $lte: `${year}-${month}-${lastOfMonth.getDate()}`,

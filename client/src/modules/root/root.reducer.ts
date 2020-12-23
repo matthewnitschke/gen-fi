@@ -1,4 +1,5 @@
-export function rootReducer(state = {}, action) {
+// TODO: type the state value
+export function rootReducer(state: any = {}, action) {
   switch (action.type) {
     case 'SELECT_ITEM':
       return {

@@ -4,8 +4,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { loadBudget } from '../modules/thunks.js';
-import { reorderRootItemIds } from '../modules/root/root.actions.js';
+import { loadBudget } from '../modules/thunks';
+import { reorderRootItemIds } from '../modules/root/root.actions';
 
 import BucketGroup from './BucketGroup';
 import Bucket from './Bucket';
@@ -17,10 +17,11 @@ import BucketGroupDetailsPanel from './BucketGroupDetailsPanel';
 import DevModalButton from './DevModalButton';
 
 import '../styles/app.scss';
-import MonthSelector from './MonthSelector.jsx';
-import TransactionDetailsPanel from './TransactionDetailsPanel.jsx';
+import MonthSelector from './MonthSelector';
+import TransactionDetailsPanel from './TransactionDetailsPanel';
 import BankAccountsButton from './BankAccountsButton';
 import styled from 'styled-components';
+import { AppState } from '../redux/state';
 
 const LHPToolbarStyled = styled.div`
   display: flex;
@@ -36,19 +37,19 @@ const LHPToolbarStyled = styled.div`
 export default function App() {
   const dispatch = useDispatch();
 
-  const items = useSelector((state) => state.items);
-  const rootItemIds = useSelector((state) => state.rootItemIds);
+  const items = useSelector((state: AppState) => state.items);
+  const rootItemIds = useSelector((state: AppState) => state.rootItemIds);
 
   const selectedTransactionId = useSelector(
-    (state) => state.selectedTransactionId
+    (state: AppState) => state.selectedTransactionId
   );
-  const selectedMonth = useSelector((state) => state.selectedMonth);
+  const selectedMonth = useSelector((state: AppState) => state.selectedMonth);
 
-  const selectedItemId = useSelector((state) => state.selectedItemId);
+  const selectedItemId = useSelector((state: AppState) => state.selectedItemId);
   const isSelectedItemAGroup =
-    useSelector((state) => state.items[state.selectedItemId])?.hasOwnProperty(
-      'items'
-    ) == true;
+    useSelector(
+      (state: AppState) => state.items[state.selectedItemId]
+    )?.hasOwnProperty('items') == true;
 
   useEffect(() => {
     dispatch(loadBudget(selectedMonth));

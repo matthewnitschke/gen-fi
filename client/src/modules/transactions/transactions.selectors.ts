@@ -1,12 +1,13 @@
 import { createSelector } from 'reselect';
 
 import { objToListConverter } from '../../utils';
+import { AppState } from '../../redux/state';
 
 export const unassignedTransactionsSelectorFactory = () =>
   createSelector(
-    (state) => objToListConverter(state.items),
-    (state) => state.ignoredTransactionIds,
-    (state) => objToListConverter(state.transactions),
+    (state: AppState) => objToListConverter(state.items),
+    (state: AppState) => state.ignoredTransactionIds,
+    (state: AppState) => objToListConverter(state.transactions),
     (items, ignoredTransactionIds, transactions) => {
       return transactions.filter((transaction) => {
         if (ignoredTransactionIds.includes(transaction.id)) return false;
@@ -26,8 +27,8 @@ export const unassignedTransactionsSelectorFactory = () =>
 
 export const assignedTransactionsSelectorFactory = (itemId) =>
   createSelector(
-    (state) => state.transactions,
-    (state) => state.items[itemId],
+    (state: AppState) => state.transactions,
+    (state: AppState) => state.items[itemId],
     (transactions, item) => {
       if (!item || !item.transactions) return {};
 

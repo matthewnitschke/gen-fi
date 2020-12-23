@@ -7,8 +7,8 @@ import 'styles/bucket_details_panel.scss';
 import { useSelector } from 'react-redux';
 
 import Tabs from '../util/Tabs';
-import { assignedTransactionsSelectorFactory } from '../../modules/transactions/transactions.selectors.js';
-import { itemBorrowsSelectorFactory } from '../../modules/borrows/borrows.selectors.js';
+import { assignedTransactionsSelectorFactory } from '../../modules/transactions/transactions.selectors';
+import { itemBorrowsSelectorFactory } from '../../modules/borrows/borrows.selectors';
 import ItemValueEditor from './ItemValueEditor';
 import { AppState } from '../../redux/state';
 import ItemTransactions from './ItemTransactions';

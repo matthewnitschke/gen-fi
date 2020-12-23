@@ -1,15 +1,16 @@
 import { createSelector } from 'reselect';
 
-import { itemBorrowsSelectorFactory } from '../borrows/borrows.selectors.js';
+import { itemBorrowsSelectorFactory } from '../borrows/borrows.selectors';
 
 import { objToListConverter } from '../../utils';
+import { AppState } from '../../redux/state';
 
 // Calculates the final value of an item, factoring in different value types,
 // with the additions and subtractions from borrows
 export const itemValueSelectorFactory = (itemId) =>
   createSelector(
-    (state) => objToListConverter(state.items),
-    (state) => state.items[itemId],
+    (state: AppState) => objToListConverter(state.items),
+    (state: AppState) => state.items[itemId],
     itemBorrowsSelectorFactory(itemId),
     (items, item, borrows) => {
       if (!item) {
@@ -28,7 +29,7 @@ export const itemValueSelectorFactory = (itemId) =>
 
 export const bucketItemsSelectorFactory = () =>
   createSelector(
-    (state) => objToListConverter(state.items),
+    (state: AppState) => objToListConverter(state.items),
     (items) => {
       return items.filter((item) => !item.hasOwnProperty('items'));
     }
@@ -36,7 +37,7 @@ export const bucketItemsSelectorFactory = () =>
 
 export const hasExtraItemTypeSelectorFactory = () =>
   createSelector(
-    (state) => state.items,
+    (state: AppState) => state.items,
     (items) => {
       let extraTypes = Object.keys(items).find(
         (id) => items[id]?.value?.type == 'extra'

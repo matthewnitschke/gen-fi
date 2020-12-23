@@ -2,7 +2,7 @@ import {
   unassignedTransactionsSelectorFactory,
   assignedTransactionsSelectorFactory,
   assignedTransactionsSumSelectorFactory,
-} from '../../../src/modules/transactions/transactions.selectors.js';
+} from '../../../src/modules/transactions/transactions.selectors';
 
 describe('transactions selectors', () => {
   it('should return all unassigned transactions', () => {

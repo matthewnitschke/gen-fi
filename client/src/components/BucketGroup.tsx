@@ -1,18 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 
-import { addBucket, updateItem } from '../modules/items/items.actions.js';
-import { selectItem } from '../modules/root/root.actions.js';
+import { addBucket, updateItem } from '../modules/items/items.actions';
+import { selectItem } from '../modules/root/root.actions';
+import { AppState } from '../redux/state';
 
-import Bucket from './Bucket.tsx';
-import TextInput from './util/TextInput.jsx';
+import Bucket from './Bucket';
+import TextInput from './util/TextInput';
 
 export default function BucketGroup({ itemId }) {
   let dispatch = useDispatch();
 
-  const item = useSelector((state) => state.items[itemId]);
-  const subItems = useSelector((state) => state.items[itemId].items);
+  const item = useSelector((state: AppState) => state.items[itemId]);
+  const subItems = useSelector((state: AppState) => state.items[itemId].items);
 
   return (
     <div className="bucket-group">

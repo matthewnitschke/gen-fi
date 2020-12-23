@@ -1,4 +1,4 @@
-import { itemBorrowsSelectorFactory } from '../../../src/modules/borrows/borrows.selectors.js';
+import { itemBorrowsSelectorFactory } from '../../../src/modules/borrows/borrows.selectors';
 
 describe('borrows selectors', () => {
   it('should return an items borrows', () => {

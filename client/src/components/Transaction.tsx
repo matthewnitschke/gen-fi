@@ -3,17 +3,20 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ignoreTransaction } from '../modules/root/root.actions.js';
-import { addTransactionToItem } from '../modules/items/items.actions.js';
+import { ignoreTransaction } from '../modules/root/root.actions';
+import { addTransactionToItem } from '../modules/items/items.actions';
 
-import { selectTransaction } from '../modules/root/root.actions.js';
+import { selectTransaction } from '../modules/root/root.actions';
 
-import IgnoreTransactionDropzone from './IgnoreTransactionDropzone.jsx';
+import IgnoreTransactionDropzone from './IgnoreTransactionDropzone';
+import { AppState } from '../redux/state';
 
 export default function Transaction({ transactionId }) {
   const dispatch = useDispatch();
 
-  const transaction = useSelector((state) => state.transactions[transactionId]);
+  const transaction = useSelector(
+    (state: AppState) => state.transactions[transactionId]
+  );
 
   const [{ isDragging }, drag] = useDrag({
     item: { amount: transaction.amount, type: 'transaction' },

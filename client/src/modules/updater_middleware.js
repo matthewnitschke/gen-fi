@@ -1,7 +1,6 @@
-import { saveBudget } from './thunks.js';
+import { saveBudget } from './thunks';
 
 export const updaterMiddleware = (store) => (next) => (action) => {
-  console.log(action);
   next(action);
 
   if (action.updateDB) {

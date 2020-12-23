@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { addBorrow } from '../../modules/borrows/borrows.actions';
-import { bucketItemsSelectorFactory } from '../../modules/items/items.selectors.js';
+import { bucketItemsSelectorFactory } from '../../modules/items/items.selectors';
 import { AppState, Item } from '../../redux/state';
 import Button from '../util/Button';
 

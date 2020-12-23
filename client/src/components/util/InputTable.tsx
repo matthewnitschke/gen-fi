@@ -1,11 +1,49 @@
 import React, { useState } from 'react';
 
-import '../../styles/input-table.scss';
+import styled from 'styled-components';
 
-export default function InputTable({ rows = [], onChange }) {
-  let totalAmount = rows.reduce((acc, row) => acc + parseInt(row.amount), 0);
+const InputTableStyled = styled.div`
+  tr:not(:last-child) {
+    td:not(:last-child) {
+      border: solid 1px black;
+    }
+
+    td:nth-child(2) {
+      width: 3rem;
+    }
+  }
+
+  input[type='text'],
+  input[type='number'] {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+    padding: 0;
+  }
+
+  td {
+    padding: 0.2rem;
+  }
+`;
+
+// ----------------------------- InputTable Component -----------------------------
+
+type RowData = {
+  name: string;
+  amount: number;
+};
+
+type InputTableProps = {
+  rows: Array<RowData>;
+  onChange: (newRows: Array<RowData>) => void;
+};
+
+export default function InputTable({ rows = [], onChange }: InputTableProps) {
+  let totalAmount = rows.reduce((acc, row) => acc + row.amount, 0);
   return (
-    <div className="input-table">
+    <InputTableStyled>
       <table>
         <thead>
           <tr>
@@ -20,13 +58,13 @@ export default function InputTable({ rows = [], onChange }) {
               key={r.name + r.amount}
               data={r}
               onChange={(rowData) => {
-                let i = rows.indexOf(r);
                 return onChange([
                   ...rows.slice(0, rows.indexOf(r)),
                   rowData,
                   ...rows.slice(rows.indexOf(r) + 1),
                 ]);
               }}
+              onDelete={() => alert('TODO: Implement delete')}
             />
           ))}
           <tr>
@@ -41,11 +79,18 @@ export default function InputTable({ rows = [], onChange }) {
           </tr>
         </tbody>
       </table>
-    </div>
+    </InputTableStyled>
   );
 }
 
-function TableRow({ data, onChange, onDelete }) {
+// --------------------------- TableRow Component ---------------------------
+type TableRowProps = {
+  data: RowData;
+  onChange: (newData: RowData) => void;
+  onDelete: () => void;
+};
+
+function TableRow({ data, onChange, onDelete }: TableRowProps) {
   let [internalName, setInternalName] = useState(data.name);
   let [internalAmount, setInternalAmount] = useState(data.amount);
 
@@ -53,7 +98,7 @@ function TableRow({ data, onChange, onDelete }) {
     onChange({
       ...data,
       name: internalName,
-      amount: parseInt(internalAmount),
+      amount: internalAmount,
     });
   }
 
@@ -71,7 +116,7 @@ function TableRow({ data, onChange, onDelete }) {
         <input
           type="number"
           value={internalAmount}
-          onChange={(e) => setInternalAmount(e.target.value)}
+          onChange={(e) => setInternalAmount(parseFloat(e.target.value))}
           onBlur={commit}
         />
       </td>

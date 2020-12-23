@@ -1,7 +1,7 @@
 import {
   itemValueSelectorFactory,
   rootItemsSelectorFactory,
-} from '../../../src/modules/items/items.selectors.js';
+} from '../../../src/modules/items/items.selectors';
 
 describe('items selectors', () => {
   describe('itemValueSelector', () => {

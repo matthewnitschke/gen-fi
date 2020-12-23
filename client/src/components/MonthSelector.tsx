@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { format, add } from 'date-fns';
 
 import '../styles/month-selector.scss';
-import { setSelectedMonth } from '../modules/root/root.actions.js';
+import { setSelectedMonth } from '../modules/root/root.actions';
 
-import { loadBudget } from '../modules/thunks.js';
+import { loadBudget } from '../modules/thunks';
+import { AppState } from '../redux/state';
 
 export default function MonthSelector() {
   const dispatch = useDispatch();
-  let selectedMonth = useSelector((state) => state.selectedMonth);
+  let selectedMonth = useSelector((state: AppState) => state.selectedMonth);
 
   return (
     <div className="month-selector">

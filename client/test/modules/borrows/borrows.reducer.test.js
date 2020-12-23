@@ -1,5 +1,5 @@
-import { borrowsReducer } from '../../../src/modules/borrows/borrows.reducer.js';
-import { addBorrow } from '../../../src/modules/borrows/borrows.actions.js';
+import { borrowsReducer } from '../../../src/modules/borrows/borrows.reducer';
+import { addBorrow } from '../../../src/modules/borrows/borrows.actions';
 
 describe('borrows reducer', () => {
   it('should return default state', () => {

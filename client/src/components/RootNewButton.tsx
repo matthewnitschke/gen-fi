@@ -4,7 +4,7 @@ import Card from './util/Card';
 
 import '../styles/root_new_button.scss';
 import { useDispatch } from 'react-redux';
-import { addBucket, addBucketGroup } from '../modules/items/items.actions.js';
+import { addBucket, addBucketGroup } from '../modules/items/items.actions';
 
 export default function RootNewButton() {
   const [isClicked, setIsClicked] = useState(false);

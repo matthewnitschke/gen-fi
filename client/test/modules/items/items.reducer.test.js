@@ -1,11 +1,11 @@
-import { itemsReducer } from '../../../src/modules/items/items.reducer.js';
+import { itemsReducer } from '../../../src/modules/items/items.reducer';
 import {
   addBucket,
   addBucketGroup,
   updateItem,
   deleteItem,
   addTransactionToItem,
-} from '../../../src/modules/items/items.actions.js';
+} from '../../../src/modules/items/items.actions';
 
 const testItems = {
   group: {

@@ -54,7 +54,8 @@ enum ItemValueType {
 
 // ---------------------- Other ----------------------
 
-interface Transaction {
+export interface Transaction {
+  id: string;
   merchant: string;
   amount: number;
   date: Date;

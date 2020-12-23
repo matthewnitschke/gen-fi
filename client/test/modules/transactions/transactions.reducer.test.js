@@ -1,5 +1,5 @@
-import { transactionsReducer } from '../../../src/modules/transactions/transactions.reducer.js';
-import { addTransaction } from '../../../src/modules/transactions/transactions.actions.js';
+import { transactionsReducer } from '../../../src/modules/transactions/transactions.reducer';
+import { addTransaction } from '../../../src/modules/transactions/transactions.actions';
 
 describe('transactions reducer', () => {
   it('should return default state', () => {

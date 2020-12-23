@@ -1,8 +1,8 @@
 import React from 'react';
 import InputTable from '../util/InputTable';
 import { useSelector, useDispatch } from 'react-redux';
-import { hasExtraItemTypeSelectorFactory } from '../../modules/items/items.selectors.js';
-import { updateItem } from '../../modules/items/items.actions.js';
+import { hasExtraItemTypeSelectorFactory } from '../../modules/items/items.selectors';
+import { updateItem } from '../../modules/items/items.actions';
 import { AppState } from '../../redux/state';
 
 export default function ItemValueEditor({ itemId }) {

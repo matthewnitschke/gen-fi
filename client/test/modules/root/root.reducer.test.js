@@ -1,11 +1,11 @@
-import { rootReducer } from '../../../src/modules/root/root.reducer.js';
+import { rootReducer } from '../../../src/modules/root/root.reducer';
 import {
   selectItem,
   selectTransaction,
   ignoreTransaction,
   setSelectedMonth,
   loadBudget,
-} from '../../../src/modules/root/root.actions.js';
+} from '../../../src/modules/root/root.actions';
 
 describe('root reducer', () => {
   it('should return default state', () => {

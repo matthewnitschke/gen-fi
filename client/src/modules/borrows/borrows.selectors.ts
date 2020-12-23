@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
+import { AppState } from '../../redux/state';
 
-export const itemBorrowsSelectorFactory = (itemId) =>
+export const itemBorrowsSelectorFactory = (itemId: string) =>
   createSelector(
-    (state) => state.borrows,
+    (state: AppState) => state.borrows,
     (borrows) =>
       Object.keys(borrows).reduce(
         (acc, id) => {

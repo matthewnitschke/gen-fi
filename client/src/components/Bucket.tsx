@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 
-import { updateItem } from '../modules/items/items.actions.js';
-import { selectItem } from '../modules/root/root.actions.js';
+import { updateItem } from '../modules/items/items.actions';
+import { selectItem } from '../modules/root/root.actions';
 
-import { itemValueSelectorFactory } from '../modules/items/items.selectors.js';
-import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors.js';
+import { itemValueSelectorFactory } from '../modules/items/items.selectors';
+import { assignedTransactionsSumSelectorFactory } from '../modules/transactions/transactions.selectors';
 
 import TextInput from './util/TextInput';
 import '../styles/bucket.scss';

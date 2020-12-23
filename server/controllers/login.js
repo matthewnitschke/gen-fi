@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-const Account = require('../models/Account.js');
+const Account = require('../models/Account');
 
 router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../auth-client/index.html'));

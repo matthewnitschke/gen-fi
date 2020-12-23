@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { newTransaction } from '../modules/thunks.js';
+import { newTransaction } from '../modules/thunks';
 
 import Modal from 'react-modal';
 
 import '../styles/add-transaction-button.scss';
 import TextInput from './util/TextInput';
+import { modalStyles } from '../constants';
 
 export default function AddTransactionButton() {
   const dispatch = useDispatch();
@@ -30,17 +31,12 @@ export default function AddTransactionButton() {
       <div className="add-transaction-button" onClick={() => setIsOpen(true)}>
         +
       </div>
+
       <Modal
         isOpen={isOpen}
         onRequestClose={closeModal}
         ariaHideApp={false}
-        style={{
-          content: {
-            margin: 'auto',
-            maxWidth: '30rem',
-            maxHeight: '20rem',
-          },
-        }}
+        style={modalStyles}
       >
         <div className="add-transaction__modal">
           <div className="add-transaction__modal-body">
@@ -49,19 +45,19 @@ export default function AddTransactionButton() {
               placeholder="Merchant"
               value={merchant}
               onValueChange={setMerchant}
-              tabIndex="1"
+              tabIndex={1}
             />
             <TextInput
               placeholder="Amount"
               value={amount}
               onValueChange={setAmount}
-              tabIndex="2"
+              tabIndex={2}
             />
             <TextInput
               placeholder="Date (mm/dd/yyyy)"
               value={date}
               onValueChange={setDate}
-              tabIndex="3"
+              tabIndex={3}
             />
           </div>
 

@@ -1,8 +1,10 @@
-import { loadBudget as loadBudgetAction } from './root/root.actions.js';
+import { loadBudget as loadBudgetAction } from './root/root.actions';
 
-import { addTransaction } from './transactions/transactions.actions.js';
+import { addTransaction } from './transactions/transactions.actions';
 
 import { format, parse } from 'date-fns';
+import { AppState } from '../redux/state';
+import { Action, ThunkAction } from '@reduxjs/toolkit';
 
 const serverUrl = `http://${window.location.host}`;
 
@@ -29,15 +31,17 @@ export const loadBudget = (date) => {
   };
 };
 
-export const saveBudget = (store) => {
-  return () => {
-    let fmtDate = format(store.selectedMonth, 'yyyy/MM');
+export const saveBudget = (
+  state: AppState
+): ThunkAction<void, AppState, undefined, Action> => {
+  return (): void => {
+    let fmtDate = format(state.selectedMonth, 'yyyy/MM');
 
     const dataToStore = {
-      ignoredTransactionIds: store.ignoredTransactionIds,
-      rootItemIds: store.rootItemIds,
-      items: store.items,
-      borrows: store.borrows,
+      ignoredTransactionIds: state.ignoredTransactionIds,
+      rootItemIds: state.rootItemIds,
+      items: state.items,
+      borrows: state.borrows,
     };
 
     console.log(dataToStore);
@@ -52,7 +56,7 @@ export const saveBudget = (store) => {
   };
 };
 
-export const resetBudget = (store) => {
+export const resetBudget = (store: AppState) => {
   return () => {
     let fmtDate = format(store.selectedMonth, 'yyyy/MM');
 
@@ -66,7 +70,11 @@ export const resetBudget = (store) => {
   };
 };
 
-export const newTransaction = (merchant, amount, dateString) => {
+export const newTransaction = (
+  merchant: string,
+  amount: string,
+  dateString: string
+) => {
   return (dispatch) => {
     let fmtDate = format(
       parse(dateString, 'MM/dd/yyyy', new Date()),

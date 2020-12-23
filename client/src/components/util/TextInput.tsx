@@ -1,6 +1,37 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
-export default function TextInput(props) {
+const TextInputStyled = styled.div`
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 0.3rem;
+  margin: 0.2rem 0;
+
+  &:hover:not(.editing) {
+    border-color: var(--background);
+    background-color: var(--background);
+  }
+
+  &.editing {
+    border-color: var(--blue-dark);
+  }
+
+  input[type='text'] {
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+`;
+
+type Props = {
+  value: string;
+  placeholder: string;
+  tabIndex?: number;
+
+  onValueChange: (newValue: string) => void;
+};
+
+export default function TextInput(props: Props) {
   const [isEditing, setIsEditing] = useState(false);
 
   const [internalValue, setInternalValue] = useState(props.value);
@@ -12,14 +43,13 @@ export default function TextInput(props) {
   }
 
   return (
-    <div className={`text-input ${isEditing ? 'editing' : ''}`}>
+    <TextInputStyled className={isEditing ? 'editing' : ''}>
       {isEditing && (
         <input
           type="text"
           value={internalValue}
           placeholder={props.placeholder}
           onChange={(e) => setInternalValue(e.target.value)}
-          className="text-input__input"
           autoFocus={true}
           onBlur={commitValue}
           onKeyDown={(e) => {
@@ -39,6 +69,6 @@ export default function TextInput(props) {
           {!internalValue ? props.placeholder : internalValue}
         </div>
       )}
-    </div>
+    </TextInputStyled>
   );
 }

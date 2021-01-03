@@ -5,6 +5,7 @@ import { addBorrow } from '../../modules/borrows/borrows.actions';
 import { bucketItemsSelectorFactory } from '../../modules/items/items.selectors';
 import { AppState, Item } from '../../redux/state';
 import Button from '../util/Button';
+import { modalStyles } from '../../constants';
 
 export default function AddBorrowButton() {
   const dispatch = useDispatch();
@@ -30,13 +31,7 @@ export default function AddBorrowButton() {
         isOpen={isOpen}
         onRequestClose={closeModal}
         ariaHideApp={false}
-        style={{
-          content: {
-            margin: 'auto',
-            maxWidth: '30rem',
-            maxHeight: '20rem',
-          },
-        }}
+        style={modalStyles}
       >
         <div>
           <label htmlFor="fromId">From</label>

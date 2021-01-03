@@ -1,26 +1,17 @@
-import React, { useRef, useState } from 'react';
-
-import Card from '../util/Card';
-import BucketDetailsHeader from './BucketDetailsHeader';
-
+import React, { useState } from 'react';
 import 'styles/bucket_details_panel.scss';
-import { useSelector } from 'react-redux';
-
+import Card from '../util/Card';
 import Tabs from '../util/Tabs';
-import { assignedTransactionsSelectorFactory } from '../../modules/transactions/transactions.selectors';
-import { itemBorrowsSelectorFactory } from '../../modules/borrows/borrows.selectors';
-import ItemValueEditor from './ItemValueEditor';
-import { AppState } from '../../redux/state';
-import ItemTransactions from './ItemTransactions';
+import BucketDetailsHeader from './BucketDetailsHeader';
 import ItemBorrows from './ItemBorrows';
+import ItemTransactions from './ItemTransactions';
+import ItemValueEditor from './ItemValueEditor';
 
 export default function BucketDetailsPanel({ itemId }) {
-  const ref = useRef();
-
   const [selectedTab, setSelectedTab] = useState('Details');
 
   return (
-    <Card ref={ref} className="details-panel">
+    <Card className="details-panel">
       <BucketDetailsHeader itemId={itemId} />
 
       <Tabs

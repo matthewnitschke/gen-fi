@@ -5,9 +5,42 @@ import { newTransaction } from '../modules/thunks';
 
 import Modal from 'react-modal';
 
-import '../styles/add-transaction-button.scss';
 import TextInput from './util/TextInput';
 import { modalStyles } from '../constants';
+import styled from 'styled-components';
+
+const TransactionButton = styled.div`
+  border-radius: 100%;
+  background-color: rgb(223, 154, 26);
+  width: 3rem;
+  height: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #fff;
+
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(179, 134, 53);
+  }
+`;
+
+const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:first-child { // modal body
+    height: 100%;
+  }
+`
 
 export default function AddTransactionButton() {
   const dispatch = useDispatch();
@@ -28,9 +61,9 @@ export default function AddTransactionButton() {
 
   return (
     <>
-      <div className="add-transaction-button" onClick={() => setIsOpen(true)}>
+      <TransactionButton onClick={() => setIsOpen(true)}>
         +
-      </div>
+      </TransactionButton>
 
       <Modal
         isOpen={isOpen}
@@ -38,8 +71,8 @@ export default function AddTransactionButton() {
         ariaHideApp={false}
         style={modalStyles}
       >
-        <div className="add-transaction__modal">
-          <div className="add-transaction__modal-body">
+        <ModalContent>
+          <div>
             <h2>Add Transaction</h2>
             <TextInput
               placeholder="Merchant"
@@ -61,7 +94,7 @@ export default function AddTransactionButton() {
             />
           </div>
 
-          <div className="add-transaction__modal-footer">
+          <div>
             <input
               type="button"
               value="Add"
@@ -72,7 +105,7 @@ export default function AddTransactionButton() {
             />
             <input type="button" value="Cancel" onClick={closeModal} />
           </div>
-        </div>
+        </ModalContent>
       </Modal>
     </>
   );

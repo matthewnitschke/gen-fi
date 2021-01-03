@@ -16,7 +16,7 @@ const TextInputStyled = styled.div`
     border-color: var(--blue-dark);
   }
 
-  input[type='text'] {
+  input {
     width: 100%;
     outline: none;
     border: none;
@@ -26,6 +26,7 @@ const TextInputStyled = styled.div`
 type Props = {
   value: string;
   placeholder: string;
+  type?: string,
   tabIndex?: number;
 
   onValueChange: (newValue: string) => void;
@@ -46,7 +47,7 @@ export default function TextInput(props: Props) {
     <TextInputStyled className={isEditing ? 'editing' : ''}>
       {isEditing && (
         <input
-          type="text"
+          type={props.type ?? "text"}
           value={internalValue}
           placeholder={props.placeholder}
           onChange={(e) => setInternalValue(e.target.value)}

@@ -5,6 +5,8 @@ const AccountSchema = new mongoose.Schema({
   email: String,
   hash: String,
   salt: String,
+
+  plaidAccessToken: String,
 });
 
 // Method to set salt and hash the password for a user

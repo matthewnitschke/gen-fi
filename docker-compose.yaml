@@ -26,8 +26,10 @@ services:
     ports:
       - "80:8080"
     environment:
-      - NODE_ENV=production
-      - SESSION_SECRET=${SESSION_SECRET}
+      NODE_ENV: production
+      SESSION_SECRET: ${SESSION_SECRET}
+      PLAID_CLIENT_ID: ${PLAID_CLIENT_ID}
+      PLAID_SECRET: ${PLAID_SECRET}
     
 networks:
   default:

@@ -5,8 +5,7 @@ import { addTransaction } from './transactions/transactions.actions';
 import { format, parse } from 'date-fns';
 import { AppState } from '../redux/state';
 import { Action, ThunkAction } from '@reduxjs/toolkit';
-
-const serverUrl = `http://${window.location.host}`;
+import { serverUrl } from '../constants';
 
 export const loadBudget = (date) => {
   return (dispatch) => {
@@ -92,8 +91,8 @@ export const newTransaction = (
         date: fmtDate,
       }),
     })
-      .then((resp) => resp.json())
-      .then((data) => {
+      .then(resp => resp.json())
+      .then(data => {
         dispatch(addTransaction(data));
       });
   };
@@ -106,3 +105,19 @@ export const logout = () => {
     }).then(() => window.location.reload());
   };
 };
+
+export const deleteAllTransactions = () => {
+  return () => {
+    fetch(`${serverUrl}/plaid/allTransactions`, {
+      method: 'DELETE'
+    }).then(() => window.location.reload())
+  }
+}
+
+export const syncTransactions = () => {
+  return () => {
+    fetch(`${serverUrl}/plaid/syncTransactions`, {
+      method: 'GET'
+    }).then(() => window.location.reload())
+  }
+}

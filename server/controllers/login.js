@@ -27,6 +27,7 @@ router.post('/authenticate', async (req, res) => {
     if (account.isValidPassword(password)) {
       // valid password, add the session vars
       req.session.accountId = account._id;
+      req.session.plaidAccessToken = account.plaidAccessToken;
 
       return res.status(201).send({
         message: 'Authenticated!',
@@ -40,7 +41,6 @@ router.post('/authenticate', async (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
-  console.log('signup');
   const { email, password } = req.body;
 
   let newAccount = new Account({

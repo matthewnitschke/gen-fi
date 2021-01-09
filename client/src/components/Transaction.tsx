@@ -10,6 +10,37 @@ import { selectTransaction } from '../modules/root/root.actions';
 
 import IgnoreTransactionDropzone from './IgnoreTransactionDropzone';
 import { AppState } from '../redux/state';
+import styled from 'styled-components';
+
+const TransactionStyled = styled.div`
+  margin: 0.5rem;
+  margin-right: 0;
+  border-radius: 100%;
+  border: solid 2px orange;
+  width: 5rem;
+  height: 5rem;
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.income .amount {
+    color: var(--green);
+  }
+
+  .amount {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .merchant {
+    color: lightgrey;
+    font-size: 0.8rem;
+    text-align:center;
+  }
+`;
 
 export default function Transaction({ transactionId }) {
   const dispatch = useDispatch();
@@ -39,15 +70,15 @@ export default function Transaction({ transactionId }) {
     <>
       {isDragging && <IgnoreTransactionDropzone />}
 
-      <div
+      <TransactionStyled
         ref={drag}
         style={{ visibility: isDragging ? 'hidden' : 'initial' }}
-        className="transaction"
         onClick={() => dispatch(selectTransaction(transactionId))}
+        className={transaction.amount < 0 ? 'income' : ''}
       >
-        <div className="amount">${transaction.amount}</div>
+        <div className="amount">${Math.abs(transaction.amount)}</div>
         <div className="merchant">{transaction.merchant}</div>
-      </div>
+      </TransactionStyled>
     </>
   );
 }

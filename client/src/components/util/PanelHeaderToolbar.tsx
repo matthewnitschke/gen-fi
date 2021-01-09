@@ -34,19 +34,17 @@ const CloseButton = styled.i`
 export default function PanelHeaderToolbar({ onDelete, onClose }: Props) {
   return (
     <Wrapper>
-      {onDelete && (
-        <DeleteButton
-          className="far fa-trash-alt delete-button"
-          onClick={onDelete}
-        ></DeleteButton>
-      )}
+      <DeleteButton
+        className="far fa-trash-alt delete-button"
+        style={{ visibility: !!onDelete ? 'initial' : 'hidden' }}
+        onClick={onDelete}
+      ></DeleteButton>
 
-      {onClose && (
-        <CloseButton
-          className="fas fa-times close-button"
-          onClick={onClose}
-        ></CloseButton>
-      )}
+      <CloseButton
+        className="fas fa-times close-button"
+        style={{ visibility: !!onClose ? 'initial' : 'hidden' }}
+        onClick={onClose}
+      ></CloseButton>
     </Wrapper>
   );
 }

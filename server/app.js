@@ -15,7 +15,7 @@ const port = 8080;
 
   app.use(
     session({
-      secret: 'process.env.SESSION_SECRET',
+      secret: process.env.SESSION_SECRET ?? 'secret-dev-stuff',
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
   );
@@ -32,6 +32,7 @@ const port = 8080;
 
   app.use('/budget', require('./controllers/api/budget'));
   app.use('/transactions', require('./controllers/api/transactions'));
+  app.use('/plaid', require('./controllers/api/plaid'));
 
   app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

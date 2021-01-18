@@ -5,15 +5,17 @@ import Tabs from '../util/Tabs';
 import BucketDetailsHeader from './BucketDetailsHeader';
 import ItemBorrows from './ItemBorrows';
 import ItemTransactions from './ItemTransactions';
-import ItemValueEditor from './ItemValueEditor';
+// import ItemValueEditor from './ItemValueEditor';
 
-export default function BucketDetailsPanel({ itemId }) {
+interface BucketDetailsPanelProps {
+  itemId: string
+}
+
+export default function BucketDetailsPanel({ itemId }: BucketDetailsPanelProps) {
   const [selectedTab, setSelectedTab] = useState('Details');
 
   return (
-    <Card className="details-panel">
-      <BucketDetailsHeader itemId={itemId} />
-
+    <div>
       <Tabs
         items={['Details', 'Settings']}
         selectedItem={selectedTab}
@@ -27,7 +29,10 @@ export default function BucketDetailsPanel({ itemId }) {
         </div>
       )}
 
-      {selectedTab == 'Settings' && <ItemValueEditor itemId={itemId} />}
-    </Card>
+      {/* {selectedTab == 'Settings' && <ItemValueEditor itemId={itemId} />} */}
+    </div>
+    // <Card className="details-panel">
+    //   <BucketDetailsHeader itemId={itemId} />
+    // </Card>
   );
 }

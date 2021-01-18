@@ -4,7 +4,7 @@ export const updateDB = () => ({
   updateDB: true,
 });
 
-export const selectItem = (itemId: string) => ({
+export const selectItem = (itemId: string | undefined) => ({
   type: 'SELECT_ITEM',
   itemId,
 });
@@ -32,7 +32,7 @@ export const setSelectedMonth = (date: Date) => ({
   date,
 });
 
-export const loadBudget = (data) => ({
+export const loadBudget = (data: any) => ({
   type: 'LOAD_BUDGET',
   data,
 });

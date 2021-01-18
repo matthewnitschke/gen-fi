@@ -7,14 +7,22 @@ const TabsStyled = styled.div`
   justify-content: center;
 
   & > div {
-    width: 4rem;
-    margin: 0 0.5rem;
     text-align: center;
     cursor: pointer;
+    font-size: .7rem;
+    font-weight: 400;
+    padding: 0 .5rem;
 
+    text-transform: uppercase;
+    
     &.selected {
+      color: var(--purple);
       font-weight: 600;
       text-decoration: underline;
+    }
+
+    &:not(:last-child) {
+      border-right: solid 1px #000;
     }
   }
 `;

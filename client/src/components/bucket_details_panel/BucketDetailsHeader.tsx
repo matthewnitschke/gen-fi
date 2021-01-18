@@ -11,10 +11,14 @@ import ProgressIndicator from '../util/ProgressIndicator';
 import { AppState } from '../../redux/state';
 import PanelHeaderToolbar from '../util/PanelHeaderToolbar';
 
-export default function BucketDetailsHeader({ itemId }) {
+interface BucketDetailsHeaderProps {
+  itemId: string
+}
+
+export default function BucketDetailsHeader({ itemId }: BucketDetailsHeaderProps) {
   const dispatch = useDispatch();
 
-  const item = useSelector((state: AppState) => state.items[itemId]);
+  const item = useSelector((state: AppState) => state.items.get(itemId)!);
   const itemAmount = useSelector<AppState, number>(
     itemValueSelectorFactory(itemId)
   );
@@ -26,11 +30,11 @@ export default function BucketDetailsHeader({ itemId }) {
     <>
       <PanelHeaderToolbar
         onDelete={() => {
-          dispatch(selectItem(null));
+          dispatch(selectItem(undefined));
           dispatch(deleteItem(itemId));
         }}
         onClose={() => {
-          dispatch(selectItem(null));
+          dispatch(selectItem(undefined));
         }}
       />
 

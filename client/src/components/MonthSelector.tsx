@@ -8,19 +8,29 @@ import { setSelectedMonth } from '../modules/root/root.actions';
 
 import { loadBudget } from '../modules/thunks';
 import { AppState } from '../redux/state';
+import styled from 'styled-components';
+
+const MonthSelectorStyled = styled.div`
+  font-family: 'Gelasio', serif;
+  color: var(--background-light);
+  font-size: 6rem;
+  line-height: .9;
+  font-weight: bold;
+  letter-spacing: 7px;
+
+  margin: .7rem 1rem;
+`
 
 export default function MonthSelector() {
   const dispatch = useDispatch();
   let selectedMonth = useSelector((state: AppState) => state.selectedMonth);
 
   return (
-    <div className="month-selector">
-      <div className="current-month-label">
-        <div className="month">{format(selectedMonth, 'MMMM')}</div>
-        <div className="year">{format(selectedMonth, 'Y')}</div>
-      </div>
+    <MonthSelectorStyled>
+      <div className="month">{format(selectedMonth, 'MMMM')}</div>
+      {/* <div className="year">{format(selectedMonth, 'Y')}</div> */}
 
-      <div>
+      {/* <div>
         <span
           className="change-month-arrow"
           onClick={() => {
@@ -43,7 +53,7 @@ export default function MonthSelector() {
         >
           {'>'}
         </span>
-      </div>
-    </div>
+      </div> */}
+    </MonthSelectorStyled>
   );
 }

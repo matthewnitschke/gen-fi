@@ -1,0 +1,26 @@
+.transaction-badge {
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    margin: .5rem 0;
+    cursor: pointer;
+    
+    &.income {
+        background-color: var(--green);
+    }
+    
+    &.expense {
+        background-color: var(--red);
+        color: #FFF;
+    }
+    
+    .amount {
+        padding: .6rem;
+        font-weight: 600;
+    }
+
+    .merchant {
+        font-size: .75rem;
+        font-style: italic;
+    }
+}

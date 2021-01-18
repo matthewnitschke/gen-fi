@@ -15,9 +15,9 @@ export default function AddBorrowButton() {
     bucketItemsSelectorFactory()
   );
 
-  const [toId, setToId] = useState<string>();
-  const [fromId, setFromId] = useState<string>();
-  const [amount, setAmount] = useState<number>();
+  const [toId, setToId] = useState<string>('');
+  const [fromId, setFromId] = useState<string>('');
+  const [amount, setAmount] = useState<number>(0);
 
   function closeModal() {
     setIsOpen(false);

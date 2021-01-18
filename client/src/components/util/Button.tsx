@@ -1,23 +1,36 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const ButtonStyled = styled.input`
-  border: none;
-  border-radius: 3px;
+import 'styles/util/button';
 
-  background-color: var(--blue);
-  color: #fff;
-  outline: none;
-
-  padding: 0.4rem 0.7rem;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--blue-dark);
-  }
-`;
-
-export default function Button(props) {
-  return <ButtonStyled type="button" {...props} />;
+export enum ButtonSkin {
+  add,
+  close,
+  link,
+  default
 }
+
+interface ButtonProps {
+  skin: ButtonSkin
+  value: string
+}
+
+export default function Button(props: ButtonProps & React.HTMLProps<HTMLDivElement>) {
+  const {skin, value, ...divProps} = props;
+
+  let buttonContent = value;
+  if (props.skin == ButtonSkin.add) {
+    buttonContent = '＋';
+  } else if (props.skin == ButtonSkin.close) {
+    buttonContent = '✕';
+  }
+
+  return <div
+    {...divProps}
+    className={`button skin-${ButtonSkin[props.skin]} ${props.className ?? ''}`}
+  >{buttonContent}</div>;
+}
+
+Button.defaultProps = {
+  skin: ButtonSkin.default,
+  value: '',
+} as Partial<ButtonProps>

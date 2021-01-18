@@ -1,0 +1,67 @@
+@mixin icon-button {
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin circle-button {
+  border-radius: 100%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.button {
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  box-sizing: border-box;
+
+  &.skin-default {
+    border-radius: 3px;
+  
+    background-color: var(--blue);
+    color: #fff;
+  
+    padding: 0.4rem 0.7rem;
+    font-weight: 600;
+    
+    &:hover {
+      background-color: var(--blue-dark);
+    }
+  }
+
+  &.skin-add {
+    @include icon-button();
+    @include circle-button();
+    
+    background-color: var(--purple);
+    font-size: 1.5rem;
+    color: #fff;
+  }
+
+  &.skin-close {
+    @include circle-button();
+    @include icon-button();
+
+    background-color: rgba(0,0,0,0);
+    border: solid 2px var(--background-light);
+    color: var(--background-light);
+    font-size: 1rem;
+
+    &:hover {
+        background-color: var(--background-light);
+        color: #FFF;
+    }
+  }
+
+  &.skin-link {
+    color: var(--blue);
+    font-size: 0.8rem;
+
+    &:hover {
+      color: var(--blue-dark);
+    }
+  }
+}
+

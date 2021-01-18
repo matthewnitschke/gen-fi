@@ -14,7 +14,11 @@ interface ContextualBorrow {
   amount: number;
 }
 
-export default function ItemBorrows({ itemId }) {
+interface ItemBorrowsProps {
+  itemId: string
+}
+
+export default function ItemBorrows({ itemId }: ItemBorrowsProps) {
   const items = useSelector((state: AppState) => state.items);
   const itemBorrows = useSelector<any, ContextualBorrows>(
     itemBorrowsSelectorFactory(itemId)
@@ -27,14 +31,14 @@ export default function ItemBorrows({ itemId }) {
       <h4>From</h4>
       {itemBorrows.additions.map((borrow, i) => (
         <div key={i}>
-          {items[borrow.target].label}: ${borrow.amount}
+          {items.get(borrow.target)!.label}: ${borrow.amount}
         </div>
       ))}
 
       <h4>To</h4>
       {itemBorrows.subtractions.map((borrow, i) => (
         <div key={i}>
-          {items[borrow.target].label}: -${borrow.amount}
+          {items.get(borrow.target)!.label}: -${borrow.amount}
         </div>
       ))}
 

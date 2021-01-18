@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import { loadBudget } from '../modules/thunks';
-import { reorderRootItemIds } from '../modules/root/root.actions';
+import { reorderRootItemIds, selectItem } from '../modules/root/root.actions';
 
 import BucketGroup from './BucketGroup';
 import Bucket from './Bucket';
@@ -21,90 +21,133 @@ import MonthSelector from './MonthSelector';
 import TransactionDetailsPanel from './TransactionDetailsPanel';
 import BankAccountsButton from './BankAccountsButton';
 import styled from 'styled-components';
-import { AppState } from '../redux/state';
+import { AppState, Item } from '../redux/state';
+import Section from './util/Section';
+import TransactionPanel from './transaction_panel/TransactionPanel';
+import Button, { ButtonSkin } from './util/Button';
 
-const LHPToolbarStyled = styled.div`
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  margin: 0.5rem;
+const MainContent = styled.div`
+  display: grid;
+  grid-template-columns: 17rem auto 23rem;
+  grid-template-rows: auto;
 
-  & > * {
-    margin: 0 0.3rem;
-  }
+  column-gap: 10px;
+
+  margin: 0 .5rem;
 `;
 
-export default function App() {
-  const dispatch = useDispatch();
 
-  const items = useSelector((state: AppState) => state.items);
+export default function App() {
+  // const dispatch = useDispatch();
+
+  const items = useSelector((state: AppState) => new Map<String, Item>(Object.entries(state.items)));
   const rootItemIds = useSelector((state: AppState) => state.rootItemIds);
 
-  const selectedTransactionId = useSelector(
-    (state: AppState) => state.selectedTransactionId
-  );
-  const selectedMonth = useSelector((state: AppState) => state.selectedMonth);
+  // const selectedTransactionId = useSelector(
+  //   (state: AppState) => state.selectedTransactionId
+  // );
+  // const selectedMonth = useSelector((state: AppState) => state.selectedMonth);
 
-  const selectedItemId = useSelector((state: AppState) => state.selectedItemId);
-  const isSelectedItemAGroup =
-    useSelector(
-      (state: AppState) => state.items[state.selectedItemId]
-    )?.hasOwnProperty('items') == true;
+  // const selectedItemId = useSelector((state: AppState) => state.selectedItemId);
+  // const isSelectedItemAGroup =
+  //   useSelector(
+  //     (state: AppState) => state.items.get(state.selectedItemId)!
+  //   )?.hasOwnProperty('items') == true;
 
-  useEffect(() => {
-    dispatch(loadBudget(selectedMonth));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadBudget(selectedMonth));
+  // }, []);
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div>
-        <LHPToolbarStyled>
-          <DevModalButton />
-          <BankAccountsButton />
-        </LHPToolbarStyled>
-      </div>
-
       <div className="main-content">
-        <MonthSelector />
-        {rootItemIds.map((itemId, i) => {
-          let isGroup = items[itemId].hasOwnProperty('items');
+        <Section header="Transactions">
+          <TransactionPanel />
+        </Section>
 
-          return (
-            <Card
-              key={itemId}
-              isReorderable={true}
-              index={i}
-              moveCard={(dragIndex, hoverIndex) => {
-                let dragItemId = rootItemIds[dragIndex];
-                dispatch(reorderRootItemIds(dragItemId, dragIndex, hoverIndex));
-              }}
-            >
-              {isGroup && <BucketGroup itemId={itemId} />}
-              {!isGroup && <Bucket itemId={itemId} />}
-            </Card>
-          );
-        })}
+        <Section header="Categories">
+           {rootItemIds.map((itemId, i) => {
+             let isGroup = items.get(itemId)!.hasOwnProperty('items');
 
-        <RootNewButton />
+             return (
+               <>
+                 {isGroup && <BucketGroup itemId={itemId} />}
+                 {!isGroup && <Bucket itemId={itemId} />}
+               </>
+            );
+          })}
+          <RootNewButton />
+        </Section>
+
+        <Section header="Buttons">
+          <Button value="Hi!" />
+          <Button skin={ButtonSkin.add}/>
+          <Button skin={ButtonSkin.close} />
+        </Section>
       </div>
-
-      <div className="rhp">
-        {/* <div>
-                <BankAccountsButton />
-            </div> */}
-        {selectedItemId && !isSelectedItemAGroup && (
-          <BucketDetailsPanel itemId={selectedItemId} />
-        )}
-        {selectedItemId && isSelectedItemAGroup && (
-          <BucketGroupDetailsPanel itemId={selectedItemId} />
-        )}
-
-        {selectedTransactionId && (
-          <TransactionDetailsPanel transactionId={selectedTransactionId} />
-        )}
-      </div>
-
-      <Transactions />
     </DndProvider>
   );
+
+  // return (
+  //   <DndProvider backend={HTML5Backend}>
+
+  //     <MonthSelector />
+
+  //     <MainContent>
+  //       <Section header="Transactions">
+  //           {/* <DevModalButton /> */}
+  //           {/* <BankAccountsButton /> */}
+  //           <TransactionPanel />
+  //       </Section>
+
+  //       <Section header="Categories">
+  //         {rootItemIds.map((itemId, i) => {
+  //           let isGroup = items.get(itemId)!.hasOwnProperty('items');
+
+  //           return (
+  //             <>
+  //               {isGroup && <BucketGroup itemId={itemId} />}
+  //               {!isGroup && <Bucket itemId={itemId} />}
+  //             </>
+
+  //             // <Card
+  //             //   key={itemId}
+  //             //   isReorderable={true}
+  //             //   index={i}
+  //             //   moveCard={(dragIndex, hoverIndex) => {
+  //             //     let dragItemId = rootItemIds[dragIndex];
+  //             //     dispatch(reorderRootItemIds(dragItemId, dragIndex, hoverIndex));
+  //             //   }}
+  //             // >
+  //             //   {isGroup && <BucketGroup itemId={itemId} />}
+  //             //   {!isGroup && <Bucket itemId={itemId} />}
+  //             // </Card>
+  //           );
+  //         })}
+
+  //         <RootNewButton />
+
+  //       </Section>
+        
+  //       {
+  //         selectedItemId && 
+  //         <Section 
+  //           header="Details" 
+  //           showCloseButton={true}
+  //           onCloseButtonClick={() => dispatch(selectItem(undefined))}
+  //         > 
+  //           {selectedItemId && !isSelectedItemAGroup && (
+  //             <BucketDetailsPanel itemId={selectedItemId} />
+  //           )}
+  //           {selectedItemId && isSelectedItemAGroup && (
+  //             <BucketGroupDetailsPanel itemId={selectedItemId} />
+  //           )}
+  //         </Section>
+  //       }
+
+  //       <Transactions />
+
+  //     </MainContent>
+  //   </DndProvider>
+  // );
 }

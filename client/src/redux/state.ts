@@ -45,7 +45,7 @@ interface TableItemValue extends ItemValue {
 }
 interface ExtraItemValue extends ItemValue {}
 
-enum ItemValueType {
+export enum ItemValueType {
   income,
   static,
   table,

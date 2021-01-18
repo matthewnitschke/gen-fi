@@ -12,20 +12,10 @@ export default function BucketGroupDetailsPanel({ itemId }) {
   const groupItem = useSelector((state: AppState) => state.items[itemId]);
 
   return (
-    <Card>
-      <PanelHeaderToolbar
-        onDelete={() => {
-          dispatch(selectItem(null));
-          dispatch(deleteItem(itemId));
-        }}
-        onClose={() => {
-          dispatch(selectItem(null));
-        }}
-      />
-
+    <div>
       <h2>{groupItem.label ? groupItem.label : 'Label'}</h2>
 
       <p>Nothing here yet.... Future plans though :)</p>
-    </Card>
+    </div>
   );
 }

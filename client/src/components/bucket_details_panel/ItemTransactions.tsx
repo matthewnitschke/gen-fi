@@ -2,7 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { assignedTransactionsSelectorFactory } from '../../modules/transactions/transactions.selectors';
 
-export default function ItemTransactions({ itemId }) {
+interface ItemTransactionsProps {
+  itemId: string
+}
+
+export default function ItemTransactions({ itemId }: ItemTransactionsProps) {
   const itemTransactions = useSelector(
     assignedTransactionsSelectorFactory(itemId)
   );

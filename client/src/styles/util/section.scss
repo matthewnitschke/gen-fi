@@ -1,0 +1,20 @@
+.section {
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        text-transform: uppercase;
+        color: #FFF;
+        font-size: 1.5rem;
+        margin-bottom: .4rem;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .body {
+        background-color: #FFF;
+        border-radius: 5px;
+        padding: .7rem 1.3rem;
+    }
+}
